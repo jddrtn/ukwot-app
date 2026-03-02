@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+    Base dashboard layout
+    - Used by all authenticated pages (list/forms/etc.)
+    - Provides sidebar navigation + topbar + content area
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}UKWOT Dashboard{% endblock %}</title>
+
+  <style>
+    :root{
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --sidebar: #111827;
+      --sidebar-active: #1f2937;
+      --sidebar-text: #cbd5e1;
+      --radius: 14px;
+    }
+
+    body{
+      margin: 0;
+      font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Layout */
+    .layout{
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      width: 240px;
+      background: var(--sidebar);
+      color: #fff;
+      padding: 18px 14px;
+    }
+
+    .brand{
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    .nav a{
+      display: block;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 10px 10px;
+      border-radius: 10px;
+      margin: 4px 0;
+    }
+
+    .nav a.active{
+      background: var(--sidebar-active);
+      color: #fff;
+    }
+
+    /* Main Content Area */
+    .content{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0; /* prevents overflow issues */
+    }
+
+    /* Topbar */
+    .topbar{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Page Wrapper */
+    .page{
+      padding: 18px;
+    }
+
+    /* Reusable styles */
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .muted{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btn{
+      display: inline-block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn.secondary{
+      background: #fff;
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    layout
+    ├─ sidebar (navigation)
+    └─ content
+       ├─ topbar (page header + account controls)
+       └─ page (individual page content injected
+  -->
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">UKWOT • Admin</div>
+
+      <!-- Navigation links: active_page is passed from each view -->
+      <nav class="nav">
+        <a href="{% url 'dashboard_home' %}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+          Dashboard
+        </a>
+
+        <a href="{% url 'otter_list' %}"
+           class="{% if active_page == 'otters' %}active{% endif %}">
+          Otters
+        </a>
+
+        {# Add more links later (Species, Rescue Cases) #}
+        {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}
+        {# <a href="{% url 'rescue_list' %}" class="{% if active_page == 'rescues' %}active{% endif %}">Rescue Cases</a> #}
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="muted">ukwot</div>
+
+        <!-- Auth controls -->
+        <div class="muted">
+          {{ request.user.username }}
+          &nbsp;·&nbsp;
+          <a class="muted" href="{% url 'logout' %}">Logout</a>
+        </div>
+      </header>
+
+      <section class="page">
+  {% block content %}{% endblock %}
+</section>
+
+    </main>
+  </div>
+</body>
+</html>

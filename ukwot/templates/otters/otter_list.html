@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "dashboard/base.html" %}
+{% block title %}Otters{% endblock %}
+{% block content %}
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div>
+        <h2 style="margin:0;">Otters</h2>
+        <div class="muted">Create, edit, and remove otter records.</div>
+      </div>
+      <a class="btn" href="{% url 'otter_create' %}">+ Add Otter</a>
+    </div>
 
-</body>
-</html>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Species</th>
+          <th>Status</th>
+          <th>Rescue</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in otters %}
+          <tr>
+            <td>{{ o.otter_id }}</td>
+            <td>{{ o.name }}</td>
+            <td>{{ o.species.common_name }}</td>
+            <td>{{ o.status }}</td>
+            <td>{% if o.rescue %}{{ o.rescue.rescue_id }}{% else %}<span class="muted">—</span>{% endif %}</td>
+            <td class="actions">
+              <a href="{% url 'otter_edit' o.pk %}">Edit</a>
+              <a href="{% url 'otter_delete' o.pk %}">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="6" class="muted">No otters found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
