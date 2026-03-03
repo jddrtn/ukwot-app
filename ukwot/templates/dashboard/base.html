@@ -166,10 +166,26 @@
       </header>
 
       <section class="page">
+      {# Show Django messages (success/error) after actions like delete/archive #}
+{% if messages %}
+  <div style="margin-bottom:12px;">
+    {% for message in messages %}
+      <div class="card" style="margin-bottom:8px;">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
   {% block content %}{% endblock %}
 </section>
 
     </main>
   </div>
+<script>
+  // Confirm destructive actions (deleting an otter).
+  function confirmDelete(message) {
+    return window.confirm(message);
+  }
+</script>
 </body>
 </html>
