@@ -57,11 +57,37 @@ class OtterUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class OtterDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Allows permanent deletion ONLY if the otter's status is 'Released'.
+    This enforces a business rule that active otters cannot be removed.
+    """
     model = Otter
     template_name = "otters/otter_confirm_delete.html"
     success_url = reverse_lazy("otter_list")
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx["active_page"] = "otters"
-        return ctx
+    def post(self, request, *args, **kwargs):
+        """
+        Override default delete behaviour to enforce status rule
+        and handle foreign key integrity errors.
+        """
+        self.object = self.get_object()
+
+        # Business rule: only released otters can be deleted
+        if self.object.status != "Released":
+            messages.error(
+                request,
+                "Only otters with status 'Released' can be permanently deleted."
+            )
+            return redirect("otter_list")
+
+        try:
+            return super().post(request, *args, **kwargs)
+
+        except IntegrityError:
+            # This catches cases where related clinical records still exist
+            messages.error(
+                request,
+                "This otter cannot be deleted because related records exist "
+                "(e.g., health assessments)."
+            )
+            return redirect("otter_list")

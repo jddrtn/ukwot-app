@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
   <style>
-    body{font-family:system-ui;margin:0;background:#f5f6f8;display:flex;min-height:100vh;align-items:center;justify-content:center;}
+    body
+    {font-family:system-ui;margin:0;background:#f5f6f8;display:flex;min-height:100vh;align-items:center;justify-content:center;}
     .card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px;width:380px;}
     .field{margin-bottom:12px;}
     label{display:block;font-size:13px;margin-bottom:6px;color:#374151;}
@@ -17,7 +18,7 @@
 <body>
   <div class="card">
     <h2 style="margin:0 0 6px;">Login</h2>
-    <p class="muted" style="margin:0 0 14px;">UKWOT Coursework Dashboard</p>
+    <p class="muted" style="margin:0 0 14px;">UKWOT App Dashboard</p>
 
     {% if form.errors %}
       <p class="muted">Invalid username or password.</p>
