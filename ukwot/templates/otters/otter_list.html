@@ -5,7 +5,7 @@
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <div>
         <h2 style="margin:0;">Otters</h2>
-        <div class="muted">Create, edit, and remove otter records.</div>
+        <div class="muted">Create, edit, and delete otter records. Otter records can only be deleted if otter status is <b>Released</b>.</div>
       </div>
       <a class="btn" href="{% url 'otter_create' %}">+ Add Otter</a>
     </div>
@@ -45,8 +45,7 @@
       Delete
     </button>
   </form>
-{% else %}
-  <span class="muted" style="margin-left:8px;">Delete unavailable</span>
+
 {% endif %}
 </td>
           </tr>
