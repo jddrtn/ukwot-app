@@ -23,6 +23,15 @@ class OtterListView(LoginRequiredMixin, ListView):
     template_name = "otters/otter_list.html"
     context_object_name = "otters"
 
+    """
+    Otter list with search/sort/filter + pagination.
+    """
+    model = Otter
+    template_name = "otters/otter_list.html"
+    context_object_name = "otters"
+
+    # Paginate results (adjust the number to taste)
+    paginate_by = 10
     def get_queryset(self):
         """
         Returns otters with optional:

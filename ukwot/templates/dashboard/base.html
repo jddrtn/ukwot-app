@@ -192,6 +192,54 @@ th a{
   font-weight: 600;
 }
 th a:hover{ text-decoration: underline; }
+
+/* ---------- Toggle Switch ---------- */
+
+/* Container for the toggle control */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+/* Hide the default checkbox */
+.toggle input {
+  display: none;
+}
+
+/* Switch background */
+.toggle-slider {
+  width: 40px;
+  height: 22px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+/* Switch circle */
+.toggle-slider::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s ease;
+  border: 1px solid #d1d5db;
+}
+
+/* Active state */
+.toggle input:checked + .toggle-slider {
+  background: #10b981;
+}
+
+.toggle input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+}
   </style>
 </head>
 

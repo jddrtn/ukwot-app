@@ -11,43 +11,41 @@
       <a class="btn" href="{% url 'otter_create' %}">+ Add Otter</a>
     </div>
 
-  <!-- Released-only toggle: helps workflow for deleting Released otters -->
-<div style="display:flex; align-items:center; gap:10px; margin:12px 0 18px;">
+  <!-- Toolbar: search + released-only toggle -->
+<form method="get" style="display:flex; align-items:center; gap:10px; margin:12px 0 18px;">
 
-  <!-- Search form stays as GET so results are bookmarkable -->
-  <form method="get" style="display:flex; gap:10px; flex:1;">
-    <!-- Preserve sort and released-only state when searching -->
-    <input type="hidden" name="sort" value="{{ sort }}">
-    <input type="hidden" name="released" value="{% if released_only %}1{% else %}0{% endif %}">
+  <!-- Preserve sorting when searching/toggling -->
+  <input type="hidden" name="sort" value="{{ sort }}">
 
+  <!-- Search box -->
+  <input
+    type="text"
+    name="q"
+    value="{{ q }}"
+    placeholder="Search by name or species..."
+    style="flex:1; padding:10px; border:1px solid #d1d5db; border-radius:10px;"
+  />
+
+  <!-- Search button -->
+  <button class="btn" type="submit">Search</button>
+
+  <!-- Clear search -->
+  <a class="btn secondary" href="?sort={{ sort }}">Clear</a>
+
+  <!-- Released-only toggle -->
+  <label class="toggle" style="margin-left:6px;">
     <input
-      type="text"
-      name="q"
-      value="{{ q }}"
-      placeholder="Search by name or species..."
-      style="flex:1; padding:10px; border:1px solid #d1d5db; border-radius:10px;"
-    />
+      type="checkbox"
+      name="released"
+      value="1"
+      {% if released_only %}checked{% endif %}
+      onchange="this.form.submit()"
+    >
+    <span class="toggle-slider"></span>
+    Released only
+  </label>
 
-    <button class="btn" type="submit">Search</button>
-
-    <!-- Clear search keeps sort + released toggle -->
-    <a class="btn secondary" href="?sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">Clear</a>
-  </form>
-
-  <!-- Toggle link flips released=1 on/off and preserves q+sort -->
-  {% if released_only %}
-    <!-- When ON, clicking turns it OFF -->
-    <a class="btn secondary" href="?sort={{ sort }}&q={{ q|urlencode }}">
-      Show Released only: ON
-    </a>
-  {% else %}
-    <!-- When OFF, clicking turns it ON -->
-    <a class="btn secondary" href="?released=1&sort={{ sort }}&q={{ q|urlencode }}">
-      Show Released only: OFF
-    </a>
-  {% endif %}
-
-</div>
+</form>
     <table>
 <thead>
   <tr>
@@ -93,5 +91,44 @@
         {% endfor %}
       </tbody>
     </table>
+  {# Pagination controls #}
+{% if is_paginated %}
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
+
+    <!-- Left side: showing current page info -->
+    <div class="muted">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      ({{ page_obj.paginator.count }} total)
+    </div>
+
+    <!-- Right side: navigation links -->
+    <div style="display:flex; gap:8px; align-items:center;">
+
+      <!-- Previous page link -->
+      {% if page_obj.has_previous %}
+        <a class="btn secondary"
+           href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+          Previous
+        </a>
+      {% else %}
+        <span class="muted">Previous</span>
+      {% endif %}
+
+      <!-- Current page indicator -->
+      <span class="muted">Page {{ page_obj.number }}</span>
+
+      <!-- Next page link -->
+      {% if page_obj.has_next %}
+        <a class="btn secondary"
+           href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+          Next
+        </a>
+      {% else %}
+        <span class="muted">Next</span>
+      {% endif %}
+
+    </div>
+  </div>
+{% endif %}
   </div>
 {% endblock %}
