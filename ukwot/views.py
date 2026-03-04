@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Otter
 from .forms import OtterForm
-
+from django.db import models
 
 @login_required
 def dashboard_home(request):
@@ -25,19 +25,29 @@ class OtterListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         """
-        Returns otters ordered by the selected column.
-
-        Sorting is controlled by the 'sort' query parameter.
-        Example:
-        /otters/?sort=name
+        Returns otters with optional:
+        - search: q=...
+        - sorting: sort=...
+        - released-only filter: released=1
         """
-
         queryset = Otter.objects.select_related("species", "rescue")
 
-        # Read the sort field from the URL query parameters
-        sort = self.request.GET.get("sort", "otter_id")
+        # --- Released-only toggle ---
+        # If released=1, we only show Released otters (useful for delete workflow).
+        released_only = (self.request.GET.get("released") == "1")
+        if released_only:
+            queryset = queryset.filter(status="Released")
 
-        # Define allowed sortable fields (prevents invalid queries)
+        # --- Search ---
+        q = (self.request.GET.get("q") or "").strip()
+        if q:
+            queryset = queryset.filter(
+                models.Q(name__icontains=q) |
+                models.Q(species__common_name__icontains=q)
+            )
+
+        # --- Sorting ---
+        sort = self.request.GET.get("sort", "otter_id")
         allowed_sort_fields = {
             "otter_id": "otter_id",
             "name": "name",
@@ -45,18 +55,22 @@ class OtterListView(LoginRequiredMixin, ListView):
             "status": "status",
             "rescue": "rescue__rescue_id",
         }
-
-        # Use safe mapping
         order_field = allowed_sort_fields.get(sort, "otter_id")
 
         return queryset.order_by(order_field)
 
     def get_context_data(self, **kwargs):
         """
-        Adds active_page so the sidebar highlights the Otters section.
+        Pass current query params to template so UI can preserve filters and state.
         """
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "otters"
+
+        # Keep the current search/sort/filter values so links can preserve them
+        ctx["q"] = (self.request.GET.get("q") or "").strip()
+        ctx["sort"] = self.request.GET.get("sort", "otter_id")
+        ctx["released_only"] = (self.request.GET.get("released") == "1")
+
         return ctx
 
 

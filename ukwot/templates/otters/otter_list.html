@@ -5,22 +5,60 @@
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <div>
         <h2 style="margin:0;">Otters</h2>
-        <div class="muted">Create, edit, and delete otter records. Otter records can only be deleted if otter status is <b>Released</b>.</div>
+        <div class="muted">Search, create, edit, and delete otter records. Otter records can only be deleted if otter status is <b>Released</b>.</div>
       </div>
+
       <a class="btn" href="{% url 'otter_create' %}">+ Add Otter</a>
     </div>
 
+  <!-- Released-only toggle: helps workflow for deleting Released otters -->
+<div style="display:flex; align-items:center; gap:10px; margin:12px 0 18px;">
+
+  <!-- Search form stays as GET so results are bookmarkable -->
+  <form method="get" style="display:flex; gap:10px; flex:1;">
+    <!-- Preserve sort and released-only state when searching -->
+    <input type="hidden" name="sort" value="{{ sort }}">
+    <input type="hidden" name="released" value="{% if released_only %}1{% else %}0{% endif %}">
+
+    <input
+      type="text"
+      name="q"
+      value="{{ q }}"
+      placeholder="Search by name or species..."
+      style="flex:1; padding:10px; border:1px solid #d1d5db; border-radius:10px;"
+    />
+
+    <button class="btn" type="submit">Search</button>
+
+    <!-- Clear search keeps sort + released toggle -->
+    <a class="btn secondary" href="?sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">Clear</a>
+  </form>
+
+  <!-- Toggle link flips released=1 on/off and preserves q+sort -->
+  {% if released_only %}
+    <!-- When ON, clicking turns it OFF -->
+    <a class="btn secondary" href="?sort={{ sort }}&q={{ q|urlencode }}">
+      Show Released only: ON
+    </a>
+  {% else %}
+    <!-- When OFF, clicking turns it ON -->
+    <a class="btn secondary" href="?released=1&sort={{ sort }}&q={{ q|urlencode }}">
+      Show Released only: OFF
+    </a>
+  {% endif %}
+
+</div>
     <table>
 <thead>
-<tr>
-  <!-- Clicking the column header reloads the page with sorting -->
-  <th><a href="?sort=otter_id">ID</a></th>
-  <th><a href="?sort=name">Name</a></th>
-  <th><a href="?sort=species">Species</a></th>
-  <th><a href="?sort=status">Status</a></th>
-  <th><a href="?sort=rescue">Rescue ID</a></th>
-  <th></th>
-</tr>
+  <tr>
+    <!-- Sort links preserve the current search query -->
+<th><a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">ID</a></th>
+<th><a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Name</a></th>
+<th><a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Species</a></th>
+<th><a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Status</a></th>
+<th><a href="?sort=rescue&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Rescue ID</a></th>
+    <th></th>
+  </tr>
 </thead>
       <tbody>
         {% for o in otters %}
