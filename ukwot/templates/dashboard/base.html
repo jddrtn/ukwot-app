@@ -115,17 +115,77 @@
       background: #fff;
       color: var(--text);
     }
+
+    /* ---------- Form Layout ---------- */
+
+/* Two-column grid layout for forms */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Individual form field container */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: var(--muted);
+}
+
+/* Form inputs */
+.form-group input,
+.form-group select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+/* Button container */
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Table styling improvements */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+/* Hover highlight */
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Make column headers clickable but styled */
+th a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+
+th a:hover {
+  text-decoration: underline;
+}
   </style>
 </head>
 
 <body>
-  <!--
-    layout
-    ├─ sidebar (navigation)
-    └─ content
-       ├─ topbar (page header + account controls)
-       └─ page (individual page content injected
-  -->
   <div class="layout">
 
     <!-- Sidebar -->

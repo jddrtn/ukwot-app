@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Otter
+from .forms import OtterForm
 
 
 @login_required
@@ -18,29 +19,41 @@ def dashboard_home(request):
 
 
 class OtterListView(LoginRequiredMixin, ListView):
-    """
-    Lists all otters in the system (including Released).
-    When an otter is permanently deleted, it disappears automatically
-    because the row no longer exists in the database.
-    """
     model = Otter
     template_name = "otters/otter_list.html"
     context_object_name = "otters"
 
     def get_queryset(self):
         """
-        Return all otters, with related Species/RescueCase preloaded
-        to reduce additional database queries.
+        Returns otters ordered by the selected column.
+
+        Sorting is controlled by the 'sort' query parameter.
+        Example:
+        /otters/?sort=name
         """
-        return (
-            Otter.objects
-            .select_related("species", "rescue")
-            .order_by("otter_id")
-        )
+
+        queryset = Otter.objects.select_related("species", "rescue")
+
+        # Read the sort field from the URL query parameters
+        sort = self.request.GET.get("sort", "otter_id")
+
+        # Define allowed sortable fields (prevents invalid queries)
+        allowed_sort_fields = {
+            "otter_id": "otter_id",
+            "name": "name",
+            "species": "species__common_name",
+            "status": "status",
+            "rescue": "rescue__rescue_id",
+        }
+
+        # Use safe mapping
+        order_field = allowed_sort_fields.get(sort, "otter_id")
+
+        return queryset.order_by(order_field)
 
     def get_context_data(self, **kwargs):
         """
-        Adds active_page so the sidebar can highlight the current section.
+        Adds active_page so the sidebar highlights the Otters section.
         """
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "otters"
@@ -49,18 +62,17 @@ class OtterListView(LoginRequiredMixin, ListView):
 
 class OtterCreateView(LoginRequiredMixin, CreateView):
     """
-    Creates a new otter record.
+    Creates a new otter record using OtterForm (dropdowns + date validation).
     """
     model = Otter
     template_name = "otters/otter_form.html"
-
-    # Fields shown in the form (kept explicit for clarity and control)
-    fields = ["name", "date_of_birth", "gender", "weight_kg", "status", "arrival_date", "species", "rescue"]
-
-    # After creating, return to the list page
+    form_class = OtterForm  # <-- use the custom form
     success_url = reverse_lazy("otter_list")
 
     def get_context_data(self, **kwargs):
+        """
+        Adds context for sidebar highlighting and create/edit title switching.
+        """
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "otters"
         ctx["mode"] = "create"
@@ -69,23 +81,20 @@ class OtterCreateView(LoginRequiredMixin, CreateView):
 
 class OtterUpdateView(LoginRequiredMixin, UpdateView):
     """
-    Updates an existing otter record.
+    Updates an existing otter record using OtterForm (dropdowns + date validation).
     """
     model = Otter
     template_name = "otters/otter_form.html"
-
-    # Same fields as create, since you can edit any of these values
-    fields = ["name", "date_of_birth", "gender", "weight_kg", "status", "arrival_date", "species", "rescue"]
-
-    # After editing, return to the list page
+    form_class = OtterForm  # <-- use the custom form
     success_url = reverse_lazy("otter_list")
 
     def get_context_data(self, **kwargs):
         """
-        Keep the sidebar highlight consistent while inside otter create/edit/delete pages.
+        Adds context for sidebar highlighting and create/edit title switching.
         """
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "otters"
+        ctx["mode"] = "edit"
         return ctx
 
 

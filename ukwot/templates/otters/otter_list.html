@@ -11,16 +11,17 @@
     </div>
 
     <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Species</th>
-          <th>Status</th>
-          <th>Rescue ID</th>
-          <th></th>
-        </tr>
-      </thead>
+<thead>
+<tr>
+  <!-- Clicking the column header reloads the page with sorting -->
+  <th><a href="?sort=otter_id">ID</a></th>
+  <th><a href="?sort=name">Name</a></th>
+  <th><a href="?sort=species">Species</a></th>
+  <th><a href="?sort=status">Status</a></th>
+  <th><a href="?sort=rescue">Rescue ID</a></th>
+  <th></th>
+</tr>
+</thead>
       <tbody>
         {% for o in otters %}
           <tr>

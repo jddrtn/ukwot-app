@@ -4,7 +4,7 @@
 {% block content %}
 <div class="card">
 
-  <!-- Page title changes depending on create or edit mode -->
+  <!-- Dynamic page title depending on create/edit mode -->
   <h2>
     {% if mode == "create" %}
       Add Otter
@@ -17,11 +17,78 @@
   <form method="post">
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <!-- Display any form validation errors -->
+    {% if form.errors %}
+      <div style="color:#dc2626; margin-bottom:10px;">
+        Please correct the errors below.
+      </div>
+    {% endif %}
 
-    <div style="margin-top:16px; display:flex; gap:10px;">
+    <!-- Grid layout for cleaner form structure -->
+    <div class="form-grid">
 
-      <!-- Submit button (Create or Save depending on mode) -->
+      <!-- Name -->
+      <div class="form-group">
+        <label for="id_name">Name</label>
+        {{ form.name }}
+        {{ form.name.errors }}
+      </div>
+
+      <!-- Species -->
+      <div class="form-group">
+        <label for="id_species">Species</label>
+        {{ form.species }}
+        {{ form.species.errors }}
+      </div>
+
+      <!-- Gender (Dropdown) -->
+      <div class="form-group">
+        <label for="id_gender">Gender</label>
+        {{ form.gender }}
+        {{ form.gender.errors }}
+      </div>
+
+      <!-- Weight -->
+      <div class="form-group">
+        <label for="id_weight_kg">Weight (kg)</label>
+        {{ form.weight_kg }}
+        {{ form.weight_kg.errors }}
+      </div>
+
+      <!-- Status (Dropdown) -->
+      <div class="form-group">
+        <label for="id_status">Status</label>
+        {{ form.status }}
+        {{ form.status.errors }}
+      </div>
+
+      <!-- Date of Birth (Date Picker) -->
+      <div class="form-group">
+        <label for="id_date_of_birth">Date of Birth</label>
+        {{ form.date_of_birth }}
+        {{ form.date_of_birth.errors }}
+      </div>
+
+      <!-- Arrival Date (Date Picker) -->
+      <div class="form-group">
+        <label for="id_arrival_date">Arrival Date</label>
+        {{ form.arrival_date }}
+        {{ form.arrival_date.errors }}
+      </div>
+
+      <!-- Rescue Case -->
+      <div class="form-group">
+        <label for="id_rescue">Rescue Case</label>
+        {{ form.rescue }}
+        {{ form.rescue.errors }}
+      </div>
+
+    </div>
+
+    <!-- Form actions -->
+    <div class="form-actions">
+
+      <!-- Submit button -->
       <button class="btn" type="submit">
         {% if mode == "create" %}
           Create Otter
@@ -30,7 +97,7 @@
         {% endif %}
       </button>
 
-      <!-- Back button returns to otter list without submitting form -->
+      <!-- Back button -->
       <a class="btn secondary" href="{% url 'otter_list' %}">
         Back
       </a>
