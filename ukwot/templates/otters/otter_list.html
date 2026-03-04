@@ -77,10 +77,9 @@
         style="display:inline; margin-left:8px;"
         onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
     {% csrf_token %}
-    <button type="submit"
-            style="background:none;border:none;color:#dc2626;cursor:pointer;padding:0;">
-      Delete
-    </button>
+<button type="submit" class="btn-danger-link">
+  Delete
+</button>
   </form>
 
 {% endif %}
