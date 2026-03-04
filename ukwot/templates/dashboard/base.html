@@ -132,17 +132,20 @@
     <aside class="sidebar">
       <div class="brand">UKWOT • Admin</div>
 
-      <!-- Navigation links: active_page is passed from each view -->
-      <nav class="nav">
-        <a href="{% url 'dashboard_home' %}"
-           class="{% if active_page == 'home' %}active{% endif %}">
-          Dashboard
-        </a>
+<!-- Sidebar navigation -->
+<nav class="nav">
+  <!-- Dashboard link -->
+  <a href="{% url 'dashboard_home' %}"
+     class="{% if active_page == 'home' %}active{% endif %}">
+    Dashboard
+  </a>
 
-        <a href="{% url 'otter_list' %}"
-           class="{% if active_page == 'otters' %}active{% endif %}">
-          Otters
-        </a>
+  <!-- Otters link -->
+  <a href="{% url 'otter_list' %}"
+     class="{% if active_page == 'otters' %}active{% endif %}">
+    Otters
+  </a>
+</nav>
 
         {# Add more links later (Species, Rescue Cases) #}
         {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}

@@ -81,9 +81,11 @@ class OtterUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("otter_list")
 
     def get_context_data(self, **kwargs):
+        """
+        Keep the sidebar highlight consistent while inside otter create/edit/delete pages.
+        """
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "otters"
-        ctx["mode"] = "edit"
         return ctx
 
 
