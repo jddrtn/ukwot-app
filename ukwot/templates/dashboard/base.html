@@ -4,7 +4,7 @@
   <!--
     Base dashboard layout
     - Used by all authenticated pages (list/forms/etc.)
-    - Provides sidebar navigation + topbar + content area
+    - Provides sidebar navigation + topbar + space for the main content
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -116,7 +116,7 @@
       color: var(--text);
     }
 
-    /* ---------- Form Layout ---------- */
+    /* Form Layout */
 
 /* Two-column grid layout for forms */
 .form-grid {
@@ -203,7 +203,7 @@ th a{
 }
 th a:hover{ text-decoration: underline; }
 
-/* ---------- Toggle Switch ---------- */
+/*  Toggle Switch  */
 
 /* Container for the toggle control */
 .toggle {
@@ -275,7 +275,7 @@ th a:hover{ text-decoration: underline; }
   </a>
 </nav>
 
-        {# Add more links later (Species, Rescue Cases) #}
+        {# Add more links later #}
         {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}
         {# <a href="{% url 'rescue_list' %}" class="{% if active_page == 'rescues' %}active{% endif %}">Rescue Cases</a> #}
       </nav>
@@ -292,12 +292,12 @@ th a:hover{ text-decoration: underline; }
         <div class="muted">
           {{ request.user.username }}
           &nbsp;·&nbsp;
-          <a class="muted" href="{% url 'logout' %}">Logout</a>
+          <a class="muted" href="{% url 'login' %}">Logout</a>
         </div>
       </header>
 
       <section class="page">
-      {# Show Django messages (success/error) after actions like delete/archive #}
+      {# Show Django messages (success/error) after actions like delete #}
 {% if messages %}
   <div style="margin-bottom:12px;">
     {% for message in messages %}

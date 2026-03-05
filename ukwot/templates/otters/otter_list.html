@@ -71,7 +71,7 @@
   <a href="{% url 'otter_edit' o.pk %}">Edit</a>
 
   {% if o.status == "Released" %}
-  <!-- Delete uses POST and asks for confirmation before submitting -->
+  <!-- Delete uses POST and asks for confirmation -->
   <form method="post"
         action="{% url 'otter_delete' o.pk %}"
         style="display:inline; margin-left:8px;"

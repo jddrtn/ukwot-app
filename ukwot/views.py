@@ -35,14 +35,14 @@ class OtterListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """
         Returns otters with optional:
-        - search: q=...
-        - sorting: sort=...
-        - released-only filter: released=1
+        - search
+        - sorting
+        - released-only filter
         """
         queryset = Otter.objects.select_related("species", "rescue")
 
         # --- Released-only toggle ---
-        # If released=1, we only show Released otters (useful for delete workflow).
+        # If released=1, we only show Released otters
         released_only = (self.request.GET.get("released") == "1")
         if released_only:
             queryset = queryset.filter(status="Released")
@@ -131,9 +131,7 @@ class OtterDeleteView(LoginRequiredMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         """
-        Override the default POST handler to:
-        1) Block deletion unless Released
-        2) Catch FK constraint errors
+        Override the default POST handler to block deletion unless Released
         """
         # Fetch the object to delete
         self.object = self.get_object()

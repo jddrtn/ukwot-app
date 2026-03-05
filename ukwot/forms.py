@@ -34,7 +34,7 @@ class OtterForm(forms.ModelForm):
 
     # HTML5 date picker widgets
     date_of_birth = forms.DateField(
-        required=False,  # DB allows null
+        required=False,
         widget=forms.DateInput(attrs={"type": "date"}),
     )
     arrival_date = forms.DateField(
