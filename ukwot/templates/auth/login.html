@@ -19,7 +19,7 @@
  .login-layout {
   display: grid;
   grid-template-columns: 1fr 420px;
-  max-width: 1100px; /* keep everything centered on large screens */
+  max-width: 1100px;
   margin: auto;
   min-height: 100vh;
 }
@@ -34,29 +34,6 @@
   text-align: center; /* centers text */
 }
 
-    /* Soft decorative circles for a gentler wildlife-inspired look */
-    .login-brand::before,
-    .login-brand::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
-      pointer-events: none;
-    }
-
-    .login-brand::before {
-      width: 220px;
-      height: 220px;
-      top: -40px;
-      right: -60px;
-    }
-
-    .login-brand::after {
-      width: 180px;
-      height: 180px;
-      bottom: -40px;
-      left: -40px;
-    }
 
     .brand-tag {
       display: inline-block;
@@ -317,12 +294,12 @@
       <div class="brand-tag">UK Wild Otter Trust</div>
 
       <h1 class="brand-title">
-        Helping teams manage otter records with care and clarity.
+        Helping teams manage wildlife records with care and clarity.
       </h1>
 
       <p class="brand-text">
         Access the UK Wild Otter Trust dashboard to manage otter records,
-        rehabilitation information, rescue cases, and day-to-day operational data.
+        rehabilitation information, rescue cases and day-to-day operational data.
       </p>
 
     </section>
@@ -337,7 +314,7 @@
           <h2 class="form-title">Welcome back</h2>
 
           <p class="form-subtitle">
-            Sign in to continue to the otter management dashboard.
+            Sign in to continue to the dashboard.
           </p>
 
           <!-- Show authentication error if login fails -->
@@ -372,10 +349,7 @@
             <button class="btn" type="submit">Sign in</button>
           </form>
 
-          <!-- Optional footer text / link -->
-          <div class="login-footer">
-            Supporting safer care, clearer records, and better otter outcomes.
-          </div>
+
         </div>
       </div>
     </section>
