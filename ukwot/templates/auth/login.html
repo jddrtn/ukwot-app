@@ -11,28 +11,28 @@
       margin: 0;
       min-height: 100vh;
       font-family: system-ui, "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(180deg, #eef4ef 0%, #f6f8f6 100%);
+      background: #1C6D07;
       color: #1f2937;
     }
 
     /* ---------- Main two-column layout ---------- */
-    .login-layout {
-      display: grid;
-      grid-template-columns: 1.1fr 420px;
-      min-height: 100vh;
-    }
+ .login-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  max-width: 1100px; /* keep everything centered on large screens */
+  margin: auto;
+  min-height: 100vh;
+}
 
     /* ---------- Left branding panel ---------- */
-    .login-brand {
-      background: linear-gradient(180deg, #254336 0%, #345c49 100%);
-      color: #ffffff;
-      padding: 56px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
+.login-brand {
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* centers content horizontally */
+  text-align: center; /* centers text */
+}
 
     /* Soft decorative circles for a gentler wildlife-inspired look */
     .login-brand::before,
@@ -72,14 +72,15 @@
       margin: 0 0 14px;
       font-size: 42px;
       line-height: 1.08;
-      max-width: 540px;
+      max-width: 420px;
       position: relative;
       z-index: 1;
+        color: #E6F511;
     }
 
     .brand-text {
       margin: 0;
-      max-width: 540px;
+      max-width: 420px;
       color: #e5f0ea;
       font-size: 16px;
       line-height: 1.7;
@@ -89,7 +90,7 @@
 
     .brand-panel {
       margin-top: 28px;
-      max-width: 540px;
+      max-width: 420px;
       padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
@@ -119,7 +120,6 @@
       align-items: center;
       justify-content: center;
       padding: 28px;
-      background: #f8faf8;
     }
 
     .login-shell {
@@ -252,7 +252,7 @@
       padding: 12px;
       border: 1px solid #345c49;
       border-radius: 12px;
-      background: #345c49;
+      background: #1C6D07;
       color: #ffffff;
       font-size: 14px;
       font-weight: 700;
@@ -261,17 +261,15 @@
     }
 
     .btn:hover {
-      background: #254336;
+      background: #3c9a24;
+        border: 1px solid #3c9a24;
     }
 
     .btn:active {
       transform: translateY(1px);
     }
 
-    .btn:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(52, 92, 73, 0.14);
-    }
+
 
     /* ---------- Footer / supporting link ---------- */
     .login-footer {
@@ -324,17 +322,9 @@
 
       <p class="brand-text">
         Access the UK Wild Otter Trust dashboard to manage otter records,
-        rehabilitation information, rescue cases, and day-to-day operational data
-        through a structured administrative interface.
+        rehabilitation information, rescue cases, and day-to-day operational data.
       </p>
 
-      <div class="brand-panel">
-        <h2 class="brand-panel-title">Why this matters</h2>
-        <p class="brand-panel-text">
-          Accurate record keeping supports better welfare decisions, clearer case
-          tracking, and stronger oversight of the trust’s conservation and rescue work.
-        </p>
-      </div>
     </section>
 
     <!-- Right-hand login form panel -->
