@@ -4,13 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
-
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     /* ---------- Global page styling ---------- */
+    :root{
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-heading: "Crimson Text", Georgia, serif;
+}
+
+
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, "Segoe UI", Arial, sans-serif;
+      font-family: var(--font-body);
       background: #1C6D07;
       color: #1f2937;
     }
@@ -33,7 +40,10 @@
   align-items: center; /* centers content horizontally */
   text-align: center; /* centers text */
 }
-
+h1, h2 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.2px;
+}
 
     .brand-tag {
       display: inline-block;

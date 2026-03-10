@@ -3,7 +3,7 @@
 
 {% block content %}
   <!-- Dashboard introduction -->
-  <div class="card" style="margin-bottom:16px;">
+  <div class="card stat-card" style="margin-bottom:16px;">
     <h2 style="margin:0 0 6px;">Dashboard</h2>
     <p class="muted" style="margin:0;">
       Welcome to the UK Wild Otter Trust administration dashboard.
@@ -14,10 +14,10 @@
   <!-- Summary cards -->
   <div class="mobile-stack" style="gap:12px; margin-bottom:16px;">
     <!-- Total otter count card -->
-    <div class="card" style="flex:1; min-width:220px;">
+    <div class="card stat-card" style="flex:1; min-width:220px;">
       <h3 style="margin:0 0 6px;">Total Otters</h3>
       <p style="margin:0; font-size:28px; font-weight:800;">
-        {{ total_otter_count }}
+        <p class="stat-number">{{ total_otter_count }}</p>
       </p>
       <p class="muted" style="margin:8px 0 0;">
         Total otter records currently stored in the system.
@@ -25,10 +25,10 @@
     </div>
 
     <!-- Released otter count card -->
-    <div class="card" style="flex:1; min-width:220px;">
+    <div class="card stat-card" style="flex:1; min-width:220px;">
       <h3 style="margin:0 0 6px;">Released Otters</h3>
       <p style="margin:0; font-size:28px; font-weight:800;">
-        {{ released_otter_count }}
+        <p class="stat-number">{{ total_otter_count }}</p>
       </p>
       <p class="muted" style="margin:8px 0 0;">
         Otters whose status is currently marked as Released.
@@ -40,7 +40,7 @@
   <div class="mobile-stack" style="gap:16px; align-items:stretch;">
 
     <!-- Quick links card -->
-    <div class="card" style="flex:1; min-width:260px;">
+    <div class="card stat-card" style="flex:1; min-width:260px;">
       <h3 style="margin:0 0 10px;">Quick Actions</h3>
       <p class="muted" style="margin:0 0 14px;">
         Jump straight to common otter management tasks.
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Recently added otters card -->
-    <div class="card" style="flex:2; min-width:260px;">
+    <div class="card stat-card" style="flex:2; min-width:260px;">
       <h3 style="margin:0 0 10px;">Recently Added Otters</h3>
 
       {% if recent_otters %}

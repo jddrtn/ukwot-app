@@ -9,27 +9,39 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}UKWOT Dashboard{% endblock %}</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg: #f5f6f8;
-      --panel: #ffffff;
-      --border: #e5e7eb;
-      --text: #111827;
-      --muted: #6b7280;
-      --sidebar: #1C6D07;
-      --sidebar-active: #3c9a24;
-      --sidebar-text: #cbd5e1;
-      --radius: 14px;
-    }
+:root{
+  --bg: #3C9A24;
+  --panel: #EAF4E7;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --sidebar: #1C6D07;
+  --sidebar-active: #3c9a24;
+  --sidebar-text: #cbd5e1;
+  --radius: 14px;
+
+  /* Typography */
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-heading: "Crimson Text", Georgia, serif;
+}
 
     /* ---------- Base page styling ---------- */
-    body{
-      margin: 0;
-      font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-    }
+ body{
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+}
+
+ /* Headings use serif font */
+h1, h2, h3, h4{
+  font-family: var(--font-heading);
+  letter-spacing: 0.2px;
+}
 
     /* ---------- Overall dashboard layout ---------- */
     .layout{
@@ -48,10 +60,11 @@
     }
 
     .brand{
-      font-weight: 800;
-      font-size: 16px;
-      margin-bottom: 14px;
-    }
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
 
     .nav a{
       display: block;
@@ -83,7 +96,6 @@
       gap: 12px;
       padding: 14px 18px;
       background: var(--panel);
-      border-bottom: 1px solid var(--border);
     }
 
     /* ---------- Page wrapper ---------- */
@@ -92,13 +104,25 @@
     }
 
     /* ---------- Reusable card / text styles ---------- */
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-    }
+   .card{
+  background:#F3F8F2;
+  border:1px solid #D7E7D2;
+  border-radius:var(--radius);
+  padding:16px;
+}
+   .card{
+  box-shadow:0 4px 14px rgba(28,109,7,0.05);
+}
+   .stat-card{
+  background:#EAF4E7;
+  border:1px solid #CFE6C8;
+}
 
+   .stat-number{
+  font-size:32px;
+  font-weight:700;
+  color:#1C6D07;
+}
     .muted{
       color: var(--muted);
       font-size: 13px;
@@ -407,17 +431,16 @@
     <!-- Main content -->
     <main class="content">
 
-      <!-- Topbar -->
-      <header class="topbar">
-        <div class="muted">ukwot</div>
+ <header class="topbar">
 
-        <!-- Auth controls -->
-        <div class="muted">
-          {{ request.user.username }}
-          &nbsp;·&nbsp;
-          <a class="muted" href="{% url 'logout' %}">Logout</a>
-        </div>
-      </header>
+  <!-- Right side controls -->
+  <div style="margin-left:auto;">
+    <a class="btn primary small" href="{% url 'logout' %}">
+      Logout
+    </a>
+  </div>
+
+</header>
 
       <section class="page">
         {# Show Django messages (success/error) after actions like delete #}
