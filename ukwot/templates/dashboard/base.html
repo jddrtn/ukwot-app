@@ -23,6 +23,7 @@
       --radius: 14px;
     }
 
+    /* ---------- Base page styling ---------- */
     body{
       margin: 0;
       font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
@@ -30,18 +31,20 @@
       background: var(--bg);
     }
 
-    /* Layout */
+    /* ---------- Overall dashboard layout ---------- */
     .layout{
       display: flex;
       min-height: 100vh;
     }
 
-    /* Sidebar */
+    /* ---------- Sidebar ---------- */
     .sidebar{
       width: 240px;
       background: var(--sidebar);
       color: #fff;
       padding: 18px 14px;
+      box-sizing: border-box;
+      flex-shrink: 0;
     }
 
     .brand{
@@ -64,7 +67,7 @@
       color: #fff;
     }
 
-    /* Main Content Area */
+    /* ---------- Main content area ---------- */
     .content{
       flex: 1;
       display: flex;
@@ -72,22 +75,23 @@
       min-width: 0; /* prevents overflow issues */
     }
 
-    /* Topbar */
+    /* ---------- Topbar ---------- */
     .topbar{
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       padding: 14px 18px;
       background: var(--panel);
       border-bottom: 1px solid var(--border);
     }
 
-    /* Page Wrapper */
+    /* ---------- Page wrapper ---------- */
     .page{
       padding: 18px;
     }
 
-    /* Reusable styles */
+    /* ---------- Reusable card / text styles ---------- */
     .card{
       background: var(--panel);
       border: 1px solid var(--border);
@@ -100,6 +104,7 @@
       font-size: 13px;
     }
 
+    /* ---------- Buttons ---------- */
     .btn{
       display: inline-block;
       padding: 10px 12px;
@@ -109,6 +114,8 @@
       color: #fff;
       text-decoration: none;
       cursor: pointer;
+      box-sizing: border-box;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .btn.secondary{
@@ -116,140 +123,257 @@
       color: var(--text);
     }
 
-    /* Form Layout */
+    /* Primary action button used for create/search actions */
+    .btn.primary{
+      background: #1C6D07;
+      border: 1px solid #1C6D07;
+      color: #fff;
+    }
 
-/* Two-column grid layout for forms */
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 16px;
-}
+    /* Hover state for primary buttons */
+    .btn.primary:hover{
+      background: #3C9A24;
+      border-color: #3C9A24;
+    }
 
-/* Individual form field container */
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
+    /* ---------- Form layout ---------- */
 
-/* Labels */
-.form-group label {
-  font-size: 13px;
-  margin-bottom: 4px;
-  color: var(--muted);
-}
+    /* Two-column grid layout for forms */
+    .form-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
 
-/* Form inputs */
-.form-group input,
-.form-group select {
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  font-size: 14px;
-}
+    /* Individual form field container */
+    .form-group{
+      display: flex;
+      flex-direction: column;
+    }
 
-/* Button container */
-.form-actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-}
+    /* Labels */
+    .form-group label{
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
 
-/* Table styling improvements */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    /* Form inputs */
+    .form-group input,
+    .form-group select{
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      box-sizing: border-box;
+      width: 100%;
+    }
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-}
+    /* Button container for forms */
+    .form-actions{
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-/* Delete button */
-.btn-danger-link{
-  background: none;
-  border: none;
-  color: #dc2626;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: underline;
-}
+    /* ---------- Table styling ---------- */
 
-/* Hover highlight */
-tbody tr:hover {
-  background: #f9fafb;
-}
+    /* Wrapper allows horizontal scrolling on smaller screens */
+    .table-wrap{
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
 
-/* Make column headers clickable but styled */
-th a {
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 600;
-}
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px; /* keeps columns readable on smaller screens */
+    }
 
-th a:hover {
-  text-decoration: underline;
-}
+    th, td{
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
 
-/* Table polish */
-tbody tr:hover { background: #f9fafb; }
+    /* Delete button */
+    .btn-danger-link{
+      background: none;
+      border: none;
+      color: #dc2626;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+    }
 
-th a{
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 600;
-}
-th a:hover{ text-decoration: underline; }
+    /* Hover highlight */
+    tbody tr:hover{
+      background: #f9fafb;
+    }
 
-/*  Toggle Switch  */
+    /* Clickable table headings */
+    th a{
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+    }
 
-/* Container for the toggle control */
-.toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
+    th a:hover{
+      text-decoration: underline;
+    }
 
-/* Hide the default checkbox */
-.toggle input {
-  display: none;
-}
+    /* ---------- Toggle switch ---------- */
 
-/* Switch background */
-.toggle-slider {
-  width: 40px;
-  height: 22px;
-  background: #e5e7eb;
-  border-radius: 999px;
-  position: relative;
-  transition: background 0.2s ease;
-}
+    /* Container for the toggle control */
+    .toggle{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      flex-wrap: nowrap;
+    }
 
-/* Switch circle */
-.toggle-slider::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  transition: transform 0.2s ease;
-  border: 1px solid #d1d5db;
-}
+    /* Hide the default checkbox */
+    .toggle input{
+      display: none;
+    }
 
-/* Active state */
-.toggle input:checked + .toggle-slider {
-  background: #10b981;
-}
+    /* Switch background */
+    .toggle-slider{
+      width: 40px;
+      height: 22px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.2s ease;
+      flex-shrink: 0;
+    }
 
-.toggle input:checked + .toggle-slider::before {
-  transform: translateX(18px);
-}
+    /* Switch circle */
+    .toggle-slider::before{
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s ease;
+      border: 1px solid #d1d5db;
+    }
+
+    /* Active state */
+    .toggle input:checked + .toggle-slider{
+      background: #10b981;
+    }
+
+    .toggle input:checked + .toggle-slider::before{
+      transform: translateX(18px);
+    }
+
+    /* ---------- Utility classes for responsive layouts ---------- */
+
+    /* Use this on header/toolbars that should wrap on smaller screens */
+    .mobile-stack{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Responsive behaviour ---------- */
+
+    /* Tablet and smaller */
+    @media (max-width: 900px){
+      /* Stack sidebar above page content */
+      .layout{
+        flex-direction: column;
+      }
+
+      /* Make sidebar full width */
+      .sidebar{
+        width: 100%;
+        padding: 14px;
+      }
+
+      /* Allow nav links to sit in rows rather than a fixed vertical block */
+      .nav{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .nav a{
+        margin: 0;
+      }
+
+      /* Let topbar wrap cleanly */
+      .topbar{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 14px;
+      }
+
+      /* Slightly reduce page padding */
+      .page{
+        padding: 14px;
+      }
+
+      /* Forms collapse to one column */
+      .form-grid{
+        grid-template-columns: 1fr;
+      }
+
+      /* Buttons in form areas wrap more naturally */
+      .form-actions{
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    /* Phone-sized screens */
+    @media (max-width: 600px){
+      /* Tighter page spacing */
+      .page{
+        padding: 10px;
+      }
+
+      .card{
+        padding: 12px;
+      }
+
+      /* Make utility rows stack vertically */
+      .mobile-stack{
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      /* Make buttons easier to tap and fill available width */
+      .btn{
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Slightly smaller branding area spacing */
+      .sidebar{
+        padding: 12px;
+      }
+
+      .brand{
+        margin-bottom: 10px;
+      }
+
+      /* Reduce text crowding in the topbar */
+      .topbar{
+        padding: 10px 12px;
+      }
+    }
   </style>
 </head>
 
@@ -260,25 +384,24 @@ th a:hover{ text-decoration: underline; }
     <aside class="sidebar">
       <div class="brand">UKWOT • Admin</div>
 
-<!-- Sidebar navigation -->
-<nav class="nav">
-  <!-- Dashboard link -->
-  <a href="{% url 'dashboard_home' %}"
-     class="{% if active_page == 'home' %}active{% endif %}">
-    Dashboard
-  </a>
+      <!-- Sidebar navigation -->
+      <nav class="nav">
+        <!-- Dashboard link -->
+        <a href="{% url 'dashboard_home' %}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+          Dashboard
+        </a>
 
-  <!-- Otters link -->
-  <a href="{% url 'otter_list' %}"
-     class="{% if active_page == 'otters' %}active{% endif %}">
-    Otters
-  </a>
-</nav>
-
-        {# Add more links later #}
-        {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}
-        {# <a href="{% url 'rescue_list' %}" class="{% if active_page == 'rescues' %}active{% endif %}">Rescue Cases</a> #}
+        <!-- Otters link -->
+        <a href="{% url 'otter_list' %}"
+           class="{% if active_page == 'otters' %}active{% endif %}">
+          Otters
+        </a>
       </nav>
+
+      {# Add more links later #}
+      {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}
+      {# <a href="{% url 'rescue_list' %}" class="{% if active_page == 'rescues' %}active{% endif %}">Rescue Cases</a> #}
     </aside>
 
     <!-- Main content -->
@@ -292,31 +415,33 @@ th a:hover{ text-decoration: underline; }
         <div class="muted">
           {{ request.user.username }}
           &nbsp;·&nbsp;
-          <a class="muted" href="{% url 'login' %}">Logout</a>
+          <a class="muted" href="{% url 'logout' %}">Logout</a>
         </div>
       </header>
 
       <section class="page">
-      {# Show Django messages (success/error) after actions like delete #}
-{% if messages %}
-  <div style="margin-bottom:12px;">
-    {% for message in messages %}
-      <div class="card" style="margin-bottom:8px;">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
-{% endif %}
-  {% block content %}{% endblock %}
-</section>
+        {# Show Django messages (success/error) after actions like delete #}
+        {% if messages %}
+          <div style="margin-bottom:12px;">
+            {% for message in messages %}
+              <div class="card" style="margin-bottom:8px;">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+      </section>
 
     </main>
   </div>
-<script>
-  // Confirm destructive actions (deleting an otter).
-  function confirmDelete(message) {
-    return window.confirm(message);
-  }
-</script>
+
+  <script>
+    // Confirm destructive actions (deleting an otter).
+    function confirmDelete(message) {
+      return window.confirm(message);
+    }
+  </script>
 </body>
 </html>

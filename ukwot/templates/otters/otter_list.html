@@ -1,133 +1,176 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Otters{% endblock %}
+
 {% block content %}
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+
+    <!--
+      Page header
+      - Uses mobile-stack so the heading and Add Otter button can wrap cleanly
+        on smaller screens.
+    -->
+    <div class="mobile-stack" style="margin-bottom:12px;">
       <div>
         <h2 style="margin:0;">Otters</h2>
-        <div class="muted">Search, create, edit, and delete otter records. Otter records can only be deleted if otter status is <b>Released</b>.</div>
+        <div class="muted">
+          Search, create, edit, and delete otter records.
+          Otter records can only be deleted if otter status is <b>Released</b>.
+        </div>
       </div>
 
-      <a class="btn" href="{% url 'otter_create' %}">+ Add Otter</a>
+      <a class="btn primary" href="{% url 'otter_create' %}">+ Add Otter</a>
     </div>
 
-  <!-- Toolbar: search + released-only toggle -->
-<form method="get" style="display:flex; align-items:center; gap:10px; margin:12px 0 18px;">
+    <!--
+      Toolbar: search + released-only toggle
+      - Uses mobile-stack so controls wrap/stack on small screens.
+    -->
+    <form method="get" class="mobile-stack" style="margin:12px 0 18px;">
 
-  <!-- Preserve sorting when searching/toggling -->
-  <input type="hidden" name="sort" value="{{ sort }}">
+      <!-- Preserve sorting when searching/toggling -->
+      <input type="hidden" name="sort" value="{{ sort }}">
 
-  <!-- Search box -->
-  <input
-    type="text"
-    name="q"
-    value="{{ q }}"
-    placeholder="Search by name or species..."
-    style="flex:1; padding:10px; border:1px solid #d1d5db; border-radius:10px;"
-  />
+      <!-- Search box -->
+      <input
+        type="text"
+        name="q"
+        value="{{ q }}"
+        placeholder="Search by name or species..."
+        style="flex:1; padding:10px; border:1px solid #d1d5db; border-radius:10px; min-width: 220px;"
+      />
 
-  <!-- Search button -->
-  <button class="btn" type="submit">Search</button>
+      <!-- Search button -->
+      <button class="btn primary" type="submit">Search</button>
 
-  <!-- Clear search -->
-  <a class="btn secondary" href="?sort={{ sort }}">Clear</a>
+      <!-- Clear search -->
+      <a class="btn secondary" href="?sort={{ sort }}">Clear</a>
 
-  <!-- Released-only toggle -->
-  <label class="toggle" style="margin-left:6px;">
-    <input
-      type="checkbox"
-      name="released"
-      value="1"
-      {% if released_only %}checked{% endif %}
-      onchange="this.form.submit()"
-    >
-    <span class="toggle-slider"></span>
-    Released only
-  </label>
+      <!-- Released-only toggle -->
+      <label class="toggle" style="margin-left:6px;">
+        <input
+          type="checkbox"
+          name="released"
+          value="1"
+          {% if released_only %}checked{% endif %}
+          onchange="this.form.submit()"
+        >
+        <span class="toggle-slider"></span>
+        Released only
+      </label>
 
-</form>
-    <table>
-<thead>
-  <tr>
-    <!-- Sort links preserve the current search query -->
-<th><a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">ID</a></th>
-<th><a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Name</a></th>
-<th><a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Species</a></th>
-<th><a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Status</a></th>
-<th><a href="?sort=rescue&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Rescue ID</a></th>
-    <th></th>
-  </tr>
-</thead>
-      <tbody>
-        {% for o in otters %}
+    </form>
+
+    <!--
+      Table wrapper
+      - Prevents the table from breaking the layout on smaller screens.
+      - Users can scroll horizontally if needed.
+    -->
+    <div class="table-wrap">
+      <table>
+        <thead>
           <tr>
-            <td>{{ o.otter_id }}</td>
-            <td>{{ o.name }}</td>
-            <td>{{ o.species.common_name }}</td>
-            <td>{{ o.status }}</td>
-            <td>{% if o.rescue %}{{ o.rescue.rescue_id }}{% else %}<span class="muted">—</span>{% endif %}</td>
-<td class="actions">
-  <!-- Edit is safe as a GET link -->
-  <a href="{% url 'otter_edit' o.pk %}">Edit</a>
-
-  {% if o.status == "Released" %}
-  <!-- Delete uses POST and asks for confirmation -->
-  <form method="post"
-        action="{% url 'otter_delete' o.pk %}"
-        style="display:inline; margin-left:8px;"
-        onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
-    {% csrf_token %}
-<button type="submit" class="btn-danger-link">
-  Delete
-</button>
-  </form>
-
-{% endif %}
-</td>
+            <!-- Sort links preserve current search/filter state -->
+            <th>
+              <a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+                ID
+              </a>
+            </th>
+            <th>
+              <a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+                Name
+              </a>
+            </th>
+            <th>
+              <a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+                Species
+              </a>
+            </th>
+            <th>
+              <a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+                Status
+              </a>
+            </th>
+            <th></th>
           </tr>
-        {% empty %}
-          <tr><td colspan="6" class="muted">No otters found.</td></tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {# Pagination controls #}
-{% if is_paginated %}
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
+        </thead>
 
-    <!-- Left side: showing current page info -->
-    <div class="muted">
-      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-      ({{ page_obj.paginator.count }} total)
+        <tbody>
+          {% for o in otters %}
+            <tr>
+              <td>{{ o.otter_id }}</td>
+              <td>{{ o.name }}</td>
+              <td>{{ o.species.common_name }}</td>
+              <td>{{ o.status }}</td>
+
+              <td class="actions">
+                <!-- Edit is safe as a GET link -->
+                <a href="{% url 'otter_edit' o.pk %}">Edit</a>
+
+                {% if o.status == "Released" %}
+                  <!--
+                    Delete uses POST and asks for confirmation before submitting.
+                    Only shown for Released otters.
+                  -->
+                  <form method="post"
+                        action="{% url 'otter_delete' o.pk %}"
+                        style="display:inline; margin-left:8px;"
+                        onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-danger-link">
+                      Delete
+                    </button>
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="muted">No otters found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 
-    <!-- Right side: navigation links -->
-    <div style="display:flex; gap:8px; align-items:center;">
+    {# Pagination controls #}
+    {% if is_paginated %}
+      <div class="mobile-stack" style="margin-top:16px;">
 
-      <!-- Previous page link -->
-      {% if page_obj.has_previous %}
-        <a class="btn secondary"
-           href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
-          Previous
-        </a>
-      {% else %}
-        <span class="muted">Previous</span>
-      {% endif %}
+        <!-- Left side: current page information -->
+        <div class="muted">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+          ({{ page_obj.paginator.count }} total)
+        </div>
 
-      <!-- Current page indicator -->
-      <span class="muted">Page {{ page_obj.number }}</span>
+        <!-- Right side: pagination buttons -->
+        <div class="mobile-stack" style="gap:8px;">
 
-      <!-- Next page link -->
-      {% if page_obj.has_next %}
-        <a class="btn secondary"
-           href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
-          Next
-        </a>
-      {% else %}
-        <span class="muted">Next</span>
-      {% endif %}
+          <!-- Previous page link -->
+          {% if page_obj.has_previous %}
+            <a class="btn secondary"
+               href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+              Previous
+            </a>
+          {% else %}
+            <span class="muted">Previous</span>
+          {% endif %}
 
-    </div>
-  </div>
-{% endif %}
+          <!-- Current page indicator -->
+          <span class="muted">Page {{ page_obj.number }}</span>
+
+          <!-- Next page link -->
+          {% if page_obj.has_next %}
+            <a class="btn secondary"
+               href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+              Next
+            </a>
+          {% else %}
+            <span class="muted">Next</span>
+          {% endif %}
+
+        </div>
+      </div>
+    {% endif %}
+
   </div>
 {% endblock %}

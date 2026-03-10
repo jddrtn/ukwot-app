@@ -62,7 +62,6 @@ class OtterListView(LoginRequiredMixin, ListView):
             "name": "name",
             "species": "species__common_name",
             "status": "status",
-            "rescue": "rescue__rescue_id",
         }
         order_field = allowed_sort_fields.get(sort, "otter_id")
 

@@ -51,7 +51,6 @@ class OtterForm(forms.ModelForm):
             "status",
             "date_of_birth",
             "arrival_date",
-            "rescue",
         ]
 
     def clean_date_of_birth(self):

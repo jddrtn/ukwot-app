@@ -2,8 +2,33 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+  <!-- Dashboard intro card -->
   <div class="card">
     <h2 style="margin:0 0 6px;">Dashboard</h2>
-    <p class="muted" style="margin:0;">Text goes here.</p>
+    <p class="muted" style="margin:0 0 16px;">
+      Welcome to the UK Wild Otter Trust administration dashboard.
+      Use the navigation menu to manage otter records and related data.
+    </p>
+
+    <!--
+      Quick info section
+      - Uses mobile-stack so it wraps nicely on smaller screens.
+      - These can later become summary cards for total otters, released otters, etc.
+    -->
+    <div class="mobile-stack" style="gap:12px;">
+      <div class="card" style="flex:1; min-width:220px;">
+        <h3 style="margin:0 0 6px;">Otter Records</h3>
+        <p class="muted" style="margin:0;">
+          View, search, create, edit, and manage otter information.
+        </p>
+      </div>
+
+      <div class="card" style="flex:1; min-width:220px;">
+        <h3 style="margin:0 0 6px;">Navigation</h3>
+        <p class="muted" style="margin:0;">
+          Use the sidebar to move between the dashboard and management pages.
+        </p>
+      </div>
+    </div>
   </div>
 {% endblock %}
