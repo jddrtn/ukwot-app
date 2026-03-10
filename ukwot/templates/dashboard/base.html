@@ -435,9 +435,12 @@ h1, h2, h3, h4{
 
   <!-- Right side controls -->
   <div style="margin-left:auto;">
-    <a class="btn primary small" href="{% url 'logout' %}">
-      Logout
-    </a>
+    <form method="post" action="{% url 'logout' %}" style="margin:0;">
+  {% csrf_token %}
+  <button class="btn primary small" type="submit">
+    Logout
+  </button>
+</form>
   </div>
 
 </header>
