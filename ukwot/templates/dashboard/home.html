@@ -2,33 +2,96 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <!-- Dashboard intro card -->
-  <div class="card">
+  <!-- Dashboard introduction -->
+  <div class="card" style="margin-bottom:16px;">
     <h2 style="margin:0 0 6px;">Dashboard</h2>
-    <p class="muted" style="margin:0 0 16px;">
+    <p class="muted" style="margin:0;">
       Welcome to the UK Wild Otter Trust administration dashboard.
-      Use the navigation menu to manage otter records and related data.
+      Use the sections below to view summary information and quickly access key actions.
     </p>
+  </div>
 
-    <!--
-      Quick info section
-      - Uses mobile-stack so it wraps nicely on smaller screens.
-      - These can later become summary cards for total otters, released otters, etc.
-    -->
-    <div class="mobile-stack" style="gap:12px;">
-      <div class="card" style="flex:1; min-width:220px;">
-        <h3 style="margin:0 0 6px;">Otter Records</h3>
-        <p class="muted" style="margin:0;">
-          View, search, create, edit, and manage otter information.
-        </p>
-      </div>
+  <!-- Summary cards -->
+  <div class="mobile-stack" style="gap:12px; margin-bottom:16px;">
+    <!-- Total otter count card -->
+    <div class="card" style="flex:1; min-width:220px;">
+      <h3 style="margin:0 0 6px;">Total Otters</h3>
+      <p style="margin:0; font-size:28px; font-weight:800;">
+        {{ total_otter_count }}
+      </p>
+      <p class="muted" style="margin:8px 0 0;">
+        Total otter records currently stored in the system.
+      </p>
+    </div>
 
-      <div class="card" style="flex:1; min-width:220px;">
-        <h3 style="margin:0 0 6px;">Navigation</h3>
-        <p class="muted" style="margin:0;">
-          Use the sidebar to move between the dashboard and management pages.
-        </p>
+    <!-- Released otter count card -->
+    <div class="card" style="flex:1; min-width:220px;">
+      <h3 style="margin:0 0 6px;">Released Otters</h3>
+      <p style="margin:0; font-size:28px; font-weight:800;">
+        {{ released_otter_count }}
+      </p>
+      <p class="muted" style="margin:8px 0 0;">
+        Otters whose status is currently marked as Released.
+      </p>
+    </div>
+  </div>
+
+  <!-- Quick actions + recently added section -->
+  <div class="mobile-stack" style="gap:16px; align-items:stretch;">
+
+    <!-- Quick links card -->
+    <div class="card" style="flex:1; min-width:260px;">
+      <h3 style="margin:0 0 10px;">Quick Actions</h3>
+      <p class="muted" style="margin:0 0 14px;">
+        Jump straight to common otter management tasks.
+      </p>
+
+      <!-- Quick action buttons -->
+      <div class="mobile-stack" style="gap:10px;">
+        <a class="btn primary" href="{% url 'otter_create' %}">
+          + Create Otter
+        </a>
+
+        <a class="btn secondary" href="{% url 'otter_list' %}">
+          View Otter List
+        </a>
       </div>
     </div>
+
+    <!-- Recently added otters card -->
+    <div class="card" style="flex:2; min-width:260px;">
+      <h3 style="margin:0 0 10px;">Recently Added Otters</h3>
+
+      {% if recent_otters %}
+        <!-- Wrap the table so it can scroll on smaller screens -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for otter in recent_otters %}
+                <tr>
+                  <td>{{ otter.otter_id }}</td>
+                  <td>{{ otter.name }}</td>
+                  <td>{{ otter.species.common_name }}</td>
+                  <td>{{ otter.status }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="muted" style="margin:0;">
+          No otter records have been added yet.
+        </p>
+      {% endif %}
+    </div>
+
   </div>
 {% endblock %}

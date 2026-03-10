@@ -9,13 +9,39 @@ from .models import Otter
 from .forms import OtterForm
 from django.db import models
 
+# ukwot/views.py
+
 @login_required
 def dashboard_home(request):
     """
     Dashboard landing page.
-    Requires login so unauthenticated users are redirected to LOGIN_URL.
+
+    Provides:
+    - total otter count
+    - released otter count
+    - recently added otters
     """
-    return render(request, "dashboard/home.html", {"active_page": "home"})
+    # Count all otter records in the system
+    total_otter_count = Otter.objects.count()
+
+    # Count otters whose status is marked as Released
+    released_otter_count = Otter.objects.filter(status="Released").count()
+
+    # Get the 5 most recently added otters based on otter_id
+    # (Using otter_id here because it is auto-incrementing and works as a simple
+    # "most recently created" indicator in this app.)
+    recent_otters = Otter.objects.select_related("species").order_by("-otter_id")[:5]
+
+    return render(
+        request,
+        "dashboard/home.html",
+        {
+            "active_page": "home",
+            "total_otter_count": total_otter_count,
+            "released_otter_count": released_otter_count,
+            "recent_otters": recent_otters,
+        },
+    )
 
 
 class OtterListView(LoginRequiredMixin, ListView):
