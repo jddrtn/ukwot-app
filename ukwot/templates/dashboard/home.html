@@ -2,90 +2,89 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <!-- Dashboard introduction -->
-  <div class="card mb-16">
-    <h2 class="no-margin mb-6">Dashboard</h2>
-    <p class="muted no-margin">
-      Welcome to the UK Wild Otter Trust administration dashboard.
-      Use the sections below to view summary information and quickly access key actions.
+
+<!-- Dashboard introduction -->
+<div class="card mb-16">
+  <h2 class="no-margin mb-6">Dashboard</h2>
+  <p class="muted no-margin">
+    Welcome to the UK Wild Otter Trust administration dashboard.
+    Use the sections below to view summary information and quickly access key actions.
+  </p>
+</div>
+
+<!-- Dashboard grid -->
+<div class="dashboard-grid">
+
+  <!-- Total Otters -->
+  <div class="card stat-card">
+    <h3 class="no-margin mb-6">Total Otters</h3>
+    <p class="dashboard-number">{{ total_otter_count }}</p>
+    <p class="muted mb-8">
+      Total otter records currently stored in the system.
     </p>
   </div>
 
-  <!-- Summary cards -->
-  <div class="mobile-stack mb-16">
-    <!-- Total otter count card -->
-    <div class="card stat-card flex-1 min-w-220">
-      <h3 class="no-margin mb-6">Total Otters</h3>
-      <p class="dashboard-number">{{ total_otter_count }}</p>
-      <p class="muted mb-8">
-        Total otter records currently stored in the system.
-      </p>
-    </div>
+  <!-- Released Otters -->
+  <div class="card stat-card">
+    <h3 class="no-margin mb-6">Released Otters</h3>
+    <p class="dashboard-number">{{ released_otter_count }}</p>
+    <p class="muted mb-8">
+      Otters whose status is currently marked as Released.
+    </p>
+  </div>
 
-    <!-- Released otter count card -->
-    <div class="card stat-card flex-1 min-w-220">
-      <h3 class="no-margin mb-6">Released Otters</h3>
-      <p class="dashboard-number">{{ released_otter_count }}</p>
-      <p class="muted mb-8">
-        Otters whose status is currently marked as Released.
-      </p>
+  <!-- Quick actions -->
+  <div class="card">
+    <h3 class="no-margin mb-10">Quick Actions</h3>
+    <p class="muted mb-16">
+      Jump straight to common otter management tasks.
+    </p>
+
+    <div class="flex-row">
+      <a class="btn primary" href="{% url 'otter_create' %}">
+        + Create Otter
+      </a>
+
+      <a class="btn secondary" href="{% url 'otter_list' %}">
+        View Otter List
+      </a>
     </div>
   </div>
 
-  <!-- Quick actions + recently added section -->
-  <div class="mobile-stack">
+  <!-- Recently added -->
+  <div class="card">
+    <h3 class="no-margin mb-10">Recently Added Otters</h3>
 
-    <!-- Quick links card -->
-    <div class="card flex-1 min-w-260">
-      <h3 class="no-margin mb-10">Quick Actions</h3>
-      <p class="muted mb-16">
-        Jump straight to common otter management tasks.
-      </p>
-
-      <div class="mobile-stack">
-        <a class="btn primary" href="{% url 'otter_create' %}">
-          + Create Otter
-        </a>
-
-        <a class="btn secondary" href="{% url 'otter_list' %}">
-          View Otter List
-        </a>
-      </div>
-    </div>
-
-    <!-- Recently added otters card -->
-    <div class="card flex-2 min-w-260">
-      <h3 class="no-margin mb-10">Recently Added Otters</h3>
-
-      {% if recent_otters %}
-        <div class="table-wrap">
-          <table>
-            <thead>
+    {% if recent_otters %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Species</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for otter in recent_otters %}
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Species</th>
-                <th>Status</th>
+                <td>{{ otter.otter_id }}</td>
+                <td>{{ otter.name }}</td>
+                <td>{{ otter.species.common_name }}</td>
+                <td>{{ otter.status }}</td>
               </tr>
-            </thead>
-            <tbody>
-              {% for otter in recent_otters %}
-                <tr>
-                  <td>{{ otter.otter_id }}</td>
-                  <td>{{ otter.name }}</td>
-                  <td>{{ otter.species.common_name }}</td>
-                  <td>{{ otter.status }}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <p class="muted no-margin">
-          No otter records have been added yet.
-        </p>
-      {% endif %}
-    </div>
-
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="muted no-margin">
+        No otter records have been added yet.
+      </p>
+    {% endif %}
   </div>
+
+</div>
+
 {% endblock %}

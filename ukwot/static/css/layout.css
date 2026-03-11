@@ -109,3 +109,22 @@
     padding: 10px 12px;
   }
 }
+
+/* ---------- Dashboard grid layout ---------- */
+
+/* Dashboard grid layout */
+.dashboard-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  column-gap: 18px;
+  row-gap: 18px;   /* vertical spacing */
+}
+
+
+/* Responsive behaviour */
+@media (max-width: 900px){
+  .dashboard-grid{
+    grid-template-columns: 1fr;
+  }
+}

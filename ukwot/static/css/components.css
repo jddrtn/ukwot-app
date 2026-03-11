@@ -185,13 +185,50 @@
 
 /* ---------- Text / number styling ---------- */
 
-/* Large dashboard stat number */
+/* Shared card styles */
+.card{
+  background: #F3F8F2;
+  border: 1px solid #D7E7D2;
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(28, 109, 7, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover lift effect for dashboard cards */
+.card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(28, 109, 7, 0.10);
+}
+
+/* Stat cards */
+.stat-card{
+  background: #EAF4E7;
+  border: 1px solid #CFE6C8;
+  border-left: 4px solid #1C6D07; /* subtle green accent bar */
+}
+
+/* Animated stat numbers */
 .dashboard-number{
   margin: 0;
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 700;
   color: #1C6D07;
+  animation: statFadeUp 0.5s ease;
 }
+
+/* Small entrance animation for dashboard numbers */
+@keyframes statFadeUp{
+  from{
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* ---------- Message spacing ---------- */
 
