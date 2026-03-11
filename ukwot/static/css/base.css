@@ -1,0 +1,361 @@
+:root{
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --sidebar: #1C6D07;
+  --sidebar-active: #3c9a24;
+  --sidebar-text: #cbd5e1;
+  --radius: 14px;
+
+  /* Typography */
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-heading: "Crimson Text", Georgia, serif;
+}
+
+/* ---------- Base page styling ---------- */
+body{
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Headings ---------- */
+h1, h2, h3, h4{
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Paragraph readability ---------- */
+p{
+  line-height: 1.6;
+}
+
+/* ---------- Dashboard layout ---------- */
+.layout{
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  width: 240px;
+  background: var(--sidebar);
+  color: #fff;
+  padding: 18px 14px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.brand{
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.nav a{
+  display: block;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin: 4px 0;
+}
+
+.nav a.active{
+  background: var(--sidebar-active);
+  color: #fff;
+}
+
+/* ---------- Main content area ---------- */
+.content{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevents overflow issues */
+}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- Page wrapper ---------- */
+.page{
+  padding: 18px;
+}
+
+/* ---------- Card styles ---------- */
+.card{
+  background: #F3F8F2;
+  border: 1px solid #D7E7D2;
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(28, 109, 7, 0.05);
+}
+
+.stat-card{
+  background: #EAF4E7;
+  border: 1px solid #CFE6C8;
+}
+
+.stat-number{
+  font-size: 32px;
+  font-weight: 700;
+  color: #1C6D07;
+}
+
+.muted{
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn.secondary{
+  background: #fff;
+  color: var(--text);
+}
+
+/* Primary action button used for create/search/logout actions */
+.btn.primary{
+  background: #1C6D07;
+  border: 1px solid #1C6D07;
+  color: #fff;
+}
+
+/* Hover state for primary buttons */
+.btn.primary:hover{
+  background: #3C9A24;
+  border-color: #3C9A24;
+}
+
+.btn.small{
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* Delete button styled like a text link */
+.btn-danger-link{
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* ---------- Form layout ---------- */
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label{
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: var(--muted);
+}
+
+.form-group input,
+.form-group select{
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-actions{
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Table styling ---------- */
+.table-wrap{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px; /* Keeps columns readable on smaller screens */
+}
+
+th, td{
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+tbody tr:hover{
+  background: #f9fafb;
+}
+
+th a{
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+
+th a:hover{
+  text-decoration: underline;
+}
+
+/* ---------- Toggle switch ---------- */
+.toggle{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  flex-wrap: nowrap;
+}
+
+.toggle input{
+  display: none;
+}
+
+.toggle-slider{
+  width: 40px;
+  height: 22px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toggle-slider::before{
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s ease;
+  border: 1px solid #d1d5db;
+}
+
+.toggle input:checked + .toggle-slider{
+  background: #10b981;
+}
+
+.toggle input:checked + .toggle-slider::before{
+  transform: translateX(18px);
+}
+
+/* ---------- Utility classes ---------- */
+.mobile-stack{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* ---------- Responsive behaviour ---------- */
+@media (max-width: 900px){
+  .layout{
+    flex-direction: column;
+  }
+
+  .sidebar{
+    width: 100%;
+    padding: 14px;
+  }
+
+  .nav{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav a{
+    margin: 0;
+  }
+
+  .topbar{
+    padding: 12px 14px;
+  }
+
+  .page{
+    padding: 14px;
+  }
+
+  .form-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions{
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 600px){
+  .page{
+    padding: 10px;
+  }
+
+  .card{
+    padding: 12px;
+  }
+
+  .mobile-stack{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn{
+    width: 100%;
+    text-align: center;
+  }
+
+  .sidebar{
+    padding: 12px;
+  }
+
+  .brand{
+    margin-bottom: 10px;
+  }
+
+  .topbar{
+    padding: 10px 12px;
+  }
+}
