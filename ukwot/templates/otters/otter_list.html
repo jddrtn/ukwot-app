@@ -4,14 +4,10 @@
 {% block content %}
   <div class="card">
 
-    <!--
-      Page header
-      - Uses mobile-stack so the heading and Add Otter button can wrap cleanly
-        on smaller screens.
-    -->
-    <div class="mobile-stack" style="margin-bottom:12px;">
+    <!-- Page header -->
+    <div class="mobile-stack mb-12">
       <div>
-        <h2 style="margin:0;">Otters</h2>
+        <h2 class="no-margin">Otters</h2>
         <div class="muted">
           Search, create, edit, and delete otter records.
           Otter records can only be deleted if otter status is <b>Released</b>.
@@ -21,11 +17,8 @@
       <a class="btn primary" href="{% url 'otter_create' %}">+ Add Otter</a>
     </div>
 
-    <!--
-      Toolbar: search + released-only toggle
-      - Uses mobile-stack so controls wrap/stack on small screens.
-    -->
-    <form method="get" class="mobile-stack" style="margin:12px 0 18px;">
+    <!-- Toolbar: search + released-only toggle -->
+    <form method="get" class="mobile-stack mb-16">
 
       <!-- Preserve sorting when searching/toggling -->
       <input type="hidden" name="sort" value="{{ sort }}">
@@ -36,7 +29,7 @@
         name="q"
         value="{{ q }}"
         placeholder="Search by name or species..."
-        style="flex:1; padding:10px; border:1px solid #d1d5db; border-radius:10px; min-width: 220px;"
+        class="list-search-input"
       />
 
       <!-- Search button -->
@@ -46,7 +39,7 @@
       <a class="btn secondary" href="?sort={{ sort }}">Clear</a>
 
       <!-- Released-only toggle -->
-      <label class="toggle" style="margin-left:6px;">
+      <label class="toggle">
         <input
           type="checkbox"
           name="released"
@@ -60,16 +53,11 @@
 
     </form>
 
-    <!--
-      Table wrapper
-      - Prevents the table from breaking the layout on smaller screens.
-      - Users can scroll horizontally if needed.
-    -->
+    <!-- Table -->
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <!-- Sort links preserve current search/filter state -->
             <th>
               <a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
                 ID
@@ -103,17 +91,12 @@
               <td>{{ o.status }}</td>
 
               <td class="actions">
-                <!-- Edit is safe as a GET link -->
                 <a href="{% url 'otter_edit' o.pk %}">Edit</a>
 
                 {% if o.status == "Released" %}
-                  <!--
-                    Delete uses POST and asks for confirmation before submitting.
-                    Only shown for Released otters.
-                  -->
                   <form method="post"
                         action="{% url 'otter_delete' o.pk %}"
-                        style="display:inline; margin-left:8px;"
+                        class="inline-form ml-8"
                         onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
                     {% csrf_token %}
                     <button type="submit" class="btn-danger-link">
@@ -132,20 +115,17 @@
       </table>
     </div>
 
-    {# Pagination controls #}
+    <!-- Pagination -->
     {% if is_paginated %}
-      <div class="mobile-stack" style="margin-top:16px;">
+      <div class="mobile-stack pagination-row">
 
-        <!-- Left side: current page information -->
         <div class="muted">
           Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
           ({{ page_obj.paginator.count }} total)
         </div>
 
-        <!-- Right side: pagination buttons -->
-        <div class="mobile-stack" style="gap:8px;">
+        <div class="mobile-stack">
 
-          <!-- Previous page link -->
           {% if page_obj.has_previous %}
             <a class="btn secondary"
                href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
@@ -155,10 +135,8 @@
             <span class="muted">Previous</span>
           {% endif %}
 
-          <!-- Current page indicator -->
           <span class="muted">Page {{ page_obj.number }}</span>
 
-          <!-- Next page link -->
           {% if page_obj.has_next %}
             <a class="btn secondary"
                href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">

@@ -109,3 +109,104 @@
     padding: 10px 12px;
   }
 }
+
+/* ---------- Spacing utilities ---------- */
+
+/* Removes default margin from headings/paragraphs when needed */
+.no-margin{
+  margin: 0;
+}
+
+/* Small bottom spacing */
+.mb-6{
+  margin-bottom: 6px;
+}
+
+.mb-8{
+  margin-bottom: 8px;
+}
+
+.mb-10{
+  margin-bottom: 10px;
+}
+
+.mb-12{
+  margin-bottom: 12px;
+}
+
+.mb-16{
+  margin-bottom: 16px;
+}
+
+.mt-16{
+  margin-top: 16px;
+}
+
+/* ---------- Flex utilities ---------- */
+
+/* Row with space between items and vertical centering */
+.flex-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Simple horizontal flex row */
+.flex-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Allows inline actions to sit side-by-side */
+.inline-form{
+  display: inline;
+}
+
+/* ---------- Width helpers ---------- */
+
+/* Used for dashboard cards that should grow evenly */
+.flex-1{
+  flex: 1;
+}
+
+.flex-2{
+  flex: 2;
+}
+
+.min-w-220{
+  min-width: 220px;
+}
+
+.min-w-260{
+  min-width: 260px;
+}
+
+/* ---------- Text / number styling ---------- */
+
+/* Large dashboard stat number */
+.dashboard-number{
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1C6D07;
+}
+
+/* ---------- Message spacing ---------- */
+
+/* Wrapper for stacked messages */
+.message-stack{
+  margin-bottom: 12px;
+}
+
+.message-card{
+  margin-bottom: 8px;
+}
+
+/* ---------- Action spacing ---------- */
+
+/* Small left gap used beside inline actions */
+.ml-8{
+  margin-left: 8px;
+}

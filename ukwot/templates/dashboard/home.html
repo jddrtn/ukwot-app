@@ -3,51 +3,46 @@
 
 {% block content %}
   <!-- Dashboard introduction -->
-  <div class="card stat-card" style="margin-bottom:16px;">
-    <h2 style="margin:0 0 6px;">Dashboard</h2>
-    <p class="muted" style="margin:0;">
+  <div class="card mb-16">
+    <h2 class="no-margin mb-6">Dashboard</h2>
+    <p class="muted no-margin">
       Welcome to the UK Wild Otter Trust administration dashboard.
       Use the sections below to view summary information and quickly access key actions.
     </p>
   </div>
 
   <!-- Summary cards -->
-  <div class="mobile-stack" style="gap:12px; margin-bottom:16px;">
+  <div class="mobile-stack mb-16">
     <!-- Total otter count card -->
-    <div class="card stat-card" style="flex:1; min-width:220px;">
-      <h3 style="margin:0 0 6px;">Total Otters</h3>
-      <p style="margin:0; font-size:28px; font-weight:800;">
-        <p class="stat-number">{{ total_otter_count }}</p>
-      </p>
-      <p class="muted" style="margin:8px 0 0;">
+    <div class="card stat-card flex-1 min-w-220">
+      <h3 class="no-margin mb-6">Total Otters</h3>
+      <p class="dashboard-number">{{ total_otter_count }}</p>
+      <p class="muted mb-8">
         Total otter records currently stored in the system.
       </p>
     </div>
 
     <!-- Released otter count card -->
-    <div class="card stat-card" style="flex:1; min-width:220px;">
-      <h3 style="margin:0 0 6px;">Released Otters</h3>
-      <p style="margin:0; font-size:28px; font-weight:800;">
-        <p class="stat-number">{{ total_otter_count }}</p>
-      </p>
-      <p class="muted" style="margin:8px 0 0;">
+    <div class="card stat-card flex-1 min-w-220">
+      <h3 class="no-margin mb-6">Released Otters</h3>
+      <p class="dashboard-number">{{ released_otter_count }}</p>
+      <p class="muted mb-8">
         Otters whose status is currently marked as Released.
       </p>
     </div>
   </div>
 
   <!-- Quick actions + recently added section -->
-  <div class="mobile-stack" style="gap:16px; align-items:stretch;">
+  <div class="mobile-stack">
 
     <!-- Quick links card -->
-    <div class="card stat-card" style="flex:1; min-width:260px;">
-      <h3 style="margin:0 0 10px;">Quick Actions</h3>
-      <p class="muted" style="margin:0 0 14px;">
+    <div class="card flex-1 min-w-260">
+      <h3 class="no-margin mb-10">Quick Actions</h3>
+      <p class="muted mb-16">
         Jump straight to common otter management tasks.
       </p>
 
-      <!-- Quick action buttons -->
-      <div class="mobile-stack" style="gap:10px;">
+      <div class="mobile-stack">
         <a class="btn primary" href="{% url 'otter_create' %}">
           + Create Otter
         </a>
@@ -59,11 +54,10 @@
     </div>
 
     <!-- Recently added otters card -->
-    <div class="card stat-card" style="flex:2; min-width:260px;">
-      <h3 style="margin:0 0 10px;">Recently Added Otters</h3>
+    <div class="card flex-2 min-w-260">
+      <h3 class="no-margin mb-10">Recently Added Otters</h3>
 
       {% if recent_otters %}
-        <!-- Wrap the table so it can scroll on smaller screens -->
         <div class="table-wrap">
           <table>
             <thead>
@@ -87,7 +81,7 @@
           </table>
         </div>
       {% else %}
-        <p class="muted" style="margin:0;">
+        <p class="muted no-margin">
           No otter records have been added yet.
         </p>
       {% endif %}

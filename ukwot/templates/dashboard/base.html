@@ -74,20 +74,20 @@
 
 </header>
 
-      <section class="page">
-        {# Show Django messages (success/error) after actions like delete #}
-        {% if messages %}
-          <div style="margin-bottom:12px;">
-            {% for message in messages %}
-              <div class="card" style="margin-bottom:8px;">
-                {{ message }}
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
+ <section class="page">
+  {# Show Django messages (success/error) after actions like delete #}
+  {% if messages %}
+    <div class="message-stack">
+      {% for message in messages %}
+        <div class="card message-card">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 
-        {% block content %}{% endblock %}
-      </section>
+  {% block content %}{% endblock %}
+</section>
 
     </main>
   </div>

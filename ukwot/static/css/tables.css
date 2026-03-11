@@ -30,3 +30,20 @@ th a{
 th a:hover{
   text-decoration: underline;
 }
+
+/* ---------- Otter list page ---------- */
+
+/* Search input used in otter list toolbar */
+.list-search-input{
+  flex: 1;
+  min-width: 220px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+/* Pagination row spacing */
+.pagination-row{
+  margin-top: 16px;
+}
