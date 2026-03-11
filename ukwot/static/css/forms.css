@@ -45,10 +45,32 @@
   }
 }
 
+
 /* Form-level error message shown above the form fields */
 .form-error-message{
   color: #dc2626;
   margin-bottom: 10px;
   font-size: 14px;
   font-weight: 500;
+}
+
+/* Django field error list styling */
+.errorlist{
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Individual error items */
+.errorlist li{
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Adds space under fields that show validation messages */
+.form-group .errorlist{
+  margin-top: 6px;
 }
