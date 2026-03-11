@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-  <div class="login-layout">
+  <main class="login-layout">
 
     <!-- Left-hand branding panel -->
     <section class="login-brand">
@@ -65,9 +65,16 @@
               <label for="id_password">Password</label>
               <div class="password-wrap">
                 {{ form.password }}
-                <button type="button" class="toggle-password" onclick="togglePassword()">
-                  Show
-                </button>
+<button
+  type="button"
+  class="toggle-password"
+  onclick="togglePassword()"
+  aria-label="Toggle password visibility"
+  aria-controls="id_password"
+  aria-pressed="false"
+>
+  Show
+</button>
               </div>
             </div>
 
@@ -79,7 +86,7 @@
         </div>
       </div>
     </section>
-  </div>
+  </main>
 
   <script>
     // Add placeholders to Django-generated inputs once the page has loaded.
@@ -99,22 +106,22 @@
     });
 
     // Toggle password visibility for easier entry.
-    function togglePassword() {
-      const passwordInput = document.getElementById("id_password");
-      const toggleButton = document.querySelector(".toggle-password");
+function togglePassword() {
+  const passwordInput = document.getElementById("id_password");
+  const toggleButton = document.querySelector(".toggle-password");
 
-      if (!passwordInput || !toggleButton) {
-        return;
-      }
+  if (!passwordInput || !toggleButton) return;
 
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        toggleButton.textContent = "Hide";
-      } else {
-        passwordInput.type = "password";
-        toggleButton.textContent = "Show";
-      }
+  const isHidden = passwordInput.type === "password";
+
+  passwordInput.type = isHidden ? "text" : "password";
+  toggleButton.textContent = isHidden ? "Hide" : "Show";
+
+  /* Update accessibility state */
+  toggleButton.setAttribute("aria-pressed", isHidden ? "true" : "false");
+
     }
   </script>
+</main>
 </body>
 </html>
