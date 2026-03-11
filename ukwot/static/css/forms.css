@@ -44,3 +44,11 @@
     align-items: stretch;
   }
 }
+
+/* Form-level error message shown above the form fields */
+.form-error-message{
+  color: #dc2626;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
