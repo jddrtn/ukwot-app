@@ -1,63 +1,64 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Dashboard{% endblock %}
+{% block meta_description %}Dashboard overview for the UK Wild Otter Trust administration system, including otter statistics, quick actions, and recently added otter records.{% endblock %}
 
 {% block content %}
 
 <!-- Dashboard introduction -->
-<div class="card mb-16">
-  <h2 class="no-margin mb-6">Dashboard</h2>
+<section class="card mb-16" aria-labelledby="dashboard-heading">
+  <h2 id="dashboard-heading" class="no-margin mb-6">Dashboard</h2>
   <p class="muted no-margin">
     Welcome to the UK Wild Otter Trust administration dashboard.
     Use the sections below to view summary information and quickly access key actions.
   </p>
-</div>
+</section>
 
 <!-- Dashboard grid -->
 <div class="dashboard-grid">
 
   <!-- Total Otters -->
-  <div class="card stat-card">
-    <h3 class="no-margin mb-6">Total Otters</h3>
-    <p class="dashboard-number">{{ total_otter_count }}</p>
+  <section class="card stat-card" aria-labelledby="total-otters-heading">
+    <h3 id="total-otters-heading" class="no-margin mb-6">Total Otters</h3>
+    <p class="dashboard-number" aria-label="Total otter count">{{ total_otter_count }}</p>
     <p class="muted mb-8">
       Total otter records currently stored in the system.
     </p>
-  </div>
+  </section>
 
   <!-- Released Otters -->
-  <div class="card stat-card">
-    <h3 class="no-margin mb-6">Released Otters</h3>
-    <p class="dashboard-number">{{ released_otter_count }}</p>
+  <section class="card stat-card" aria-labelledby="released-otters-heading">
+    <h3 id="released-otters-heading" class="no-margin mb-6">Released Otters</h3>
+    <p class="dashboard-number" aria-label="Released otter count">{{ released_otter_count }}</p>
     <p class="muted mb-8">
       Otters whose status is currently marked as Released.
     </p>
-  </div>
+  </section>
 
   <!-- Quick actions -->
-  <div class="card">
-    <h3 class="no-margin mb-10">Quick Actions</h3>
+  <section class="card" aria-labelledby="quick-actions-heading">
+    <h3 id="quick-actions-heading" class="no-margin mb-10">Quick Actions</h3>
     <p class="muted mb-16">
       Jump straight to common otter management tasks.
     </p>
 
     <div class="flex-row">
-      <a class="btn primary" href="{% url 'otter_create' %}">
+      <a class="btn primary" href="{% url 'otter_create' %}" aria-label="Create a new otter record">
         + Create Otter
       </a>
 
-      <a class="btn secondary" href="{% url 'otter_list' %}">
+      <a class="btn secondary" href="{% url 'otter_list' %}" aria-label="View the otter records list">
         View Otter List
       </a>
     </div>
-  </div>
+  </section>
 
   <!-- Recently added -->
-  <div class="card">
-    <h3 class="no-margin mb-10">Recently Added Otters</h3>
+  <section class="card" aria-labelledby="recent-otters-heading">
+    <h3 id="recent-otters-heading" class="no-margin mb-10">Recently Added Otters</h3>
 
     {% if recent_otters %}
       <div class="table-wrap">
-        <table>
+        <table aria-label="Recently added otter records">
           <thead>
             <tr>
               <th>ID</th>
@@ -83,7 +84,7 @@
         No otter records have been added yet.
       </p>
     {% endif %}
-  </div>
+  </section>
 
 </div>
 

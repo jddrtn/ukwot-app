@@ -1,11 +1,12 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Otter{% endblock %}
+{% block meta_description %}Form for creating or editing otter records in the UK Wild Otter Trust administration dashboard.{% endblock %}
 
 {% block content %}
-<div class="card">
+<section class="card" aria-labelledby="otter-form-heading">
 
   <!-- Dynamic page title depending on create/edit mode -->
-  <h2>
+  <h2 id="otter-form-heading">
     {% if mode == "create" %}
       Add Otter
     {% else %}
@@ -14,12 +15,12 @@
   </h2>
 
   <!-- Otter form -->
-  <form method="post">
+  <form method="post" aria-label="Otter record form">
     {% csrf_token %}
 
     <!-- Display any form validation errors -->
     {% if form.errors %}
-      <div class="form-error-message">
+      <div class="form-error-message" role="alert">
         Please correct the errors below.
       </div>
     {% endif %}
@@ -41,7 +42,7 @@
         {{ form.species.errors }}
       </div>
 
-      <!-- Gender (Dropdown) -->
+      <!-- Gender -->
       <div class="form-group">
         <label for="id_gender">Gender</label>
         {{ form.gender }}
@@ -55,21 +56,21 @@
         {{ form.weight_kg.errors }}
       </div>
 
-      <!-- Status (Dropdown) -->
+      <!-- Status -->
       <div class="form-group">
         <label for="id_status">Status</label>
         {{ form.status }}
         {{ form.status.errors }}
       </div>
 
-      <!-- Date of Birth (Date Picker) -->
+      <!-- Date of Birth -->
       <div class="form-group">
         <label for="id_date_of_birth">Date of Birth</label>
         {{ form.date_of_birth }}
         {{ form.date_of_birth.errors }}
       </div>
 
-      <!-- Arrival Date (Date Picker) -->
+      <!-- Arrival Date -->
       <div class="form-group">
         <label for="id_arrival_date">Arrival Date</label>
         {{ form.arrival_date }}
@@ -82,7 +83,7 @@
     <div class="form-actions">
 
       <!-- Submit button -->
-      <button class="btn primary" type="submit">
+      <button class="btn primary" type="submit" aria-label="{% if mode == 'create' %}Create otter record{% else %}Save otter changes{% endif %}">
         {% if mode == "create" %}
           Create Otter
         {% else %}
@@ -91,7 +92,7 @@
       </button>
 
       <!-- Back button -->
-      <a class="btn secondary" href="{% url 'otter_list' %}">
+      <a class="btn secondary" href="{% url 'otter_list' %}" aria-label="Return to otter list">
         Back
       </a>
 
@@ -99,5 +100,5 @@
 
   </form>
 
-</div>
+</section>
 {% endblock %}

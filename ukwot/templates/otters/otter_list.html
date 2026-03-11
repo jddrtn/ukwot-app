@@ -1,24 +1,27 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Otters{% endblock %}
+{% block meta_description %}Otter records management page for searching, viewing, editing, and deleting otter records in the UK Wild Otter Trust administration dashboard.{% endblock %}
 
 {% block content %}
-  <div class="card">
+  <section class="card" aria-labelledby="otter-list-heading">
 
     <!-- Page header -->
     <div class="mobile-stack mb-12">
       <div>
-        <h2 class="no-margin">Otters</h2>
+        <h2 id="otter-list-heading" class="no-margin">Otters</h2>
         <div class="muted">
           Search, create, edit, and delete otter records.
           Otter records can only be deleted if otter status is <b>Released</b>.
         </div>
       </div>
 
-      <a class="btn primary" href="{% url 'otter_create' %}">+ Add Otter</a>
+      <a class="btn primary" href="{% url 'otter_create' %}" aria-label="Create a new otter record">
+        + Add Otter
+      </a>
     </div>
 
     <!-- Toolbar: search + released-only toggle -->
-    <form method="get" class="mobile-stack mb-16">
+    <form method="get" class="mobile-stack mb-16" aria-label="Otter search and filter form">
 
       <!-- Preserve sorting when searching/toggling -->
       <input type="hidden" name="sort" value="{{ sort }}">
@@ -30,13 +33,18 @@
         value="{{ q }}"
         placeholder="Search by name or species..."
         class="list-search-input"
+        aria-label="Search otters by name or species"
       />
 
       <!-- Search button -->
-      <button class="btn primary" type="submit">Search</button>
+      <button class="btn primary" type="submit" aria-label="Search otter records">
+        Search
+      </button>
 
       <!-- Clear search -->
-      <a class="btn secondary" href="?sort={{ sort }}">Clear</a>
+      <a class="btn secondary" href="?sort={{ sort }}" aria-label="Clear otter search filters">
+        Clear
+      </a>
 
       <!-- Released-only toggle -->
       <label class="toggle">
@@ -46,8 +54,9 @@
           value="1"
           {% if released_only %}checked{% endif %}
           onchange="this.form.submit()"
+          aria-label="Show only released otters"
         >
-        <span class="toggle-slider"></span>
+        <span class="toggle-slider" aria-hidden="true"></span>
         Released only
       </label>
 
@@ -55,30 +64,30 @@
 
     <!-- Table -->
     <div class="table-wrap">
-      <table>
+      <table aria-label="Otter records">
         <thead>
           <tr>
             <th>
-              <a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+              <a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}" aria-label="Sort otters by ID">
                 ID
               </a>
             </th>
             <th>
-              <a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+              <a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}" aria-label="Sort otters by name">
                 Name
               </a>
             </th>
             <th>
-              <a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+              <a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}" aria-label="Sort otters by species">
                 Species
               </a>
             </th>
             <th>
-              <a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">
+              <a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}" aria-label="Sort otters by status">
                 Status
               </a>
             </th>
-            <th></th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -91,15 +100,18 @@
               <td>{{ o.status }}</td>
 
               <td class="actions">
-                <a href="{% url 'otter_edit' o.pk %}">Edit</a>
+                <a href="{% url 'otter_edit' o.pk %}" aria-label="Edit otter {{ o.name }}">
+                  Edit
+                </a>
 
                 {% if o.status == "Released" %}
                   <form method="post"
                         action="{% url 'otter_delete' o.pk %}"
                         class="inline-form ml-8"
-                        onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
+                        onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');"
+                        aria-label="Delete otter {{ o.name }}">
                     {% csrf_token %}
-                    <button type="submit" class="btn-danger-link">
+                    <button type="submit" class="btn-danger-link" aria-label="Delete otter {{ o.name }}">
                       Delete
                     </button>
                   </form>
@@ -117,7 +129,7 @@
 
     <!-- Pagination -->
     {% if is_paginated %}
-      <div class="mobile-stack pagination-row">
+      <nav class="mobile-stack pagination-row" aria-label="Otter list pagination">
 
         <div class="muted">
           Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
@@ -128,7 +140,8 @@
 
           {% if page_obj.has_previous %}
             <a class="btn secondary"
-               href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+               href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}"
+               aria-label="Go to previous page of otter records">
               Previous
             </a>
           {% else %}
@@ -139,7 +152,8 @@
 
           {% if page_obj.has_next %}
             <a class="btn secondary"
-               href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+               href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}"
+               aria-label="Go to next page of otter records">
               Next
             </a>
           {% else %}
@@ -147,8 +161,8 @@
           {% endif %}
 
         </div>
-      </div>
+      </nav>
     {% endif %}
 
-  </div>
+  </section>
 {% endblock %}
