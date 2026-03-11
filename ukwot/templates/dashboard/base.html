@@ -4,19 +4,30 @@
 <head>
   <!--
     Base dashboard layout
-    - Used by all authenticated pages (list/forms/etc.)
-    - Provides sidebar navigation + topbar + space for the main content
+    - Used by all pages except login
+    - Sidebar navigation + topbar + space for the main content
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}UKWOT Dashboard{% endblock %}</title>
 
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Shared dashboard styles -->
+  <!-- Global / shared styles -->
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  <!-- Dashboard layout styles -->
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+
+  <!-- Reusable UI components -->
+  <link rel="stylesheet" href="{% static 'css/components.css' %}">
+
+  <!-- Form-specific styles -->
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+  <!-- Table-specific styles -->
+  <link rel="stylesheet" href="{% static 'css/tables.css' %}">
 </head>
 
 <body>
