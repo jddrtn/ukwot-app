@@ -74,3 +74,20 @@
 .form-group .errorlist{
   margin-top: 6px;
 }
+
+/* Span full width across the form grid */
+.full-width{
+  grid-column: 1 / -1;
+}
+
+/* Textareas should match input styling */
+.form-group textarea{
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--font-body);
+  resize: vertical;
+}

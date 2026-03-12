@@ -1,0 +1,86 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Medical Record{% endblock %}
+{% block meta_description %}Form for creating or editing otter medical records in the UK Wild Otter Trust dashboard.{% endblock %}
+
+{% block content %}
+<section class="card" aria-labelledby="medical-record-form-heading">
+
+  <!-- Dynamic page title -->
+  <h2 id="medical-record-form-heading">
+    {% if mode == "create" %}
+      Add Medical Record
+    {% else %}
+      Edit Medical Record
+    {% endif %}
+  </h2>
+
+  <!-- Form -->
+  <form method="post" aria-label="Medical record form">
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <div class="form-error-message" role="alert">
+        Please correct the errors below.
+      </div>
+    {% endif %}
+
+    <div class="form-grid">
+
+      <!-- Otter -->
+      <div class="form-group">
+        <label for="id_otter">Otter</label>
+        {{ form.otter }}
+        {{ form.otter.errors }}
+      </div>
+
+      <!-- Assessment Date -->
+      <div class="form-group">
+        <label for="id_assessment_date">Assessment Date</label>
+        {{ form.assessment_date }}
+        {{ form.assessment_date.errors }}
+      </div>
+
+      <!-- Weight -->
+      <div class="form-group">
+        <label for="id_weight_kg">Weight (kg)</label>
+        {{ form.weight_kg }}
+        {{ form.weight_kg.errors }}
+      </div>
+
+      <!-- General Condition -->
+      <div class="form-group">
+        <label for="id_general_condition">General Condition</label>
+        {{ form.general_condition }}
+        {{ form.general_condition.errors }}
+      </div>
+
+      <!-- Notes -->
+      <div class="form-group full-width">
+        <label for="id_notes">Notes</label>
+        {{ form.notes }}
+        {{ form.notes.errors }}
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+
+      <!-- Submit button -->
+      <button class="btn primary" type="submit" aria-label="{% if mode == 'create' %}Create medical record{% else %}Save medical record changes{% endif %}">
+        {% if mode == "create" %}
+          Create Medical Record
+        {% else %}
+          Save Changes
+        {% endif %}
+      </button>
+
+      <!-- Back button -->
+      <a class="btn secondary" href="{% url 'medical_record_list' %}" aria-label="Return to medical record list">
+        Back
+      </a>
+
+    </div>
+  </form>
+
+</section>
+{% endblock %}

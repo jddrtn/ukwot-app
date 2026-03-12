@@ -1,0 +1,118 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Medical Records{% endblock %}
+{% block meta_description %}Medical records management page for viewing and maintaining otter health assessment records in the UK Wild Otter Trust dashboard.{% endblock %}
+
+{% block content %}
+  <section class="card" aria-labelledby="medical-record-list-heading">
+
+    <!-- Page header -->
+    <div class="mobile-stack mb-12">
+      <div>
+        <h2 id="medical-record-list-heading" class="no-margin">Medical Records</h2>
+        <div class="muted">
+          View and manage otter health assessment records.
+        </div>
+      </div>
+
+      <a class="btn primary" href="{% url 'medical_record_create' %}" aria-label="Create a new medical record">
+        + Add Medical Record
+      </a>
+    </div>
+
+    <!-- Search form -->
+    <form method="get" class="mobile-stack mb-16" aria-label="Medical record search form">
+      <input
+        type="text"
+        name="q"
+        value="{{ q }}"
+        placeholder="Search by otter name..."
+        class="list-search-input"
+        aria-label="Search medical records by otter name"
+      />
+
+      <button class="btn primary" type="submit" aria-label="Search medical records">
+        Search
+      </button>
+
+      <a class="btn secondary" href="{% url 'medical_record_list' %}" aria-label="Clear medical record search">
+        Clear
+      </a>
+    </form>
+
+    <!-- Records table -->
+    <div class="table-wrap">
+      <table aria-label="Medical records list">
+        <thead>
+          <tr>
+            <th>Assessment ID</th>
+            <th>Otter ID</th>
+            <th>Assessment Date</th>
+            <th>Weight (kg)</th>
+            <th>General Condition</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for record in records %}
+            <tr>
+              <td>{{ record.assessment_id }}</td>
+              <td>{{ record.otter.otter_id }}</td>
+              <td>{{ record.assessment_date }}</td>
+              <td>{{ record.effective_weight_kg }}</td>
+              <td>{{ record.general_condition }}</td>
+              <td>{{ record.notes|default:"—" }}</td>
+              <td>
+                <a href="{% url 'medical_record_edit' record.pk %}" aria-label="Edit medical record {{ record.assessment_id }}">
+                  Edit
+                </a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="muted">No medical records found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+      <nav class="mobile-stack pagination-row" aria-label="Medical record pagination">
+
+        <div class="muted">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+          ({{ page_obj.paginator.count }} total)
+        </div>
+
+        <div class="mobile-stack">
+          {% if page_obj.has_previous %}
+            <a class="btn secondary"
+               href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}"
+               aria-label="Go to previous page of medical records">
+              Previous
+            </a>
+          {% else %}
+            <span class="muted">Previous</span>
+          {% endif %}
+
+          <span class="muted">Page {{ page_obj.number }}</span>
+
+          {% if page_obj.has_next %}
+            <a class="btn secondary"
+               href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}"
+               aria-label="Go to next page of medical records">
+              Next
+            </a>
+          {% else %}
+            <span class="muted">Next</span>
+          {% endif %}
+        </div>
+
+      </nav>
+    {% endif %}
+
+  </section>
+{% endblock %}
