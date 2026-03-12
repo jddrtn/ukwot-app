@@ -39,19 +39,22 @@
       <div class="brand">UKWOT • Admin</div>
 
       <!-- Sidebar navigation -->
-      <nav class="nav">
-        <!-- Dashboard link -->
-        <a href="{% url 'dashboard_home' %}"
-           class="{% if active_page == 'home' %}active{% endif %}">
-          Dashboard
-        </a>
+<nav class="nav">
+  <a href="{% url 'dashboard_home' %}"
+     class="{% if active_page == 'home' %}active{% endif %}">
+    Dashboard
+  </a>
 
-        <!-- Otters link -->
-        <a href="{% url 'otter_list' %}"
-           class="{% if active_page == 'otters' %}active{% endif %}">
-          Otters
-        </a>
-      </nav>
+  <a href="{% url 'otter_list' %}"
+     class="{% if active_page == 'otters' %}active{% endif %}">
+    Otters
+  </a>
+
+  <a href="{% url 'medical_record_list' %}"
+     class="{% if active_page == 'medical_records' %}active{% endif %}">
+    Medical Records
+  </a>
+</nav>
 
       {# Add more links later #}
       {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}
