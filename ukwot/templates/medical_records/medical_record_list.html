@@ -45,7 +45,7 @@
         <thead>
           <tr>
             <th>Assessment ID</th>
-            <th>Otter ID</th>
+            <th>Otter Name</th>
             <th>Assessment Date</th>
             <th>Weight (kg)</th>
             <th>General Condition</th>
@@ -58,11 +58,17 @@
           {% for record in records %}
             <tr>
               <td>{{ record.assessment_id }}</td>
-              <td>{{ record.otter.otter_id }}</td>
+              <td>{{ record.otter.name }}</td>
               <td>{{ record.assessment_date }}</td>
               <td>{{ record.effective_weight_kg }}</td>
               <td>{{ record.general_condition }}</td>
-              <td>{{ record.notes|default:"—" }}</td>
+              <td>
+  {% if record.notes %}
+    {{ record.notes|truncatechars:60 }}
+  {% else %}
+    —
+  {% endif %}
+</td>
               <td>
                 <a href="{% url 'medical_record_edit' record.pk %}" aria-label="Edit medical record {{ record.assessment_id }}">
                   Edit
