@@ -12,6 +12,10 @@
   padding: 18px 14px;
   box-sizing: border-box;
   flex-shrink: 0;
+
+  /* Lets the logout section sit lower in the sidebar */
+  display: flex;
+  flex-direction: column;
 }
 
 .brand{
@@ -23,6 +27,7 @@
 
 .nav{
   display: block;
+  flex: 1; /* Pushes sidebar footer downward */
 }
 
 .nav a{
@@ -34,9 +39,42 @@
   margin: 4px 0;
 }
 
+.nav a:hover{
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
 .nav a.active{
   background: var(--sidebar-active);
   color: #fff;
+}
+
+
+
+/* Sidebar footer area */
+.sidebar-footer{
+  margin-top: 30px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Sidebar logout button */
+.sidebar-logout{
+  width: 100%;
+  background: #3C9A24;
+  border: none;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: var(--font-body);
+  transition: background 0.2s ease;
+}
+
+/* Hover state */
+.sidebar-logout:hover{
+  background: #4fb634;
 }
 
 /* Main content area */
@@ -47,19 +85,17 @@
   min-width: 0;
 }
 
-/* Topbar */
-.topbar{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 18px;
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-}
-
 /* Page wrapper */
 .page{
   padding: 18px;
+}
+
+/* ---------- Dashboard grid layout ---------- */
+.dashboard-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 18px;
+  row-gap: 18px;
 }
 
 /* Responsive behaviour */
@@ -77,18 +113,23 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    flex: unset;
   }
 
   .nav a{
     margin: 0;
   }
 
-  .topbar{
-    padding: 12px 14px;
-  }
-
   .page{
     padding: 14px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-footer{
+    margin-top: 16px;
   }
 }
 
@@ -103,28 +144,5 @@
 
   .brand{
     margin-bottom: 10px;
-  }
-
-  .topbar{
-    padding: 10px 12px;
-  }
-}
-
-/* ---------- Dashboard grid layout ---------- */
-
-/* Dashboard grid layout */
-.dashboard-grid{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
-  column-gap: 18px;
-  row-gap: 18px;   /* vertical spacing */
-}
-
-
-/* Responsive behaviour */
-@media (max-width: 900px){
-  .dashboard-grid{
-    grid-template-columns: 1fr;
   }
 }

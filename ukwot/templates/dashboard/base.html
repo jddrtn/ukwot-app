@@ -5,12 +5,12 @@
   <!--
     Base dashboard layout
     - Used by all pages except login
-    - Sidebar navigation + topbar + space for the main content
+    - Sidebar navigation + main content area
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}UKWOT Dashboard{% endblock %}</title>
-<meta name="description" content="{% block meta_description %}UK Wild Otter Trust administration dashboard for managing otter records.{% endblock %}">
+  <meta name="description" content="{% block meta_description %}UK Wild Otter Trust administration dashboard for managing otter records.{% endblock %}">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -39,61 +39,51 @@
       <div class="brand">UKWOT • Admin</div>
 
       <!-- Sidebar navigation -->
-<nav class="nav">
-  <a href="{% url 'dashboard_home' %}"
-     class="{% if active_page == 'home' %}active{% endif %}">
-    Dashboard
-  </a>
+      <nav class="nav">
+        <a href="{% url 'dashboard_home' %}"
+           class="{% if active_page == 'home' %}active{% endif %}">
+          Dashboard
+        </a>
 
-  <a href="{% url 'otter_list' %}"
-     class="{% if active_page == 'otters' %}active{% endif %}">
-    Otters
-  </a>
+        <a href="{% url 'otter_list' %}"
+           class="{% if active_page == 'otters' %}active{% endif %}">
+          Otters
+        </a>
 
-  <a href="{% url 'medical_record_list' %}"
-     class="{% if active_page == 'medical_records' %}active{% endif %}">
-    Medical Records
-  </a>
-</nav>
+        <a href="{% url 'medical_record_list' %}"
+           class="{% if active_page == 'medical_records' %}active{% endif %}">
+          Medical Records
+        </a>
+      </nav>
 
-      {# Add more links later #}
-      {# <a href="{% url 'species_list' %}" class="{% if active_page == 'species' %}active{% endif %}">Species</a> #}
-      {# <a href="{% url 'rescue_list' %}" class="{% if active_page == 'rescues' %}active{% endif %}">Rescue Cases</a> #}
+   <div class="sidebar-footer">
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="sidebar-logout">
+      Logout
+    </button>
+  </form>
+</div>
     </aside>
 
     <!-- Main content -->
-    <main class="content">
+    <main class="content" aria-label="Main content">
+      <section class="page">
+        {# Show Django messages (success/error) after actions like delete #}
+        {% if messages %}
+          <div class="message-stack">
+            {% for message in messages %}
+              <div class="card message-card">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
- <header class="topbar">
-
-  <!-- Right side controls -->
-  <div style="margin-left:auto;">
-    <form method="post" action="{% url 'logout' %}" style="margin:0;">
-  {% csrf_token %}
-  <button class="btn primary small" type="submit">
-    Logout
-  </button>
-</form>
-  </div>
-
-</header>
-
- <section class="page">
-  {# Show Django messages (success/error) after actions like delete #}
-  {% if messages %}
-    <div class="message-stack">
-      {% for message in messages %}
-        <div class="card message-card">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  {% block content %}{% endblock %}
-</section>
-
+        {% block content %}{% endblock %}
+      </section>
     </main>
+
   </div>
 
   <script>
