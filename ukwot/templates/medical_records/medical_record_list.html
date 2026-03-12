@@ -72,6 +72,7 @@
 <td>
   <!-- Edit link -->
   <a href="{% url 'medical_record_edit' record.pk %}"
+     class="action-link"
      aria-label="Edit medical record {{ record.assessment_id }}">
     Edit
   </a>
@@ -83,7 +84,9 @@
         onsubmit="return confirmDelete('Delete medical record {{ record.assessment_id }} for {{ record.otter.name }}? This cannot be undone.');"
         aria-label="Delete medical record {{ record.assessment_id }}">
     {% csrf_token %}
-    <button type="submit" class="btn-danger-link" aria-label="Delete medical record {{ record.assessment_id }}">
+    <button type="submit"
+            class="btn-danger-link action-link action-link-danger"
+            aria-label="Delete medical record {{ record.assessment_id }}">
       Delete
     </button>
   </form>

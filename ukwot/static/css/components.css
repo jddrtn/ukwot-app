@@ -245,5 +245,32 @@
 
 /* Small left gap used beside inline actions */
 .ml-8{
-  margin-left: 8px;
+  margin-left: 12px;
+}
+
+/* Table action links/buttons with better touch target size */
+.action-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Optional subtle hover state */
+.action-link:hover{
+  background: rgba(28, 109, 7, 0.08);
+}
+
+/* Red destructive action link */
+.action-link-danger{
+  color: #dc2626;
+}
+
+.action-link-danger:hover{
+  background: rgba(220, 38, 38, 0.08);
 }
