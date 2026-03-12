@@ -1,0 +1,31 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Delete Medical Record{% endblock %}
+{% block meta_description %}Confirmation page for deleting a medical record in the UK Wild Otter Trust dashboard.{% endblock %}
+
+{% block content %}
+<section class="card" aria-labelledby="delete-medical-record-heading">
+
+  <h2 id="delete-medical-record-heading">Delete Medical Record</h2>
+
+  <p class="muted">
+    Are you sure you want to delete medical record
+    <strong>{{ object.assessment_id }}</strong>
+    for <strong>{{ object.otter.name }}</strong>?
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-actions">
+      <button type="submit" class="btn-danger-link">
+        Confirm Delete
+      </button>
+
+      <a class="btn secondary" href="{% url 'medical_record_list' %}">
+        Cancel
+      </a>
+    </div>
+  </form>
+
+</section>
+{% endblock %}

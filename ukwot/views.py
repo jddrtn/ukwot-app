@@ -245,3 +245,26 @@ class MedicalRecordUpdateView(LoginRequiredMixin, UpdateView):
         ctx["active_page"] = "medical_records"
         ctx["mode"] = "edit"
         return ctx
+
+class MedicalRecordDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Permanently deletes a medical record.
+    """
+    model = HealthAssessment
+    template_name = "medical_records/medical_record_confirm_delete.html"
+    success_url = reverse_lazy("medical_record_list")
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST delete requests for a medical record.
+        """
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Add sidebar state for template highlighting if needed.
+        """
+        ctx = super().get_context_data(**kwargs)
+        ctx["active_page"] = "medical_records"
+        return ctx

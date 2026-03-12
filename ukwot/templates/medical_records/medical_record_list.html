@@ -69,11 +69,25 @@
     —
   {% endif %}
 </td>
-              <td>
-                <a href="{% url 'medical_record_edit' record.pk %}" aria-label="Edit medical record {{ record.assessment_id }}">
-                  Edit
-                </a>
-              </td>
+<td>
+  <!-- Edit link -->
+  <a href="{% url 'medical_record_edit' record.pk %}"
+     aria-label="Edit medical record {{ record.assessment_id }}">
+    Edit
+  </a>
+
+  <!-- Delete form -->
+  <form method="post"
+        action="{% url 'medical_record_delete' record.pk %}"
+        class="inline-form ml-8"
+        onsubmit="return confirmDelete('Delete medical record {{ record.assessment_id }} for {{ record.otter.name }}? This cannot be undone.');"
+        aria-label="Delete medical record {{ record.assessment_id }}">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger-link" aria-label="Delete medical record {{ record.assessment_id }}">
+      Delete
+    </button>
+  </form>
+</td>
             </tr>
           {% empty %}
             <tr>
