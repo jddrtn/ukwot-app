@@ -8,7 +8,7 @@
 <section class="card mb-16" aria-labelledby="dashboard-heading">
   <h2 id="dashboard-heading" class="no-margin mb-6">Dashboard</h2>
   <p class="muted no-margin">
-    Welcome to the UK Wild Otter Trust administration dashboard.
+    Welcome to the UK Wild Otter Trust dashboard.
     Use the sections below to view summary information and quickly access key actions.
   </p>
 </section>
@@ -34,23 +34,31 @@
     </p>
   </section>
 
-  <!-- Quick actions -->
-  <section class="card" aria-labelledby="quick-actions-heading">
-    <h3 id="quick-actions-heading" class="no-margin mb-10">Quick Actions</h3>
-    <p class="muted mb-16">
-      Jump straight to common otter management tasks.
-    </p>
+<!-- Quick actions -->
+<section class="card" aria-labelledby="quick-actions-heading">
+  <h3 id="quick-actions-heading" class="no-margin mb-10">Quick Actions</h3>
+  <p class="muted mb-16">
+    Jump straight to common otter management tasks.
+  </p>
 
-    <div class="flex-row">
-      <a class="btn primary" href="{% url 'otter_create' %}" aria-label="Create a new otter record">
-        + Create Otter
-      </a>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <a class="btn primary" href="{% url 'otter_create' %}" style="display:block; width:100%; text-align:center;">
+      + Create Otter
+    </a>
 
-      <a class="btn secondary" href="{% url 'otter_list' %}" aria-label="View the otter records list">
-        View Otter List
-      </a>
-    </div>
-  </section>
+    <a class="btn secondary" href="{% url 'otter_list' %}" style="display:block; width:100%; text-align:center;">
+      View Otter List
+    </a>
+
+    <a class="btn primary" href="{% url 'medical_record_create' %}" style="display:block; width:100%; text-align:center;">
+      + Create Medical Record
+    </a>
+
+    <a class="btn secondary" href="{% url 'medical_record_list' %}" style="display:block; width:100%; text-align:center;">
+      View Medical Records
+    </a>
+  </div>
+</section>
 
   <!-- Recently added -->
   <section class="card" aria-labelledby="recent-otters-heading">
