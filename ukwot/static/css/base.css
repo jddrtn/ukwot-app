@@ -181,17 +181,42 @@ p{
   font-size: 13px;
 }
 
-/* Delete button styled like a text link */
-.btn-danger-link{
-  background: none;
-  border: none;
-  color: #dc2626;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: underline;
-  font: inherit;
-  line-height: inherit;
+
+
+/* Edit button (orange) */
+.btn.edit{
+  background: #ea580c;   /* darker orange */
+  border: 1px solid #ea580c;
+  color: #fff;
 }
+
+.btn.edit:hover{
+  background: #f56a21;   /* lighter on hover */
+  border-color: #f56a21;
+}
+
+/* Delete button (red) */
+.btn.delete{
+  background: #c20606;
+  border: 1px solid #c20606;
+  color: #fff;
+}
+
+.btn.delete:hover{
+  background: #de0707;
+  border-color: #de0707;
+}
+
+.action-buttons .btn{
+  padding: 6px 10px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* spacing between icon and text */
+}
+
+}
+
 
 /* ---------- Form layout ---------- */
 .form-grid{
