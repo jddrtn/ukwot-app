@@ -151,6 +151,11 @@
   color: #5b6472;
 }
 
+.card .form-group label{
+  color: #4b5563;
+  font-weight: 600;
+}
+
 /* ---------- Stat cards ---------- */
 .stat-card{
   background: #EAF4E7;
