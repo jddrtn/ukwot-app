@@ -5,8 +5,8 @@
   --text: #111827;
   --muted: #6b7280;
   --sidebar: #1C6D07;
-  --sidebar-active: #3c9a24;
-  --sidebar-text: #cbd5e1;
+  --sidebar-active: #2f7d1d;
+  --sidebar-text: #dbe4ee;
   --radius: 14px;
 
   /* Typography */
@@ -34,114 +34,35 @@ p{
   line-height: 1.6;
 }
 
-/* ---------- Dashboard layout ---------- */
-.layout{
-  display: flex;
-  min-height: 100vh;
+/* ---------- Shared text styles ---------- */
+.muted{
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
 }
 
-/* ---------- Sidebar ---------- */
-.sidebar{
-  width: 240px;
-  background: var(--sidebar);
-  color: #fff;
-  padding: 18px 14px;
-
-  display:flex;
-  flex-direction:column;
-}
-
-.nav{
-  flex:1;
-}
-
-.brand{
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 14px;
-}
-
-.nav a{
-  display: block;
-  color: var(--sidebar-text);
-  text-decoration: none;
-  padding: 10px 10px;
-  border-radius: 10px;
-  margin: 4px 0;
-}
-
-.nav a.active{
-  background: var(--sidebar-active);
-  color: #fff;
-}
-
-
-
-/* Sidebar footer logout area */
-
+/* ---------- Sidebar footer logout area ---------- */
 .sidebar-footer{
   margin-top: 30px;
   padding-top: 14px;
   border-top: 1px solid rgba(255,255,255,0.15);
 }
 
-/* Logout button */
-
+/* ---------- Logout button ---------- */
 .sidebar-logout{
   width: 100%;
-  background: #3C9A24;
+  background: #2f7d1d;
   border: none;
-  color: white;
+  color: #ffffff;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s ease;
 }
 
 .sidebar-logout:hover{
-  background: #4fb634;
-}
-
-/* ---------- Main content area ---------- */
-.content{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0; /* Prevents overflow issues */
-}
-
-
-
-/* ---------- Page wrapper ---------- */
-.page{
-  padding: 24px;
-}
-
-/* ---------- Card styles ---------- */
-.card{
-  background: #F3F8F2;
-  border: 1px solid #D7E7D2;
-  border-radius: var(--radius);
-  padding: 16px;
-  box-shadow: 0 4px 14px rgba(28, 109, 7, 0.05);
-}
-
-.stat-card{
-  background: #EAF4E7;
-  border: 1px solid #CFE6C8;
-}
-
-.stat-number{
-  font-size: 32px;
-  font-weight: 700;
-  color: #1C6D07;
-}
-
-.muted{
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
+  background: #25631a;
 }
 
 /* ---------- Buttons ---------- */
@@ -151,7 +72,7 @@ p{
   border-radius: 10px;
   border: 1px solid var(--text);
   background: var(--text);
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   cursor: pointer;
   box-sizing: border-box;
@@ -159,64 +80,54 @@ p{
 }
 
 .btn.secondary{
-  background: #fff;
+  background: #ffffff;
   color: var(--text);
 }
 
-/* Primary action button used for create/search/logout actions */
+/* Primary green */
 .btn.primary{
   background: #1C6D07;
   border: 1px solid #1C6D07;
-  color: #fff;
+  color: #ffffff;
 }
 
-/* Hover state for primary buttons */
 .btn.primary:hover{
-  background: #3C9A24;
-  border-color: #3C9A24;
+  background: #2f7d1d;
+  border-color: #2f7d1d;
 }
 
-.btn.small{
-  padding: 6px 10px;
-  font-size: 13px;
-}
-
-
-
-/* Edit button (orange) */
+/* Edit orange */
 .btn.edit{
-  background: #ea580c;   /* darker orange */
-  border: 1px solid #ea580c;
-  color: #fff;
+  background: #9a3412;
+  border: 1px solid #9a3412;
+  color: #ffffff;
 }
 
 .btn.edit:hover{
-  background: #f56a21;   /* lighter on hover */
-  border-color: #f56a21;
+  background: #c2410c;
+  border-color: #c2410c;
 }
 
-/* Delete button (red) */
+/* Delete red */
 .btn.delete{
-  background: #c20606;
-  border: 1px solid #c20606;
-  color: #fff;
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  color: #ffffff;
 }
 
 .btn.delete:hover{
-  background: #de0707;
-  border-color: #de0707;
+  background: #b91c1c;
+  border-color: #b91c1c;
 }
 
+/* Smaller buttons used inside action columns */
 .action-buttons .btn{
   padding: 6px 10px;
   font-size: 13px;
   display: inline-flex;
   align-items: center;
-  gap: 6px; /* spacing between icon and text */
+  gap: 6px;
 }
-
-}
-
 
 /* ---------- Form layout ---------- */
 .form-grid{
@@ -254,117 +165,8 @@ p{
   flex-wrap: wrap;
 }
 
-/* ---------- Table styling ---------- */
-.table-wrap{
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-table{
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 650px; /* Keeps columns readable on smaller screens */
-}
-
-th, td{
-  padding: 10px;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-  vertical-align: middle;
-}
-
-tbody tr:hover{
-  background: #f9fafb;
-}
-
-th a{
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 600;
-}
-
-th a:hover{
-  text-decoration: underline;
-}
-
-/* ---------- Toggle switch ---------- */
-.toggle{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  flex-wrap: nowrap;
-}
-
-.toggle input{
-  display: none;
-}
-
-.toggle-slider{
-  width: 40px;
-  height: 22px;
-  background: #e5e7eb;
-  border-radius: 999px;
-  position: relative;
-  transition: background 0.2s ease;
-  flex-shrink: 0;
-}
-
-.toggle-slider::before{
-  content: "";
-  width: 16px;
-  height: 16px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  transition: transform 0.2s ease;
-  border: 1px solid #d1d5db;
-}
-
-.toggle input:checked + .toggle-slider{
-  background: #10b981;
-}
-
-.toggle input:checked + .toggle-slider::before{
-  transform: translateX(18px);
-}
-
-/* ---------- Utility classes ---------- */
-.mobile-stack{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
 /* ---------- Responsive behaviour ---------- */
 @media (max-width: 900px){
-  .layout{
-    flex-direction: column;
-  }
-
-  .sidebar{
-    width: 100%;
-    padding: 14px;
-  }
-
-  .nav{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .nav a{
-    margin: 0;
-  }
-
-  .page{
-    padding: 14px;
-  }
-
   .form-grid{
     grid-template-columns: 1fr;
   }
@@ -375,30 +177,9 @@ th a:hover{
   }
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 10px;
-  }
-
-  .card {
-    padding: 12px;
-  }
-
-  .mobile-stack {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn {
+@media (max-width: 600px){
+  .btn{
     width: 100%;
     text-align: center;
-  }
-
-  .sidebar {
-    padding: 12px;
-  }
-
-  .brand {
-    margin-bottom: 10px;
   }
 }

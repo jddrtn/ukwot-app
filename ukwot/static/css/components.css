@@ -1,19 +1,21 @@
 /* components.css */
 
-/* Dashboard layout */
+/* ---------- Dashboard layout ---------- */
 .layout{
   display: flex;
   min-height: 100vh;
 }
 
-/* Sidebar */
+/* ---------- Sidebar ---------- */
 .sidebar{
   width: 240px;
   background: var(--sidebar);
-  color: #fff;
+  color: #ffffff;
   padding: 18px 14px;
   box-sizing: border-box;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .brand{
@@ -24,6 +26,7 @@
 }
 
 .nav{
+  flex: 1;
   display: block;
 }
 
@@ -38,10 +41,10 @@
 
 .nav a.active{
   background: var(--sidebar-active);
-  color: #fff;
+  color: #ffffff;
 }
 
-/* Main content area */
+/* ---------- Main content area ---------- */
 .content{
   flex: 1;
   display: flex;
@@ -49,7 +52,7 @@
   min-width: 0;
 }
 
-/* Topbar */
+/* ---------- Topbar ---------- */
 .topbar{
   display: flex;
   align-items: center;
@@ -59,64 +62,16 @@
   border-bottom: 1px solid var(--border);
 }
 
-/* Page wrapper */
+/* ---------- Page wrapper ---------- */
 .page{
   padding: 18px;
 }
 
-/* Responsive behaviour */
-@media (max-width: 900px){
-  .layout{
-    flex-direction: column;
-  }
-
-  .sidebar{
-    width: 100%;
-    padding: 14px;
-  }
-
-  .nav{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .nav a{
-    margin: 0;
-  }
-
-
-  .page{
-    padding: 14px;
-  }
-}
-
-@media (max-width: 600px){
-  .page{
-    padding: 10px;
-  }
-
-  .sidebar{
-    padding: 12px;
-  }
-
-  .brand{
-    margin-bottom: 10px;
-  }
-
-  .topbar{
-    padding: 10px 12px;
-  }
-}
-
 /* ---------- Spacing utilities ---------- */
-
-/* Removes default margin from headings/paragraphs when needed */
 .no-margin{
   margin: 0;
 }
 
-/* Small bottom spacing */
 .mb-6{
   margin-bottom: 6px;
 }
@@ -142,8 +97,6 @@
 }
 
 /* ---------- Flex utilities ---------- */
-
-/* Row with space between items and vertical centering */
 .flex-between{
   display: flex;
   justify-content: space-between;
@@ -151,7 +104,6 @@
   gap: 12px;
 }
 
-/* Flexible row used for groups of action buttons */
 .flex-row{
   display: flex;
   flex-wrap: wrap;
@@ -159,24 +111,15 @@
   align-items: center;
 }
 
-/* Dashboard quick action button grid */
-.quick-actions-grid{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.mobile-stack{
+  display: flex;
   gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-
-/* Make each button fill its grid cell neatly */
-.quick-actions-grid .btn{
-  width: 100%;
-  text-align: center;
-}
-
-
 
 /* ---------- Width helpers ---------- */
-
-/* Used for dashboard cards that should grow evenly */
 .flex-1{
   flex: 1;
 }
@@ -193,9 +136,7 @@
   min-width: 260px;
 }
 
-/* ---------- Text / number styling ---------- */
-
-/* Shared card styles */
+/* ---------- Card styles ---------- */
 .card{
   background: #F3F8F2;
   border: 1px solid #D7E7D2;
@@ -205,21 +146,28 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Improve contrast of muted text inside cards */
+.card .muted{
+  color: #5b6472;
+}
 
-/* Stat cards */
+/* ---------- Stat cards ---------- */
 .stat-card{
   background: #EAF4E7;
   border: 1px solid #CFE6C8;
-  border-left: 4px solid #1C6D07; /* subtle green accent bar */
+  border-left: 4px solid #1C6D07;
 }
 
-/* Animated stat numbers */
-.dashboard-number{
+.stat-card .muted{
+  color: #4b5563;
+}
+
+.dashboard-number,
+.stat-number{
   margin: 0;
   font-size: 32px;
   font-weight: 700;
-  color: #1C6D07;
-  animation: statFadeUp 0.5s ease;
+  color: #14532d;
 }
 
 /* Entrance animation for dashboard numbers */
@@ -234,10 +182,11 @@
   }
 }
 
+.dashboard-number{
+  animation: statFadeUp 0.5s ease;
+}
 
 /* ---------- Message spacing ---------- */
-
-/* Wrapper for stacked messages */
 .message-stack{
   margin-bottom: 12px;
 }
@@ -246,56 +195,77 @@
   margin-bottom: 8px;
 }
 
-/* ---------- Action spacing ---------- */
-
-/* Small left gap used beside inline actions */
+/* ---------- Legacy utility spacing ---------- */
 .ml-8{
   margin-left: 12px;
 }
 
-/* Table action links/buttons*/
-.action-link{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 24px;
-  min-height: 24px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  text-decoration: none;
-  box-sizing: border-box;
-}
-
-/* subtle hover state */
-.action-link:hover{
-  background: rgba(28, 109, 7, 0.08);
-}
-
-/* Red destructive action link */
-.action-link-danger{
-  color: #dc2626;
-}
-
-.action-link-danger:hover{
-  background: rgba(220, 38, 38, 0.08);
-}
-
-/* Dashboard quick action button grid */
+/* ---------- Dashboard quick action button grid ---------- */
 .quick-actions-grid{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
-/* Force each button to fill its grid cell */
+.quick-actions-grid .btn,
 .quick-actions-grid > a.btn{
-  display: block;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
 }
 
+/* ---------- Responsive behaviour ---------- */
+@media (max-width: 900px){
+  .layout{
+    flex-direction: column;
+  }
+
+  .sidebar{
+    width: 100%;
+    padding: 14px;
+  }
+
+  .nav{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav a{
+    margin: 0;
+  }
+
+  .page{
+    padding: 14px;
+  }
+}
+
 @media (max-width: 600px){
+  .page{
+    padding: 10px;
+  }
+
+  .card{
+    padding: 12px;
+  }
+
+  .sidebar{
+    padding: 12px;
+  }
+
+  .brand{
+    margin-bottom: 10px;
+  }
+
+  .topbar{
+    padding: 10px 12px;
+  }
+
+  .mobile-stack{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .quick-actions-grid{
     grid-template-columns: 1fr;
   }
