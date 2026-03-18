@@ -51,20 +51,21 @@ p{
 /* ---------- Logout button ---------- */
 .sidebar-logout{
   width: 100%;
-  background: #2f7d1d;
-  border: none;
-  color: #ffffff;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #1C6D07;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .sidebar-logout:hover{
-  background: #25631a;
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #14532d;
 }
-
 /* ---------- Buttons ---------- */
 .btn{
   display: inline-block;
