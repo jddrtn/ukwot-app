@@ -1,3 +1,4 @@
+<!-- otter list html file -->
 {% extends "dashboard/base.html" %}
 {% block title %}Otters{% endblock %}
 {% block meta_description %}Otter records management page for searching, viewing, editing, and deleting otter records in the UK Wild Otter Trust administration dashboard.{% endblock %}
@@ -99,24 +100,26 @@
               <td>{{ o.species.common_name }}</td>
               <td>{{ o.status }}</td>
 
-              <td class="actions">
-                <a href="{% url 'otter_edit' o.pk %}" aria-label="Edit otter {{ o.name }}">
-                  Edit
-                </a>
+ <td>
+  <div class="action-buttons">
+    <a href="{% url 'otter_edit' o.pk %}" aria-label="Edit otter {{ o.name }}">
+      Edit
+    </a>
 
-                {% if o.status == "Released" %}
-                  <form method="post"
-                        action="{% url 'otter_delete' o.pk %}"
-                        class="inline-form ml-8"
-                        onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');"
-                        aria-label="Delete otter {{ o.name }}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-danger-link" aria-label="Delete otter {{ o.name }}">
-                      Delete
-                    </button>
-                  </form>
-                {% endif %}
-              </td>
+    {% if o.status == "Released" %}
+      <form method="post"
+            action="{% url 'otter_delete' o.pk %}"
+            class="inline-form"
+            onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');"
+            aria-label="Delete otter {{ o.name }}">
+        {% csrf_token %}
+        <button type="submit" class="btn-danger-link" aria-label="Delete otter {{ o.name }}">
+          Delete
+        </button>
+      </form>
+    {% endif %}
+  </div>
+</td>
             </tr>
           {% empty %}
             <tr>

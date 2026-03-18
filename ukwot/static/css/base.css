@@ -189,6 +189,8 @@ p{
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
+  font: inherit;
+  line-height: inherit;
 }
 
 /* ---------- Form layout ---------- */
@@ -243,7 +245,7 @@ th, td{
   padding: 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 tbody tr:hover{
