@@ -15,9 +15,12 @@
     </div>
   </div>
 
-  <a class="btn primary" href="{% url 'otter_create' %}" aria-label="Create a new otter record">
-    + Add Otter
-  </a>
+<a class="btn primary"
+   href="{% url 'otter_create' %}"
+   aria-label="Add a new otter record">
+  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+  Add Otter
+</a>
 </div>
 
 <!-- Toolbar -->
@@ -33,9 +36,18 @@
     aria-label="Search otters by name or species"
   />
 
-  <button class="btn primary" type="submit">Search</button>
+<button class="btn primary"
+        type="submit"
+        aria-label="Search otter records">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+  Search
+</button>
 
-  <a class="btn secondary" href="?sort={{ sort }}">Clear</a>
+  <a class="btn secondary"
+   href="?sort={{ sort }}"
+   aria-label="Clear search filters">
+  Clear
+</a>
 
   <label class="toggle">
     <input

@@ -41,23 +41,30 @@
     <aside class="sidebar">
       <div class="brand">UK Wild Otter Trust</div>
 
-      <!-- Sidebar navigation -->
-      <nav class="nav">
-        <a href="{% url 'dashboard_home' %}"
-           class="{% if active_page == 'home' %}active{% endif %}">
-          Dashboard
-        </a>
+<nav class="nav">
 
-        <a href="{% url 'otter_list' %}"
-           class="{% if active_page == 'otters' %}active{% endif %}">
-          Otters
-        </a>
+  <a href="{% url 'dashboard_home' %}"
+     class="{% if active_page == 'home' %}active{% endif %}"
+     aria-label="Go to dashboard">
+    <i class="fa-solid fa-house" aria-hidden="true"></i>
+    Dashboard
+  </a>
 
-        <a href="{% url 'medical_record_list' %}"
-           class="{% if active_page == 'medical_records' %}active{% endif %}">
-          Medical Records
-        </a>
-      </nav>
+  <a href="{% url 'otter_list' %}"
+     class="{% if active_page == 'otters' %}active{% endif %}"
+     aria-label="View otter records">
+    <i class="fa-solid fa-list" aria-hidden="true"></i>
+    Otters
+  </a>
+
+  <a href="{% url 'medical_record_list' %}"
+     class="{% if active_page == 'medical_records' %}active{% endif %}"
+     aria-label="View medical records">
+    <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+    Medical Records
+  </a>
+
+</nav>
 
    <div class="sidebar-footer">
   <form method="post" action="{% url 'logout' %}">

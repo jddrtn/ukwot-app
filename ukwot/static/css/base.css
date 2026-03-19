@@ -80,9 +80,22 @@ p{
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
+/* Secondary (white) buttons */
 .btn.secondary{
   background: #ffffff;
-  color: var(--text);
+  border: 1px solid #646465;
+  color: #1C6D07;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn.secondary:hover{
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #14532d;
 }
 
 /* Primary green */

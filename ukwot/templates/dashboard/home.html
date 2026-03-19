@@ -41,22 +41,36 @@
     Jump straight to common otter management tasks.
   </p>
 
-  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-    <a class="btn primary" href="{% url 'otter_create' %}" style="display:block; width:100%; text-align:center;">
-      + Create Otter
+  <div class="quick-actions-grid">
+
+    <a class="btn primary"
+       href="{% url 'otter_create' %}"
+       aria-label="Add a new otter record">
+      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      Add Otter
     </a>
 
-    <a class="btn secondary" href="{% url 'otter_list' %}" style="display:block; width:100%; text-align:center;">
+    <a class="btn secondary"
+       href="{% url 'otter_list' %}"
+       aria-label="View the list of otters">
+      <i class="fa-solid fa-list" aria-hidden="true"></i>
       View Otter List
     </a>
 
-    <a class="btn primary" href="{% url 'medical_record_create' %}" style="display:block; width:100%; text-align:center;">
-      + Create Medical Record
+    <a class="btn primary"
+       href="{% url 'medical_record_create' %}"
+       aria-label="Add a new medical record">
+      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      Add Medical Record
     </a>
 
-    <a class="btn secondary" href="{% url 'medical_record_list' %}" style="display:block; width:100%; text-align:center;">
+    <a class="btn secondary"
+       href="{% url 'medical_record_list' %}"
+       aria-label="View the list of medical records">
+      <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
       View Medical Records
     </a>
+
   </div>
 </section>
 

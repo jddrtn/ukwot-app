@@ -14,9 +14,10 @@
         </div>
       </div>
 
-      <a class="btn primary" href="{% url 'medical_record_create' %}" aria-label="Create a new medical record">
-        + Add Medical Record
-      </a>
+<a class="btn primary" href="{% url 'medical_record_create' %}">
+  <i class="fa-solid fa-plus"></i>
+  Add Medical Record
+</a>
     </div>
 
     <!-- Search form -->
@@ -30,9 +31,12 @@
         aria-label="Search medical records by otter name"
       />
 
-      <button class="btn primary" type="submit" aria-label="Search medical records">
-        Search
-      </button>
+     <button class="btn primary"
+        type="submit"
+        aria-label="Search medical records">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+  Search
+</button>
 
       <a class="btn secondary" href="{% url 'medical_record_list' %}" aria-label="Clear medical record search">
         Clear
