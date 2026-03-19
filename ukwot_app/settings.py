@@ -4,7 +4,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-only-secret-key")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -59,7 +59,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.environ.get("DB_NAME", "otter_trust_db"),
         "USER": os.environ.get("DB_USER", "ukwot_admin"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "AdminPassword1!"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "3306"),
         "OPTIONS": {
