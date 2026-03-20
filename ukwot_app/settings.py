@@ -70,7 +70,7 @@ DATABASES = {
 
 # Authentication redirects
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "dashboard_home"
+LOGIN_REDIRECT_URL = "test_after_login"
 LOGOUT_REDIRECT_URL = "login"
 
 # Static files

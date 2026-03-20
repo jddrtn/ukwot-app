@@ -10,7 +10,11 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from .models import Otter, HealthAssessment
 from .forms import OtterForm, MedicalRecordForm
+from django.http import HttpResponse
 
+@login_required
+def test_after_login(request):
+    return HttpResponse("Logged in successfully")
 
 @login_required
 def dashboard_home(request):
