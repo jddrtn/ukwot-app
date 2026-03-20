@@ -73,12 +73,26 @@
   padding: 18px;
 }
 
+
 /* ---------- Dashboard grid layout ---------- */
 .dashboard-grid{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 18px;
   row-gap: 18px;
+  align-items: start;
+}
+
+
+/* Prevent cards in grid from overflowing */
+.dashboard-grid > .card{
+  min-width: 0;
+}
+
+/* Keep dashboard table scrollable on smaller screens */
+.dashboard-recent .table-wrap{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Responsive behaviour */
@@ -111,6 +125,10 @@
     grid-template-columns: 1fr;
   }
 
+  .dashboard-recent{
+    grid-column: auto;
+  }
+
   .sidebar-footer{
     margin-top: 16px;
   }
@@ -127,5 +145,18 @@
 
   .brand{
     margin-bottom: 10px;
+  }
+
+  .dashboard-grid{
+    row-gap: 14px;
+  }
+
+  .dashboard-grid .card{
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .dashboard-recent table{
+    min-width: 520px;
   }
 }
