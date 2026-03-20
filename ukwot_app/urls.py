@@ -22,5 +22,5 @@ urlpatterns = [
 
     # Include all routes from the ukwot app
     path("", include("ukwot.urls")),
-path("test-after-login/", views.test_after_login, name="test_after_login"),
+
 ]
