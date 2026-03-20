@@ -77,6 +77,12 @@ LOGOUT_REDIRECT_URL = "login"
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
