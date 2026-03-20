@@ -57,13 +57,16 @@ WSGI_APPLICATION = 'ukwot_app.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("DB_NAME", "otter_trust_db"),
-        "USER": os.environ.get("DB_USER", "ukwot_admin"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "AdminPassword1!"),
-        "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
+        "NAME": os.environ.get("DB_NAME", "otter_trust_db" if DEBUG else None),
+        "USER": os.environ.get("DB_USER", "ukwot_admin" if DEBUG else None),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "AdminPassword1!" if DEBUG else None),
+        "HOST": os.environ.get("DB_HOST", "127.0.0.1" if DEBUG else None),
         "PORT": os.environ.get("DB_PORT", "3306"),
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+            "ssl": {
+                "ca": os.environ.get("DB_SSL_CA"),
+            } if os.environ.get("DB_SSL_CA") else {},
         },
     }
 }
