@@ -1,61 +1,99 @@
-/* Form grid layout */
-.form-grid{
+/* ---------- Form grid layout ---------- */
+/*
+  Two-column grid layout for forms on larger screens.
+  This makes better use of horizontal space and reduces vertical scrolling,
+  improving efficiency when completing longer forms.
+*/
+.form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-top: 16px;
 }
 
-.form-group{
+/*
+  Wrapper for each form field and label.
+  Using a column layout ensures labels sit clearly above inputs,
+  improving readability and form clarity.
+*/
+.form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group label{
+/*
+  Form labels.
+  Smaller font size and muted colour help distinguish labels
+  from user input while still remaining readable.
+*/
+.form-group label {
   font-size: 13px;
   margin-bottom: 4px;
   color: var(--muted);
 }
 
+/*
+  Shared styling for input and select fields.
+  Consistent styling improves usability by making all inputs feel uniform.
+*/
 .form-group input,
-.form-group select{
+.form-group select {
+  width: 100%;
   padding: 8px;
-  border-radius: 8px;
   border: 1px solid var(--border);
+  border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
-  width: 100%;
 }
 
-.form-actions{
-  margin-top: 20px;
+/*
+  Form action buttons container.
+  Flex layout keeps buttons aligned and spaced consistently.
+*/
+.form-actions {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-@media (max-width: 900px){
-  .form-grid{
+/* ---------- Responsive behaviour ---------- */
+@media (max-width: 900px) {
+  /*
+    Switch to a single-column layout on smaller screens.
+    Prevents fields becoming too narrow and improves mobile usability.
+  */
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
-  .form-actions{
+  /*
+    Stack buttons vertically on smaller screens
+    to make them easier to tap and interact with.
+  */
+  .form-actions {
     flex-direction: column;
     align-items: stretch;
   }
 }
 
-
-/* Form-level error message shown above the form fields */
-.form-error-message{
+/* ---------- Form validation feedback ---------- */
+/*
+  Form-level error message.
+  Placed at the top so users immediately understand something went wrong.
+*/
+.form-error-message {
   color: #dc2626;
   margin-bottom: 10px;
   font-size: 14px;
   font-weight: 500;
 }
 
-/* Django field error list styling */
-.errorlist{
+/*
+  Django error list styling.
+  Removing bullet points keeps the design clean and consistent with the UI.
+*/
+.errorlist {
   list-style: none;
   margin: 6px 0 0;
   padding: 0;
@@ -64,30 +102,47 @@
   font-weight: 500;
 }
 
-/* Individual error items */
-.errorlist li{
+/*
+  Individual error messages.
+  Tight spacing keeps the form compact while still readable.
+*/
+.errorlist li {
   margin: 0;
   line-height: 1.4;
 }
 
-/* Adds space under fields that show validation messages */
-.form-group .errorlist{
+/*
+  Adds spacing between inputs and their error messages.
+  Prevents the interface from feeling cramped and improves clarity.
+*/
+.form-group .errorlist {
   margin-top: 6px;
 }
 
-/* Span full width across the form grid */
-.full-width{
+/*
+  Utility class to span an element across the full grid width.
+  Useful for larger fields such as notes or descriptions.
+*/
+.full-width {
   grid-column: 1 / -1;
 }
 
-/* Textareas should match input styling */
-.form-group textarea{
+/*
+  Textarea styling aligned with input fields.
+  Ensures consistency across all form controls.
+*/
+.form-group textarea {
+  width: 100%;
   padding: 8px;
-  border-radius: 8px;
   border: 1px solid var(--border);
+  border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
-  width: 100%;
   font-family: var(--font-body);
+
+  /*
+    Allows vertical resizing only.
+    This prevents layout breaking while still giving users flexibility.
+  */
   resize: vertical;
 }

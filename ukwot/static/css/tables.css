@@ -1,42 +1,67 @@
-/* tables.css file */
+/* tables.css */
 
-/* Table wrapper allows horizontal scroll on smaller screens */
-.table-wrap{
+/* ---------- Table wrapper ---------- */
+/*
+  Allows horizontal scrolling when tables are wider than the screen.
+  This prevents layout breaking on smaller devices and keeps data readable.
+*/
+.table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-table{
+/* ---------- Base table styling ---------- */
+/*
+  Full-width tables with collapsed borders create a clean, consistent layout.
+  A minimum width ensures columns do not become too cramped.
+*/
+table {
   width: 100%;
-  border-collapse: collapse;
   min-width: 650px;
+  border-collapse: collapse;
 }
 
-th, td{
+/*
+  Cell styling.
+  Padding improves readability, and vertical alignment keeps content centred.
+*/
+th,
+td {
   padding: 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
   vertical-align: middle;
 }
 
-tbody tr:hover{
+/*
+  Row hover effect.
+  Provides visual feedback to help users track which row they are viewing.
+*/
+tbody tr:hover {
   background: #f9fafb;
 }
 
-th a{
+/*
+  Sortable column links.
+  Removing underline keeps the design clean, while hover restores it
+  to indicate interactivity.
+*/
+th a {
   text-decoration: none;
   color: var(--text);
   font-weight: 600;
 }
 
-th a:hover{
+th a:hover {
   text-decoration: underline;
 }
 
 /* ---------- Otter list page ---------- */
-
-/* Search input used in otter list toolbar */
-.list-search-input{
+/*
+  Search input used in list toolbars.
+  Flexible width allows it to grow while maintaining a usable minimum size.
+*/
+.list-search-input {
   flex: 1;
   min-width: 220px;
   padding: 10px;
@@ -45,14 +70,20 @@ th a:hover{
   box-sizing: border-box;
 }
 
-
-
-/* Pagination row spacing */
-.pagination-row{
+/* ---------- Pagination ---------- */
+/*
+  Adds spacing above pagination controls to separate them from the table.
+*/
+.pagination-row {
   margin-top: 16px;
 }
 
-.action-buttons{
+/* ---------- Action buttons ---------- */
+/*
+  Keeps Edit and Delete buttons aligned horizontally within table rows.
+  Prevents wrapping so actions remain grouped and easy to scan.
+*/
+.action-buttons {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -60,13 +91,19 @@ th a:hover{
   white-space: nowrap;
 }
 
-.action-buttons form{
-  margin: 0;
+/*
+  Ensures inline forms (e.g. delete buttons) do not break layout.
+*/
+.action-buttons form {
   display: inline;
+  margin: 0;
 }
 
+/*
+  Aligns links and buttons consistently within the action group.
+*/
 .action-buttons a,
-.action-buttons button{
+.action-buttons button {
   display: inline-block;
   vertical-align: middle;
 }

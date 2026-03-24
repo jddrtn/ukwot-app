@@ -1,36 +1,54 @@
-/* Dashboard layout */
-.layout{
+/* ---------- Dashboard layout ---------- */
+/*
+  The main dashboard uses flexbox so the sidebar and content area
+  sit next to each other on larger screens.
+*/
+.layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* Sidebar */
-.sidebar{
+/* ---------- Sidebar ---------- */
+/*
+  The sidebar has a fixed width on desktop and uses a vertical flex layout.
+  This makes it easier to keep navigation at the top and the logout area lower down.
+*/
+.sidebar {
   width: 240px;
   background: var(--sidebar);
   color: #fff;
   padding: 18px 14px;
   box-sizing: border-box;
   flex-shrink: 0;
-
-  /* Lets the logout section sit lower in the sidebar */
   display: flex;
   flex-direction: column;
 }
 
-.brand{
+/*
+  Brand styling helps the organisation name stand out
+  and gives the dashboard a clearer visual identity.
+*/
+.brand {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 18px;
   margin-bottom: 14px;
 }
 
-.nav{
+/*
+  Allow the navigation section to take up spare vertical space.
+  This helps push the sidebar footer further down the sidebar.
+*/
+.nav {
   display: block;
-  flex: 1; /* Pushes sidebar footer downward */
+  flex: 1;
 }
 
-.nav a{
+/*
+  Sidebar links are displayed as block elements to create
+  larger clickable areas, which improves usability.
+*/
+.nav a {
   display: block;
   color: var(--sidebar-text);
   text-decoration: none;
@@ -39,43 +57,61 @@
   margin: 4px 0;
 }
 
-.nav a:hover{
-  background: rgba(255,255,255,0.08);
+/*
+  Hover feedback helps the user recognise that the links are interactive.
+*/
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 
-.nav a.active{
+/*
+  Active link styling shows the current page,
+  helping the user stay oriented within the dashboard.
+*/
+.nav a.active {
   background: var(--sidebar-active);
   color: #fff;
 }
 
-
-
-/* Sidebar footer area */
-.sidebar-footer{
+/* ---------- Sidebar footer ---------- */
+/*
+  The footer area is visually separated from the main navigation.
+  This helps distinguish logout from normal page navigation.
+*/
+.sidebar-footer {
   margin-top: 30px;
   padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-
-
-/* Main content area */
-.content{
+/* ---------- Main content area ---------- */
+/*
+  The content section expands to fill the remaining space beside the sidebar.
+  min-width: 0 helps prevent overflow issues inside flex layouts.
+*/
+.content {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-/* Page wrapper */
-.page{
+/* ---------- Page wrapper ---------- */
+/*
+  Consistent padding keeps page content away from the screen edges,
+  improving readability and visual balance.
+*/
+.page {
   padding: 18px;
 }
 
-
 /* ---------- Dashboard grid layout ---------- */
-.dashboard-grid{
+/*
+  The dashboard uses a two-column grid on larger screens.
+  This makes summary cards and recent data easier to scan quickly.
+*/
+.dashboard-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 18px;
@@ -83,80 +119,120 @@
   align-items: start;
 }
 
-
-/* Prevent cards in grid from overflowing */
-.dashboard-grid > .card{
+/*
+  Prevent grid items from forcing unwanted overflow.
+  This is useful when cards contain tables or longer content.
+*/
+.dashboard-grid > .card {
   min-width: 0;
 }
 
-/* Keep dashboard table scrollable on smaller screens */
-.dashboard-recent .table-wrap{
+/*
+  Keep the recent table scrollable on smaller widths.
+  This prevents the layout breaking when table content is wider than its container.
+*/
+.dashboard-recent .table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Responsive behaviour */
-@media (max-width: 900px){
-  .layout{
+/* ---------- Responsive behaviour ---------- */
+@media (max-width: 900px) {
+  /*
+    Stack the layout vertically on smaller screens
+    so the sidebar moves above the main content.
+  */
+  .layout {
     flex-direction: column;
   }
 
-  .sidebar{
+  /*
+    Make the sidebar full width on tablet and smaller devices.
+  */
+  .sidebar {
     width: 100%;
     padding: 14px;
   }
 
-  .nav{
+  /*
+    Change navigation into a wrapping row layout
+    so links fit more naturally across the available width.
+  */
+  .nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     flex: unset;
   }
 
-  .nav a{
+  .nav a {
     margin: 0;
   }
 
-  .page{
+  /*
+    Slightly reduce page padding to use space more efficiently.
+  */
+  .page {
     padding: 14px;
   }
 
-  .dashboard-grid{
+  /*
+    Collapse the dashboard to a single column.
+    This improves readability and prevents cramped cards.
+  */
+  .dashboard-grid {
     grid-template-columns: 1fr;
   }
 
-  .dashboard-recent{
+  .dashboard-recent {
     grid-column: auto;
   }
 
-  .sidebar-footer{
+  /*
+    Reduce the gap above the footer to better suit smaller layouts.
+  */
+  .sidebar-footer {
     margin-top: 16px;
   }
 }
 
-@media (max-width: 600px){
-  .page{
+@media (max-width: 600px) {
+  /*
+    Reduce padding further on very small screens
+    so more space is available for content.
+  */
+  .page {
     padding: 10px;
   }
 
-  .sidebar{
+  .sidebar {
     padding: 12px;
   }
 
-  .brand{
+  .brand {
     margin-bottom: 10px;
   }
 
-  .dashboard-grid{
+  /*
+    Slightly tighten the spacing between dashboard cards on mobile.
+  */
+  .dashboard-grid {
     row-gap: 14px;
   }
 
-  .dashboard-grid .card{
+  /*
+    Ensure cards fill the available width cleanly on small screens.
+  */
+  .dashboard-grid .card {
     width: 100%;
     box-sizing: border-box;
   }
 
-  .dashboard-recent table{
+  /*
+    Give the recent table a minimum width so columns stay readable.
+    Horizontal scrolling is preferred here over squashing the content too tightly.
+  */
+  .dashboard-recent table {
     min-width: 520px;
   }
 }

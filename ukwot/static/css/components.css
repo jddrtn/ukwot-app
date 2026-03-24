@@ -1,13 +1,21 @@
-/* components.css */
+
 
 /* ---------- Dashboard layout ---------- */
-.layout{
+/*
+  The main dashboard uses flexbox to place the sidebar beside the content area.
+  A minimum height of 100vh ensures the layout fills the full screen height.
+*/
+.layout {
   display: flex;
   min-height: 100vh;
 }
 
 /* ---------- Sidebar ---------- */
-.sidebar{
+/*
+  The sidebar is fixed to a set width on desktop and uses a column layout
+  so navigation links stack vertically.
+*/
+.sidebar {
   width: 240px;
   background: var(--sidebar);
   color: #ffffff;
@@ -18,34 +26,54 @@
   flex-direction: column;
 }
 
-.brand{
+/*
+  Brand styling makes the organisation name more prominent
+  and helps establish visual identity.
+*/
+.brand {
   font-family: var(--font-heading);
-  font-weight: 700;
   font-size: 18px;
+  font-weight: 700;
   margin-bottom: 14px;
 }
 
-.nav{
-  flex: 1;
+/*
+  Allow the navigation area to grow and take up the available vertical space.
+  This helps keep items like the logout section lower down in the sidebar.
+*/
+.nav {
   display: block;
+  flex: 1;
 }
 
-.nav a{
+/*
+  Shared styling for sidebar navigation links.
+  Large clickable areas improve usability and make navigation easier.
+*/
+.nav a {
   display: block;
-  color: var(--sidebar-text);
-  text-decoration: none;
+  margin: 4px 0;
   padding: 10px 10px;
   border-radius: 10px;
-  margin: 4px 0;
+  color: var(--sidebar-text);
+  text-decoration: none;
 }
 
-.nav a.active{
+/*
+  Active link styling shows the user which page they are currently on,
+  improving orientation and navigation feedback.
+*/
+.nav a.active {
   background: var(--sidebar-active);
   color: #ffffff;
 }
 
 /* ---------- Main content area ---------- */
-.content{
+/*
+  The content area grows to fill the remaining horizontal space.
+  min-width: 0 prevents overflow issues inside flex layouts.
+*/
+.content {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -53,7 +81,11 @@
 }
 
 /* ---------- Topbar ---------- */
-.topbar{
+/*
+  Shared topbar layout for pages that use one.
+  Flexbox keeps items aligned neatly in a single row.
+*/
+.topbar {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -63,112 +95,149 @@
 }
 
 /* ---------- Page wrapper ---------- */
-.page{
+/*
+  Applies consistent page padding so content does not sit against the edges.
+*/
+.page {
   padding: 18px;
 }
 
 /* ---------- Spacing utilities ---------- */
-.no-margin{
+/*
+  Utility classes allow small spacing adjustments without writing
+  repeated custom CSS for each individual element.
+*/
+.no-margin {
   margin: 0;
 }
 
-.mb-6{
+.mb-6 {
   margin-bottom: 6px;
 }
 
-.mb-8{
+.mb-8 {
   margin-bottom: 8px;
 }
 
-.mb-10{
+.mb-10 {
   margin-bottom: 10px;
 }
 
-.mb-12{
+.mb-12 {
   margin-bottom: 12px;
 }
 
-.mb-16{
+.mb-16 {
   margin-bottom: 16px;
 }
 
-.mt-16{
+.mt-16 {
   margin-top: 16px;
 }
 
 /* ---------- Flex utilities ---------- */
-.flex-between{
+/*
+  Utility flex classes help build reusable layouts more quickly
+  and keep alignment consistent across pages.
+*/
+.flex-between {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
 }
 
-.flex-row{
+.flex-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
 }
 
-.mobile-stack{
+/*
+  This utility is useful for layouts that should sit in a row on larger screens
+  but wrap neatly when there is less space.
+*/
+.mobile-stack {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* ---------- Width helpers ---------- */
-.flex-1{
+/*
+  These helper classes allow flexible sizing without needing to define
+  one-off widths each time.
+*/
+.flex-1 {
   flex: 1;
 }
 
-.flex-2{
+.flex-2 {
   flex: 2;
 }
 
-.min-w-220{
+.min-w-220 {
   min-width: 220px;
 }
 
-.min-w-260{
+.min-w-260 {
   min-width: 260px;
 }
 
 /* ---------- Card styles ---------- */
-.card{
-  background: #F3F8F2;
-  border: 1px solid #D7E7D2;
+/*
+  Cards visually group related content together.
+  This improves readability and helps users scan the interface more easily.
+*/
+.card {
+  background: #f3f8f2;
+  border: 1px solid #d7e7d2;
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: 0 4px 14px rgba(28, 109, 7, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Improve contrast of muted text inside cards */
-.card .muted{
+/*
+  Improve contrast for secondary text inside cards so it remains readable
+  against the lighter green background.
+*/
+.card .muted {
   color: #5b6472;
 }
 
-.card .form-group label{
+/*
+  Strengthen label visibility inside cards so form fields are clearer to read.
+*/
+.card .form-group label {
   color: #4b5563;
   font-weight: 600;
 }
 
 /* ---------- Stat cards ---------- */
-.stat-card{
-  background: #EAF4E7;
-  border: 1px solid #CFE6C8;
-  border-left: 4px solid #1C6D07;
+/*
+  Stat cards use a slightly different style so key dashboard numbers stand out
+  from regular content cards.
+*/
+.stat-card {
+  background: #eaf4e7;
+  border: 1px solid #cfe6c8;
+  border-left: 4px solid #1c6d07;
 }
 
-.stat-card .muted{
+.stat-card .muted {
   color: #4b5563;
 }
 
+/*
+  Larger number styling makes important figures easier to notice at a glance,
+  improving visibility of system status.
+*/
 .dashboard-number,
-.stat-number{
+.stat-number {
   margin: 0;
   font-size: 32px;
   font-weight: 700;
@@ -176,102 +245,138 @@
 }
 
 /* Entrance animation for dashboard numbers */
-@keyframes statFadeUp{
-  from{
+/*
+  A subtle animation helps draw attention to dashboard statistics
+  without being distracting.
+*/
+@keyframes statFadeUp {
+  from {
     opacity: 0;
     transform: translateY(6px);
   }
-  to{
+
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.dashboard-number{
+.dashboard-number {
   animation: statFadeUp 0.5s ease;
 }
 
 /* ---------- Message spacing ---------- */
-.message-stack{
+/*
+  Adds spacing between stacked message cards so feedback messages
+  do not appear cramped together.
+*/
+.message-stack {
   margin-bottom: 12px;
 }
 
-.message-card{
+.message-card {
   margin-bottom: 8px;
 }
 
 /* ---------- Legacy utility spacing ---------- */
-.ml-8{
+/*
+  Older spacing helper retained for compatibility with existing templates.
+*/
+.ml-8 {
   margin-left: 12px;
 }
 
 /* ---------- Dashboard quick action button grid ---------- */
-.quick-actions-grid{
+/*
+  A two-column grid keeps dashboard shortcut buttons organised and balanced.
+  Full-width buttons improve alignment and make them easier to click.
+*/
+.quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
 .quick-actions-grid .btn,
-.quick-actions-grid > a.btn{
+.quick-actions-grid > a.btn {
   width: 100%;
   box-sizing: border-box;
   text-align: center;
 }
 
 /* ---------- Responsive behaviour ---------- */
-@media (max-width: 900px){
-  .layout{
+@media (max-width: 900px) {
+  /*
+    Switch the main layout to vertical on smaller screens
+    so the sidebar sits above the content instead of beside it.
+  */
+  .layout {
     flex-direction: column;
   }
 
-  .sidebar{
+  .sidebar {
     width: 100%;
     padding: 14px;
   }
 
-  .nav{
+  /*
+    Change navigation into a wrapping row layout on smaller screens
+    so links fit better across the available width.
+  */
+  .nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
 
-  .nav a{
+  .nav a {
     margin: 0;
   }
 
-  .page{
+  .page {
     padding: 14px;
   }
 }
 
-@media (max-width: 600px){
-  .page{
+@media (max-width: 600px) {
+  /*
+    Reduce padding further on very small screens
+    to make better use of limited space.
+  */
+  .page {
     padding: 10px;
   }
 
-  .card{
+  .card {
     padding: 12px;
   }
 
-  .sidebar{
+  .sidebar {
     padding: 12px;
   }
 
-  .brand{
+  .brand {
     margin-bottom: 10px;
   }
 
-  .topbar{
+  .topbar {
     padding: 10px 12px;
   }
 
-  .mobile-stack{
+  /*
+    Stack grouped controls vertically on mobile
+    so they are easier to read and tap.
+  */
+  .mobile-stack {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .quick-actions-grid{
+  /*
+    Collapse quick actions to a single column on mobile
+    so buttons remain large and accessible.
+  */
+  .quick-actions-grid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,10 +1,11 @@
-:root{
+:root {
+  /* Core colour palette used across the dashboard */
   --bg: #f5f6f8;
   --panel: #ffffff;
   --border: #e5e7eb;
   --text: #111827;
   --muted: #6b7280;
-  --sidebar: #1C6D07;
+  --sidebar: #1c6d07;
   --sidebar-active: #2f7d1d;
   --sidebar-text: #dbe4ee;
   --radius: 14px;
@@ -15,7 +16,7 @@
 }
 
 /* ---------- Base page styling ---------- */
-body{
+body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--text);
@@ -24,36 +25,59 @@ body{
 }
 
 /* ---------- Headings ---------- */
-h1, h2, h3, h4{
+/*
+  A separate heading font helps create visual hierarchy,
+  making important page titles easier to identify quickly.
+*/
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-heading);
   letter-spacing: -0.01em;
 }
 
 /* ---------- Paragraph readability ---------- */
-p{
+/*
+  Increased line height improves readability,
+  especially for longer blocks of text.
+*/
+p {
   line-height: 1.6;
 }
 
 /* ---------- Shared text styles ---------- */
-.muted{
+/*
+  Muted text is used for secondary information such as hints,
+  helper text, and less prominent interface content.
+*/
+.muted {
   color: var(--muted);
   font-size: 13px;
   font-weight: 500;
 }
 
 /* ---------- Sidebar footer logout area ---------- */
-.sidebar-footer{
+/*
+  Separating the footer visually makes the logout area easier to spot
+  without mixing it into the main navigation links.
+*/
+.sidebar-footer {
   margin-top: 30px;
   padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* ---------- Logout button ---------- */
-.sidebar-logout{
+/*
+  Full-width styling makes the logout button easier to click,
+  which improves usability on both desktop and smaller screens.
+*/
+.sidebar-logout {
   width: 100%;
   background: #ffffff;
   border: 1px solid #d1d5db;
-  color: #1C6D07;
+  color: #1c6d07;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
@@ -61,13 +85,18 @@ p{
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.sidebar-logout:hover{
+.sidebar-logout:hover {
   background: #f3f4f6;
   border-color: #9ca3af;
   color: #14532d;
 }
+
 /* ---------- Buttons ---------- */
-.btn{
+/*
+  Base button styling shared by links and buttons across the interface.
+  Reusing one button class improves consistency and maintainability.
+*/
+.btn {
   display: inline-block;
   padding: 10px 12px;
   border-radius: 10px;
@@ -80,11 +109,16 @@ p{
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-/* Secondary (white) buttons */
-.btn.secondary{
+/* Secondary button style */
+/*
+  Used for less prominent actions such as cancel or clear.
+  This creates a visual contrast between primary and secondary actions,
+  helping users understand which action is most important.
+*/
+.btn.secondary {
   background: #ffffff;
   border: 1px solid #646465;
-  color: #1C6D07;
+  color: #1c6d07;
   padding: 10px 12px;
   border-radius: 10px;
   cursor: pointer;
@@ -92,109 +126,156 @@ p{
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.btn.secondary:hover{
+.btn.secondary:hover {
   background: #f3f4f6;
   border-color: #9ca3af;
   color: #14532d;
 }
 
-/* Primary green */
-.btn.primary{
-  background: #1C6D07;
-  border: 1px solid #1C6D07;
+/* Primary green button */
+/*
+  Used for main actions such as creating or submitting records.
+  Stronger colour emphasis improves visibility of key actions.
+*/
+.btn.primary {
+  background: #1c6d07;
+  border: 1px solid #1c6d07;
   color: #ffffff;
 }
 
-.btn.primary:hover{
+.btn.primary:hover {
   background: #2f7d1d;
   border-color: #2f7d1d;
 }
 
-/* Edit orange */
-.btn.edit{
+/* Edit button */
+/*
+  Orange helps distinguish edit actions from create and delete actions,
+  improving recognition within action columns.
+*/
+.btn.edit {
   background: #9a3412;
   border: 1px solid #9a3412;
   color: #ffffff;
 }
 
-.btn.edit:hover{
+.btn.edit:hover {
   background: #c2410c;
   border-color: #c2410c;
 }
 
-/* Delete red */
-.btn.delete{
+/* Delete button */
+/*
+  Red is used for destructive actions to warn the user visually,
+  supporting error prevention and safer interaction.
+*/
+.btn.delete {
   background: #dc2626;
   border: 1px solid #dc2626;
   color: #ffffff;
 }
 
-.btn.delete:hover{
+.btn.delete:hover {
   background: #b91c1c;
   border-color: #b91c1c;
 }
 
-/* Smaller buttons used inside action columns */
-.action-buttons .btn{
-  padding: 6px 10px;
-  font-size: 13px;
+/* Smaller action buttons inside table rows */
+/*
+  Reduced padding helps action buttons fit neatly inside tables
+  without making the rows too tall.
+*/
+.action-buttons .btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
 }
 
 /* ---------- Form layout ---------- */
-.form-grid{
+/*
+  Two-column form layout improves use of horizontal space on desktop
+  and makes longer forms feel shorter and easier to scan.
+*/
+.form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-top: 16px;
 }
 
-.form-group{
+/* Wrapper for each form control and its label */
+.form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group label{
-  font-size: 13px;
+/* Form labels */
+/*
+  Slightly bolder labels improve clarity by making field names
+  easier to distinguish from entered values.
+*/
+.form-group label {
   margin-bottom: 4px;
   color: #4b5563;
+  font-size: 13px;
   font-weight: 600;
 }
 
+/* Shared styling for standard text inputs and select fields */
+/*
+  Consistent input styling improves usability by making all controls
+  feel like part of the same interface.
+*/
 .form-group input,
-.form-group select{
+.form-group select {
+  width: 100%;
   padding: 8px;
-  border-radius: 8px;
   border: 1px solid var(--border);
+  border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
-  width: 100%;
 }
 
-.form-actions{
-  margin-top: 20px;
+/* Form action button row */
+/*
+  Grouping actions together improves flow and helps users understand
+  which controls belong to the form submission area.
+*/
+.form-actions {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 /* ---------- Responsive behaviour ---------- */
-@media (max-width: 900px){
-  .form-grid{
+@media (max-width: 900px) {
+  /*
+    Switch the form to one column on smaller screens.
+    This prevents fields becoming too narrow and improves mobile usability.
+  */
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
-  .form-actions{
+  /*
+    Stack form buttons vertically on smaller screens so they are easier to tap.
+  */
+  .form-actions {
     flex-direction: column;
     align-items: stretch;
   }
 }
 
-@media (max-width: 600px){
-  .btn{
+@media (max-width: 600px) {
+  /*
+    Make buttons full width on very small screens.
+    This improves accessibility and makes touch interaction easier.
+  */
+  .btn {
     width: 100%;
-    text-align: center;
+    text-align: centre;
   }
 }

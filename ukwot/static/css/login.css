@@ -1,35 +1,48 @@
-:root{
+:root {
+  /* Typography used on the login page */
   --font-body: "DM Sans", system-ui, sans-serif;
   --font-heading: "Crimson Text", Georgia, serif;
 }
 
 /* ---------- Global page styling ---------- */
+/*
+  Sets the overall appearance of the login page.
+  A full viewport height helps the layout fill the screen cleanly.
+*/
 body {
   margin: 0;
   min-height: 100vh;
   font-family: var(--font-body);
-  background: #1C6D07;
+  background: #1c6d07;
   color: #1f2937;
   -webkit-font-smoothing: antialiased;
 }
 
 /* ---------- Main two-column layout ---------- */
+/*
+  Uses CSS Grid to split the page into a branding area and a login form area.
+  This creates a clear visual separation between information and action.
+*/
 .login-layout {
   display: grid;
   grid-template-columns: 1fr 420px;
   max-width: 1100px;
-  margin: auto;
   min-height: 100vh;
+  margin: auto;
 }
 
 /* ---------- Left branding panel ---------- */
+/*
+  The branding panel introduces the system and gives context before login.
+  Centred alignment makes the content feel balanced and intentional.
+*/
 .login-brand {
-  padding: 56px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Centers content horizontally */
-  text-align: center; /* Centers text */
+  align-items: center;
+  padding: 56px;
+  text-align: center;
 }
 
 .brand-tag {
@@ -42,39 +55,50 @@ body {
   color: #d9efe2;
 }
 
+/*
+  Large heading styling helps establish visual hierarchy
+  and makes the page purpose clear immediately.
+*/
 .brand-title {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
   margin: 0 0 14px;
   font-family: var(--font-heading);
   font-size: 42px;
   font-weight: 700;
   line-height: 1.08;
-  max-width: 420px;
-  position: relative;
-  z-index: 1;
-  color: #E6F511;
   letter-spacing: -0.01em;
+  color: #e6f511;
 }
 
+/*
+  Supporting paragraph text explains the system in a more readable form.
+*/
 .brand-text {
-  margin: 0;
+  position: relative;
+  z-index: 1;
   max-width: 420px;
-  color: #e5f0ea;
+  margin: 0;
   font-size: 16px;
   line-height: 1.7;
-  position: relative;
-  z-index: 1;
+  color: #e5f0ea;
 }
 
+/*
+  Optional supporting panel for additional login-page information.
+  The semi-transparent background adds depth without distracting from the form.
+*/
 .brand-panel {
-  margin-top: 28px;
+  position: relative;
+  z-index: 1;
   max-width: 420px;
+  margin-top: 28px;
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(4px);
-  position: relative;
-  z-index: 1;
 }
 
 .brand-panel-title {
@@ -92,6 +116,10 @@ body {
 }
 
 /* ---------- Right login side ---------- */
+/*
+  This side centres the login form vertically and horizontally,
+  helping the form feel focused and easy to access.
+*/
 .login-side {
   display: flex;
   align-items: center;
@@ -104,21 +132,30 @@ body {
   max-width: 360px;
 }
 
+/*
+  The card groups the login fields into a clear container.
+  Rounded corners and shadow help separate it from the background visually.
+*/
 .login-card {
-  background: #ffffff;
+  padding: 30px;
   border: 1px solid #dfe7df;
   border-radius: 22px;
-  padding: 30px;
+  background: #ffffff;
   box-shadow: 0 18px 40px rgba(31, 41, 55, 0.08);
   animation: fadeUp 0.45s ease;
 }
 
-/* Subtle entrance animation */
+/* ---------- Subtle entrance animation ---------- */
+/*
+  A small upward fade makes the login card appear more polished
+  without feeling distracting.
+*/
 @keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -141,34 +178,45 @@ body {
   font-size: 28px;
   font-weight: 700;
   line-height: 1.1;
-  color: #1f2937;
   letter-spacing: -0.01em;
+  color: #1f2937;
 }
 
 .form-subtitle {
   margin: 0 0 18px;
-  color: #6b7280;
   font-size: 14px;
   line-height: 1.5;
+  color: #6b7280;
 }
 
 /* ---------- Error state ---------- */
+/*
+  Error styling makes failed login feedback stand out clearly,
+  helping the user understand that something needs correcting.
+*/
 .error-box {
   margin-bottom: 16px;
   padding: 12px 14px;
   border: 1px solid #fecaca;
-  background: #fef2f2;
-  color: #991b1b;
   border-radius: 12px;
+  background: #fef2f2;
   font-size: 14px;
   line-height: 1.4;
+  color: #991b1b;
 }
 
 /* ---------- Form fields ---------- */
+/*
+  Adds spacing between form fields so the layout does not feel cramped.
+*/
 .field {
   margin-bottom: 16px;
 }
 
+/*
+  Labels are clearly separated from inputs to improve readability
+  and make each field easier to understand.
+*/
 label {
   display: block;
   margin-bottom: 6px;
@@ -177,23 +225,31 @@ label {
   color: #374151;
 }
 
+/*
+  Shared input styling creates consistency across fields
+  and improves the overall usability of the form.
+*/
 input {
   width: 100%;
   box-sizing: border-box;
   padding: 11px 12px;
   border: 1px solid #cfd8cf;
   border-radius: 12px;
+  background: #ffffff;
   font-size: 14px;
   font-family: var(--font-body);
-  background: #ffffff;
   color: #111827;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/*
+  A visible focus state improves keyboard accessibility
+  and helps users see which field is currently selected.
+*/
 input:focus {
   outline: none;
   border-color: #345c49;
-  box-shadow: 0 0 0 3px rgba(52, 92, 73, 0.10);
+  box-shadow: 0 0 0 3px rgba(52, 92, 73, 0.1);
 }
 
 input::placeholder {
@@ -201,35 +257,43 @@ input::placeholder {
 }
 
 /* ---------- Password field wrapper ---------- */
+/*
+  Relative positioning allows the show/hide button
+  to be placed neatly inside the password field area.
+*/
 .password-wrap {
   position: relative;
 }
 
+/*
+  Extra right padding creates space for the toggle button
+  so the password text does not overlap it.
+*/
 .password-wrap input {
   padding-right: 88px;
 }
 
+/*
+  The password toggle is positioned inside the field for convenience.
+  Minimum sizing improves accessibility by making it easier to click or tap.
+*/
 .toggle-password {
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-
-  border: none;
-  background: none;
-  color: #4b5563;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-
-  /* Clickable area is 24px minimum for accessibility best practices */
-  min-width: 24px;
-  min-height: 24px;
-  padding: 6px 8px;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 6px 8px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
 }
 
 .toggle-password:hover {
@@ -237,16 +301,20 @@ input::placeholder {
 }
 
 /* ---------- Primary button ---------- */
+/*
+  Full-width button styling makes the main action clear and easy to press.
+  The stronger green colour helps it stand out as the primary action.
+*/
 .btn {
   width: 100%;
   padding: 12px;
   border: 1px solid #345c49;
   border-radius: 12px;
-  background: #1C6D07;
-  color: #ffffff;
+  background: #1c6d07;
   font-size: 14px;
   font-weight: 700;
   font-family: var(--font-body);
+  color: #ffffff;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.05s ease;
 }
@@ -256,11 +324,18 @@ input::placeholder {
   border: 1px solid #3c9a24;
 }
 
+/*
+  Small active movement gives the button a more responsive feel.
+*/
 .btn:active {
   transform: translateY(1px);
 }
 
 /* ---------- Footer ---------- */
+/*
+  Footer text can be used for supporting links or extra information
+  without competing visually with the main login action.
+*/
 .login-footer {
   margin-top: 16px;
   text-align: center;
@@ -269,9 +344,9 @@ input::placeholder {
 }
 
 .login-footer a {
-  color: #345c49;
-  text-decoration: none;
   font-weight: 600;
+  text-decoration: none;
+  color: #345c49;
 }
 
 .login-footer a:hover {
@@ -280,10 +355,18 @@ input::placeholder {
 
 /* ---------- Responsive layout ---------- */
 @media (max-width: 900px) {
+  /*
+    Collapse the layout to a single column on smaller screens.
+    This keeps the login form readable and avoids a cramped split layout.
+  */
   .login-layout {
     grid-template-columns: 1fr;
   }
 
+  /*
+    Hide the branding panel on smaller screens to prioritise the login form
+    and make better use of limited space.
+  */
   .login-brand {
     display: none;
   }
