@@ -3,81 +3,119 @@
 <html lang="en">
 <head>
   <!--
-    Base dashboard layout
-    - Used by all pages except login
-    - Sidebar navigation + main content area
+    Base dashboard layout template
+    - Used by all pages except the login page
+    - Provides shared structure (sidebar + content area)
+    - Child templates extend this and inject content into blocks
   -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Dynamic page title (overridden in child templates if needed) -->
   <title>{% block title %}UKWOT Dashboard{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}UK Wild Otter Trust administration dashboard for managing otter records.{% endblock %}">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Dynamic meta description for SEO and accessibility -->
+  <meta
+    name="description"
+    content="{% block meta_description %}UK Wild Otter Trust administration dashboard for managing otter records.{% endblock %}"
+  >
 
-  <!-- Global / shared styles -->
+  <!-- Google Fonts used across the dashboard -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Global base styles (colours, typography, resets, etc.) -->
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-<!-- Icons for buttons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Icon library (Font Awesome) for UI icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
 
-  <!-- Dashboard layout styles -->
+  <!-- Layout styles (sidebar + main content structure) -->
   <link rel="stylesheet" href="{% static 'css/layout.css' %}">
 
-  <!-- Reusable UI components -->
+  <!-- Reusable UI components (buttons, cards, etc.) -->
   <link rel="stylesheet" href="{% static 'css/components.css' %}">
 
-  <!-- Form-specific styles -->
+  <!-- Form-specific styling -->
   <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 
-  <!-- Table-specific styles -->
+  <!-- Table-specific styling -->
   <link rel="stylesheet" href="{% static 'css/tables.css' %}">
 </head>
 
 <body>
   <div class="layout">
 
-    <!-- Sidebar -->
+    <!-- Sidebar navigation (persistent across all dashboard pages) -->
     <aside class="sidebar">
+
+      <!-- Organisation branding -->
       <div class="brand">UK Wild Otter Trust</div>
 
-<nav class="nav">
+      <!-- Navigation links -->
+      <nav class="nav">
 
-  <a href="{% url 'dashboard_home' %}"
-     class="{% if active_page == 'home' %}active{% endif %}"
-     aria-label="Go to dashboard">
-    <i class="fa-solid fa-house" aria-hidden="true"></i>
-    Dashboard
-  </a>
+        <!-- Dashboard link -->
+        <a
+          href="{% url 'dashboard_home' %}"
+          class="{% if active_page == 'home' %}active{% endif %}"
+          aria-label="Go to dashboard"
+        >
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+          Dashboard
+        </a>
 
-  <a href="{% url 'otter_list' %}"
-     class="{% if active_page == 'otters' %}active{% endif %}"
-     aria-label="View otter records">
-    <i class="fa-solid fa-list" aria-hidden="true"></i>
-    Otters
-  </a>
+        <!-- Otter records page -->
+        <a
+          href="{% url 'otter_list' %}"
+          class="{% if active_page == 'otters' %}active{% endif %}"
+          aria-label="View otter records"
+        >
+          <i class="fa-solid fa-list" aria-hidden="true"></i>
+          Otters
+        </a>
 
-  <a href="{% url 'medical_record_list' %}"
-     class="{% if active_page == 'medical_records' %}active{% endif %}"
-     aria-label="View medical records">
-    <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
-    Medical Records
-  </a>
+        <!-- Medical records page -->
+        <a
+          href="{% url 'medical_record_list' %}"
+          class="{% if active_page == 'medical_records' %}active{% endif %}"
+          aria-label="View medical records"
+        >
+          <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+          Medical Records
+        </a>
 
-</nav>
+      </nav>
 
-   <div class="sidebar-footer">
-  <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
- <button type="submit" class="sidebar-logout"> Logout </button>
-  </form>
-</div>
+      <!-- Logout button fixed at the bottom of the sidebar -->
+      <div class="sidebar-footer">
+        <!--
+          Logout uses POST instead of GET for security reasons
+          (prevents accidental or malicious logouts via URL)
+        -->
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="sidebar-logout">
+            Logout
+          </button>
+        </form>
+      </div>
+
     </aside>
 
-    <!-- Main content -->
+    <!-- Main content area where pages are rendered -->
     <main class="content" aria-label="Main content">
       <section class="page">
-        {# Show Django messages (success/error) after actions like delete #}
+
+        <!--
+          Display Django messages (e.g. success or error feedback)
+          These are typically triggered after actions such as create, update, or delete
+        -->
         {% if messages %}
           <div class="message-stack">
             {% for message in messages %}
@@ -88,14 +126,21 @@
           </div>
         {% endif %}
 
+        <!-- Content block that child templates will fill -->
         {% block content %}{% endblock %}
+
       </section>
     </main>
 
   </div>
 
   <script>
-    // Confirm destructive actions (deleting an otter).
+    /*
+      Displays a browser confirmation dialog before performing destructive actions
+      (e.g. deleting an otter record).
+
+      Returns true if the user confirms, otherwise false to cancel submission.
+    */
     function confirmDelete(message) {
       return window.confirm(message);
     }

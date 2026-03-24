@@ -1,142 +1,251 @@
 {% extends "dashboard/base.html" %}
+
+<!-- Page title shown in the browser tab -->
 {% block title %}Medical Records{% endblock %}
-{% block meta_description %}Medical records management page for viewing and maintaining otter health assessment records in the UK Wild Otter Trust dashboard.{% endblock %}
+
+<!--
+  Meta description describing the purpose of the page.
+  Helps users and search engines understand the function of this view.
+-->
+{% block meta_description %}
+Medical records management page for viewing and maintaining otter health assessment records in the UK Wild Otter Trust dashboard.
+{% endblock %}
 
 {% block content %}
-  <section class="card" aria-labelledby="medical-record-list-heading">
 
-    <!-- Page header -->
-    <div class="mobile-stack mb-12">
-      <div>
-        <h2 id="medical-record-list-heading" class="no-margin">Medical Records</h2>
-        <div class="muted">
-          View and manage otter health assessment records.
-        </div>
+<section class="card" aria-labelledby="medical-record-list-heading">
+
+  <!--
+    Page header section.
+    Combines title and primary action for quick access,
+    improving efficiency and reducing navigation time.
+  -->
+  <div class="mobile-stack mb-12">
+    <div>
+      <h2 id="medical-record-list-heading" class="no-margin">
+        Medical Records
+      </h2>
+
+      <div class="muted">
+        View and manage otter health assessment records.
+      </div>
+    </div>
+
+    <!--
+      Primary action button.
+      Placing this at the top improves usability by making the most common task
+      (adding a record) immediately accessible.
+    -->
+    <a class="btn primary" href="{% url 'medical_record_create' %}">
+      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      Add Medical Record
+    </a>
+  </div>
+
+  <!--
+    Search form.
+    Allows users to filter records quickly, improving efficiency when
+    working with large datasets.
+  -->
+  <form
+    method="get"
+    class="mobile-stack mb-16"
+    aria-label="Medical record search form"
+  >
+    <!--
+      Search input field.
+      Retains the previous query using {{ q }},
+      which improves UX by not forcing users to retype searches.
+    -->
+    <input
+      type="text"
+      name="q"
+      value="{{ q }}"
+      placeholder="Search by otter name..."
+      class="list-search-input"
+      aria-label="Search medical records by otter name"
+    />
+
+    <!--
+      Search button.
+      Includes an icon for quicker visual recognition of function.
+    -->
+    <button
+      class="btn primary"
+      type="submit"
+      aria-label="Search medical records"
+    >
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      Search
+    </button>
+
+    <!--
+      Clear button.
+      Resets the search and returns the full dataset,
+      giving users control and preventing frustration.
+    -->
+    <a
+      class="btn secondary"
+      href="{% url 'medical_record_list' %}"
+      aria-label="Clear medical record search"
+    >
+      Clear
+    </a>
+  </form>
+
+  <!--
+    Records table.
+    Tables are used for structured data as they allow easy comparison
+    across multiple records, improving readability.
+  -->
+  <div class="table-wrap">
+    <table aria-label="Medical records list">
+      <thead>
+        <tr>
+          <th>Assessment ID</th>
+          <th>Otter Name</th>
+          <th>Assessment Date</th>
+          <th>Weight (kg)</th>
+          <th>General Condition</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <!--
+          Loop through records passed from the backend.
+          Each row represents one medical record.
+        -->
+        {% for record in records %}
+          <tr>
+            <td>{{ record.assessment_id }}</td>
+            <td>{{ record.otter.name }}</td>
+            <td>{{ record.assessment_date }}</td>
+            <td>{{ record.effective_weight_kg }}</td>
+            <td>{{ record.general_condition }}</td>
+
+            <!--
+              Notes column.
+              Truncating long text prevents the table from becoming cluttered,
+              improving readability and layout consistency.
+            -->
+            <td>
+              {% if record.notes %}
+                {{ record.notes|truncatechars:60 }}
+              {% else %}
+                <!-- Dash used to indicate absence of data clearly -->
+                —
+              {% endif %}
+            </td>
+
+            <!--
+              Actions column.
+              Groups edit and delete actions together for clarity and consistency.
+            -->
+            <td>
+              <div class="action-buttons">
+
+                <!-- Edit action -->
+                <a
+                  href="{% url 'medical_record_edit' record.pk %}"
+                  class="btn edit"
+                >
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                  Edit
+                </a>
+
+                <!--
+                  Delete action.
+                  Uses POST and a confirmation dialog to prevent accidental deletion,
+                  improving safety and data integrity.
+                -->
+                <form
+                  method="post"
+                  action="{% url 'medical_record_delete' record.pk %}"
+                  class="inline-form"
+                  onsubmit="return confirmDelete('Delete medical record {{ record.assessment_id }} for {{ record.otter.name }}? This cannot be undone.');"
+                >
+                  {% csrf_token %}
+
+                  <button type="submit" class="btn delete">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    Delete
+                  </button>
+                </form>
+
+              </div>
+            </td>
+          </tr>
+
+        {% empty %}
+
+          <!--
+            Fallback when no records match the search.
+            Provides clear feedback instead of leaving the table empty.
+          -->
+          <tr>
+            <td colspan="7" class="muted">
+              No medical records found.
+            </td>
+          </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!--
+    Pagination controls.
+    Prevents overwhelming the user with too much data at once,
+    improving performance and usability.
+  -->
+  {% if is_paginated %}
+    <nav class="mobile-stack pagination-row" aria-label="Medical record pagination">
+
+      <!-- Display current page information -->
+      <div class="muted">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        ({{ page_obj.paginator.count }} total)
       </div>
 
-<a class="btn primary" href="{% url 'medical_record_create' %}">
-  <i class="fa-solid fa-plus"></i>
-  Add Medical Record
-</a>
-    </div>
+      <div class="mobile-stack">
 
-    <!-- Search form -->
-    <form method="get" class="mobile-stack mb-16" aria-label="Medical record search form">
-      <input
-        type="text"
-        name="q"
-        value="{{ q }}"
-        placeholder="Search by otter name..."
-        class="list-search-input"
-        aria-label="Search medical records by otter name"
-      />
+        <!-- Previous page button -->
+        {% if page_obj.has_previous %}
+          <a
+            class="btn secondary"
+            href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}"
+            aria-label="Go to previous page of medical records"
+          >
+            Previous
+          </a>
+        {% else %}
+          <span class="muted">Previous</span>
+        {% endif %}
 
-     <button class="btn primary"
-        type="submit"
-        aria-label="Search medical records">
-  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-  Search
-</button>
+        <!-- Current page indicator -->
+        <span class="muted">Page {{ page_obj.number }}</span>
 
-      <a class="btn secondary" href="{% url 'medical_record_list' %}" aria-label="Clear medical record search">
-        Clear
-      </a>
-    </form>
+        <!-- Next page button -->
+        {% if page_obj.has_next %}
+          <a
+            class="btn secondary"
+            href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}"
+            aria-label="Go to next page of medical records"
+          >
+            Next
+          </a>
+        {% else %}
+          <span class="muted">Next</span>
+        {% endif %}
 
-    <!-- Records table -->
-    <div class="table-wrap">
-      <table aria-label="Medical records list">
-        <thead>
-          <tr>
-            <th>Assessment ID</th>
-            <th>Otter Name</th>
-            <th>Assessment Date</th>
-            <th>Weight (kg)</th>
-            <th>General Condition</th>
-            <th>Notes</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      </div>
 
-        <tbody>
-          {% for record in records %}
-            <tr>
-              <td>{{ record.assessment_id }}</td>
-              <td>{{ record.otter.name }}</td>
-              <td>{{ record.assessment_date }}</td>
-              <td>{{ record.effective_weight_kg }}</td>
-              <td>{{ record.general_condition }}</td>
-              <td>
-  {% if record.notes %}
-    {{ record.notes|truncatechars:60 }}
-  {% else %}
-    —
+    </nav>
   {% endif %}
-</td>
-<td>
-  <div class="action-buttons">
-    <a href="{% url 'medical_record_edit' record.pk %}" class="btn edit">
-      <i class="fa-solid fa-pen"></i>
-      Edit
-    </a>
 
-    <form method="post"
-          action="{% url 'medical_record_delete' record.pk %}"
-          class="inline-form"
-          onsubmit="return confirmDelete('Delete medical record {{ record.assessment_id }} for {{ record.otter.name }}? This cannot be undone.');">
-      {% csrf_token %}
-      <button type="submit" class="btn delete">
-        <i class="fa-solid fa-trash"></i>
-        Delete
-      </button>
-    </form>
-  </div>
-</td>
-            </tr>
-          {% empty %}
-            <tr>
-              <td colspan="7" class="muted">No medical records found.</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+</section>
 
-    <!-- Pagination -->
-    {% if is_paginated %}
-      <nav class="mobile-stack pagination-row" aria-label="Medical record pagination">
-
-        <div class="muted">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-          ({{ page_obj.paginator.count }} total)
-        </div>
-
-        <div class="mobile-stack">
-          {% if page_obj.has_previous %}
-            <a class="btn secondary"
-               href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}"
-               aria-label="Go to previous page of medical records">
-              Previous
-            </a>
-          {% else %}
-            <span class="muted">Previous</span>
-          {% endif %}
-
-          <span class="muted">Page {{ page_obj.number }}</span>
-
-          {% if page_obj.has_next %}
-            <a class="btn secondary"
-               href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}"
-               aria-label="Go to next page of medical records">
-              Next
-            </a>
-          {% else %}
-            <span class="muted">Next</span>
-          {% endif %}
-        </div>
-
-      </nav>
-    {% endif %}
-
-  </section>
 {% endblock %}

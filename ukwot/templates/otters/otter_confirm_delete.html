@@ -1,16 +1,67 @@
 {% extends "dashboard/base.html" %}
-{% block title %}Delete Otter{% endblock %}
-{% block content %}
-  <div class="card" style="max-width:640px;">
-    <h2 style="margin:0 0 8px;">Delete Otter</h2>
-    <p class="muted">Are you sure you want to delete <strong>{{ object.name }}</strong> (ID {{ object.otter_id }})?</p>
 
-    <form method="post">
-      {% csrf_token %}
-      <div style="display:flex;gap:10px;margin-top:14px;">
-        <button class="btn" type="submit">Yes, delete</button>
-        <a class="btn secondary" href="{% url 'otter_list' %}">Cancel</a>
-      </div>
-    </form>
-  </div>
+<!-- Page title shown in the browser tab -->
+{% block title %}Delete Otter{% endblock %}
+
+{% block content %}
+
+<!--
+  Delete confirmation card.
+  A contained layout helps focus user attention on the decision,
+  reducing the chance of accidental interaction elsewhere.
+-->
+<div class="card" style="max-width: 640px;">
+
+  <!--
+    Clear heading.
+    Reinforces the action being taken so the user is fully aware.
+  -->
+  <h2 class="no-margin mb-6">Delete Otter</h2>
+
+  <!--
+    Confirmation message with dynamic data.
+    Including the otter name and ID helps the user verify they are deleting
+    the correct record, reducing user error.
+  -->
+  <p class="muted">
+    Are you sure you want to delete
+    <strong>{{ object.name }}</strong>
+    (ID {{ object.otter_id }})?
+  </p>
+
+  <!--
+    Form submitted via POST.
+    This follows best practice for destructive actions and improves security.
+  -->
+  <form method="post">
+    {% csrf_token %}
+
+    <!--
+      Action buttons container.
+      Using a horizontal layout groups related actions clearly,
+      making the decision easier for the user.
+    -->
+    <div style="display: flex; gap: 10px; margin-top: 14px;">
+
+      <!--
+        Confirm delete button.
+        This is the primary action and should be clearly visible,
+        though ideally styled as a danger button for better UX consistency.
+      -->
+      <button class="btn" type="submit">
+        Yes, delete
+      </button>
+
+      <!--
+        Cancel button.
+        Provides an easy way to back out, improving user control
+        and preventing accidental deletion.
+      -->
+      <a class="btn secondary" href="{% url 'otter_list' %}">Cancel</a>
+
+    </div>
+  </form>
+
+</div>
+
 {% endblock %}

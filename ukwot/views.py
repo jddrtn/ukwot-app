@@ -264,7 +264,8 @@ class MedicalRecordDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         """
-        Add sidebar state for template highlighting if needed.
+        Adds 'active_page' to the template context so the sidebar can highlight
+        the current section
         """
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "medical_records"

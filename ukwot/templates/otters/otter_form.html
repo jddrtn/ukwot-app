@@ -1,11 +1,30 @@
 {% extends "dashboard/base.html" %}
+
+<!-- Page title shown in the browser tab -->
 {% block title %}Otter{% endblock %}
-{% block meta_description %}Form for creating or editing otter records in the UK Wild Otter Trust administration dashboard.{% endblock %}
+
+<!--
+  Meta description explaining the purpose of the page.
+  Helps users understand the page context and improves accessibility.
+-->
+{% block meta_description %}
+Form for creating or editing otter records in the UK Wild Otter Trust administration dashboard.
+{% endblock %}
 
 {% block content %}
+
+<!--
+  Otter form container.
+  Using a card layout groups related elements together,
+  improving readability and reducing cognitive load.
+-->
 <section class="card" aria-labelledby="otter-form-heading">
 
-  <!-- Dynamic page title depending on create/edit mode -->
+  <!--
+    Dynamic heading based on mode (create or edit).
+    This helps users understand what action they are performing,
+    reducing confusion and improving clarity.
+  -->
   <h2 id="otter-form-heading">
     {% if mode == "create" %}
       Add Otter
@@ -14,18 +33,27 @@
     {% endif %}
   </h2>
 
-  <!-- Otter form -->
+  <!--
+    Form submitted via POST for secure data handling.
+    A single reusable form improves maintainability and consistency.
+  -->
   <form method="post" aria-label="Otter record form">
     {% csrf_token %}
 
-    <!-- Display any form validation errors -->
+    <!--
+      Display validation errors if submission fails.
+      Immediate feedback helps users correct mistakes quickly.
+    -->
     {% if form.errors %}
       <div class="form-error-message" role="alert">
         Please correct the errors below.
       </div>
     {% endif %}
 
-    <!-- Grid layout for cleaner form structure -->
+    <!--
+      Grid layout for inputs.
+      Structured layout improves scanning and makes the form easier to complete.
+    -->
     <div class="form-grid">
 
       <!-- Name -->
@@ -49,7 +77,10 @@
         {{ form.gender.errors }}
       </div>
 
-      <!-- Weight -->
+      <!--
+        Weight field.
+        Numeric input helps standardise data and reduce input errors.
+      -->
       <div class="form-group">
         <label for="id_weight_kg">Weight (kg)</label>
         {{ form.weight_kg }}
@@ -63,14 +94,21 @@
         {{ form.status.errors }}
       </div>
 
-      <!-- Date of Birth -->
+      <!--
+        Date of birth field.
+        Helps track age and lifecycle data for each otter.
+      -->
       <div class="form-group">
         <label for="id_date_of_birth">Date of Birth</label>
         {{ form.date_of_birth }}
         {{ form.date_of_birth.errors }}
       </div>
 
-      <!-- Arrival Date -->
+      <!--
+        Arrival date field.
+        Important for tracking when the otter entered the system,
+        supporting operational and reporting needs.
+      -->
       <div class="form-group">
         <label for="id_arrival_date">Arrival Date</label>
         {{ form.arrival_date }}
@@ -79,11 +117,19 @@
 
     </div>
 
-    <!-- Form actions -->
+    <!--
+      Form actions.
+      Grouping buttons together improves clarity and user flow.
+    -->
     <div class="form-actions">
 
-      <!-- Submit button -->
-      <button class="btn primary" type="submit" aria-label="{% if mode == 'create' %}Create otter record{% else %}Save otter changes{% endif %}">
+      <!--
+        Submit button.
+        Label changes based on mode to clearly reflect the action,
+        reducing user uncertainty.
+      -->
+      <button class="btn primary" type="submit"
+              aria-label="{% if mode == 'create' %}Create otter record{% else %}Save otter changes{% endif %}">
         {% if mode == "create" %}
           Create Otter
         {% else %}
@@ -91,14 +137,17 @@
         {% endif %}
       </button>
 
-      <!-- Back button -->
-      <a class="btn secondary" href="{% url 'otter_list' %}" aria-label="Return to otter list">
-        Back
-      </a>
+      <!--
+        Back button.
+        Provides a simple way to return without submitting,
+        improving navigation and user control.
+      -->
+      <a class="btn secondary" href="{% url 'otter_list' %}" aria-label="Return to otter list">Back</a>
 
     </div>
 
   </form>
 
 </section>
+
 {% endblock %}

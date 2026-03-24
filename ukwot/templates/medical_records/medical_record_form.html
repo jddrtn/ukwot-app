@@ -1,11 +1,29 @@
 {% extends "dashboard/base.html" %}
+
+<!-- Page title shown in the browser tab -->
 {% block title %}Medical Record{% endblock %}
-{% block meta_description %}Form for creating or editing otter medical records in the UK Wild Otter Trust dashboard.{% endblock %}
+
+<!--
+  Meta description explaining the purpose of the page.
+  Helps with accessibility and gives context in search previews.
+-->
+{% block meta_description %}
+Form for creating or editing otter medical records in the UK Wild Otter Trust dashboard.
+{% endblock %}
 
 {% block content %}
+
+<!--
+  Medical record form container.
+  Using a card layout keeps the form visually grouped,
+  which improves readability and reduces cognitive load.
+-->
 <section class="card" aria-labelledby="medical-record-form-heading">
 
-  <!-- Dynamic page title -->
+  <!--
+    Dynamic heading based on whether the user is creating or editing.
+    This improves usability by clearly indicating the current task.
+  -->
   <h2 id="medical-record-form-heading">
     {% if mode == "create" %}
       Add Medical Record
@@ -14,47 +32,76 @@
     {% endif %}
   </h2>
 
-  <!-- Form -->
+  <!--
+    Form submitted via POST to securely handle user input.
+    Using a single form for both create and edit improves maintainability.
+  -->
   <form method="post" aria-label="Medical record form">
     {% csrf_token %}
 
+    <!--
+      Display validation errors if the form submission fails.
+      This provides immediate feedback to the user, improving usability.
+    -->
     {% if form.errors %}
       <div class="form-error-message" role="alert">
         Please correct the errors below.
       </div>
     {% endif %}
 
+    <!--
+      Grid layout for form fields.
+      Organising inputs into a structured layout makes the form easier to scan
+      and complete, improving efficiency.
+    -->
     <div class="form-grid">
 
-      <!-- Otter -->
+      <!--
+        Otter selection field.
+        Using a dropdown ensures valid input and prevents incorrect data entry.
+      -->
       <div class="form-group">
         <label for="id_otter">Otter</label>
         {{ form.otter }}
         {{ form.otter.errors }}
       </div>
 
-      <!-- Assessment Date -->
+      <!--
+        Assessment date field.
+        Ensures chronological tracking of medical records,
+        which is important for data accuracy and usability.
+      -->
       <div class="form-group">
         <label for="id_assessment_date">Assessment Date</label>
         {{ form.assessment_date }}
         {{ form.assessment_date.errors }}
       </div>
 
-      <!-- Weight -->
+      <!--
+        Weight field.
+        Numeric input helps standardise data entry and reduces input errors.
+      -->
       <div class="form-group">
         <label for="id_weight_kg">Weight (kg)</label>
         {{ form.weight_kg }}
         {{ form.weight_kg.errors }}
       </div>
 
-      <!-- General Condition -->
+      <!--
+        General condition field.
+        Allows staff to record qualitative health information in a structured way.
+      -->
       <div class="form-group">
         <label for="id_general_condition">General Condition</label>
         {{ form.general_condition }}
         {{ form.general_condition.errors }}
       </div>
 
-      <!-- Notes -->
+      <!--
+        Notes field.
+        Given full width to allow more space for detailed input,
+        improving usability for longer text entries.
+      -->
       <div class="form-group full-width">
         <label for="id_notes">Notes</label>
         {{ form.notes }}
@@ -63,10 +110,22 @@
 
     </div>
 
+    <!--
+      Form action buttons.
+      Grouping actions together makes the interface clearer and easier to use.
+    -->
     <div class="form-actions">
 
-      <!-- Submit button -->
-      <button class="btn primary" type="submit" aria-label="{% if mode == 'create' %}Create medical record{% else %}Save medical record changes{% endif %}">
+      <!--
+        Submit button.
+        Label changes depending on mode to clearly reflect the action,
+        which reduces user confusion.
+      -->
+      <button
+        class="btn primary"
+        type="submit"
+        aria-label="{% if mode == 'create' %}Create medical record{% else %}Save medical record changes{% endif %}"
+      >
         {% if mode == "create" %}
           Create Medical Record
         {% else %}
@@ -74,13 +133,23 @@
         {% endif %}
       </button>
 
-      <!-- Back button -->
-      <a class="btn secondary" href="{% url 'medical_record_list' %}" aria-label="Return to medical record list">
+      <!--
+        Back button.
+        Provides an easy way to return without submitting,
+        improving user control and navigation.
+      -->
+      <a
+        class="btn secondary"
+        href="{% url 'medical_record_list' %}"
+        aria-label="Return to medical record list"
+      >
         Back
       </a>
 
     </div>
+
   </form>
 
 </section>
+
 {% endblock %}

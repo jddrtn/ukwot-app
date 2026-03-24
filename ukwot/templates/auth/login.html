@@ -2,22 +2,31 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Basic page setup -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Secure login portal for the UK Wild Otter Trust administration dashboard used to manage otter records.">
+
+  <!-- Description for search engines and browser previews -->
+  <meta
+    name="description"
+    content="Secure login portal for the UK Wild Otter Trust administration dashboard used to manage otter records."
+  >
+
   <title>Login</title>
 
+  <!-- Import Google Fonts used by the login page design -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Login page styles -->
+  <!-- Link to the external stylesheet for this page -->
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
   <main class="login-layout">
 
-    <!-- Left-hand branding panel -->
+    <!-- Left-hand side of the page used for branding and context -->
     <section class="login-brand">
       <div class="brand-tag">UK Wild Otter Trust</div>
 
@@ -27,62 +36,67 @@
 
       <p class="brand-text">
         Access the UK Wild Otter Trust dashboard to manage otter records, medical
-          records, rehabilitation information and operational data.
+        records, rehabilitation information and operational data.
       </p>
-
     </section>
 
-    <!-- Right-hand login form panel -->
+    <!-- Right-hand side of the page containing the login form -->
     <section class="login-side">
       <div class="login-shell">
         <div class="login-card">
 
-
+          <!-- Main heading shown above the login form -->
           <h2 class="form-title">Welcome back</h2>
 
+          <!-- Short supporting text to explain the page purpose -->
           <p class="form-subtitle">
             Sign in to continue to the dashboard.
           </p>
 
-          <!-- Show authentication error if login fails -->
+          <!-- Display an error message if the Django form contains login errors -->
           {% if form.errors %}
             <div class="error-box">
               Invalid username or password. Please check your details and try again.
             </div>
           {% endif %}
 
-          <!-- Login form -->
+          <!-- Login form submitted using POST for security -->
           <form method="post">
             {% csrf_token %}
 
-            <!-- Username field -->
+            <!-- Username input rendered from the Django form -->
             <div class="field">
               <label for="id_username">Username</label>
               {{ form.username }}
             </div>
 
-            <!-- Password field with show/hide toggle -->
+            <!-- Password input with a button to show or hide the password -->
             <div class="field">
               <label for="id_password">Password</label>
+
               <div class="password-wrap">
                 {{ form.password }}
-<button
-  type="button"
-  class="toggle-password"
-  onclick="togglePassword()"
-  aria-label="Toggle password visibility"
-  aria-controls="id_password"
-  aria-pressed="false"
->
-  Show
-</button>
+
+                <!--
+                  This button calls a JavaScript function to toggle password visibility.
+                  It improves usability by letting the user check what they typed.
+                -->
+                <button
+                  type="button"
+                  class="toggle-password"
+                  onclick="togglePassword()"
+                  aria-label="Toggle password visibility"
+                  aria-controls="id_password"
+                  aria-pressed="false"
+                >
+                  Show
+                </button>
               </div>
             </div>
 
-            <!-- Submit button -->
+            <!-- Submit button used to send the login form -->
             <button class="btn" type="submit">Sign in</button>
           </form>
-
 
         </div>
       </div>
@@ -90,39 +104,50 @@
   </main>
 
   <script>
-    // Add placeholders to Django-generated inputs once the page has loaded.
+    /*
+      Wait until the page has loaded before trying to access the form fields.
+      This avoids errors caused by JavaScript running before the elements exist.
+    */
     document.addEventListener("DOMContentLoaded", function () {
       const usernameInput = document.getElementById("id_username");
       const passwordInput = document.getElementById("id_password");
 
+      // Add a helpful placeholder to the username field
       if (usernameInput) {
-        // Helpful placeholder for the username field.
         usernameInput.placeholder = "Enter your username";
       }
 
+      // Add a helpful placeholder to the password field
       if (passwordInput) {
-        // Helpful placeholder for the password field.
         passwordInput.placeholder = "Enter your password";
       }
     });
 
-    // Toggle password visibility for easier entry.
-function togglePassword() {
-  const passwordInput = document.getElementById("id_password");
-  const toggleButton = document.querySelector(".toggle-password");
+    /*
+      This function switches the password field between hidden and visible text.
+      It also updates the button label and accessibility state.
+    */
+    function togglePassword() {
+      const passwordInput = document.getElementById("id_password");
+      const toggleButton = document.querySelector(".toggle-password");
 
-  if (!passwordInput || !toggleButton) return;
+      // Stop the function if either element cannot be found
+      if (!passwordInput || !toggleButton) {
+        return;
+      }
 
-  const isHidden = passwordInput.type === "password";
+      // Check whether the password is currently hidden
+      const isHidden = passwordInput.type === "password";
 
-  passwordInput.type = isHidden ? "text" : "password";
-  toggleButton.textContent = isHidden ? "Hide" : "Show";
+      // Swap the input type to show or hide the password
+      passwordInput.type = isHidden ? "text" : "password";
 
-  /* Update accessibility state */
-  toggleButton.setAttribute("aria-pressed", isHidden ? "true" : "false");
+      // Update the button text to match the current state
+      toggleButton.textContent = isHidden ? "Hide" : "Show";
 
+      // Update the ARIA pressed state for accessibility tools
+      toggleButton.setAttribute("aria-pressed", isHidden ? "true" : "false");
     }
   </script>
-</main>
 </body>
 </html>

@@ -1,84 +1,170 @@
 {% extends "dashboard/base.html" %}
+
+<!-- Page title shown in the browser tab -->
 {% block title %}Dashboard{% endblock %}
-{% block meta_description %}Dashboard overview for the UK Wild Otter Trust administration system, including otter statistics, quick actions, and recently added otter records.{% endblock %}
+
+<!--
+  Meta description for SEO and accessibility.
+  This helps describe the page purpose clearly outside the interface as well.
+-->
+{% block meta_description %}
+Dashboard overview for the UK Wild Otter Trust administration system, including otter statistics, quick actions, and recently added otter records.
+{% endblock %}
 
 {% block content %}
 
-<!-- Dashboard introduction -->
+<!--
+  Dashboard introduction section.
+  This gives the user immediate context when they arrive on the page,
+  which improves usability by making the page purpose clear straight away.
+-->
 <section class="card mb-16" aria-labelledby="dashboard-heading">
   <h2 id="dashboard-heading" class="no-margin mb-6">Dashboard</h2>
+
   <p class="muted no-margin">
     Welcome to the UK Wild Otter Trust dashboard.
     Use the sections below to view summary information and quickly access key actions.
   </p>
 </section>
 
-<!-- Dashboard grid -->
+<!--
+  Main dashboard grid layout.
+  Using a grid keeps the page organised and easier to scan,
+  which improves UX because users can find important information faster.
+-->
 <div class="dashboard-grid">
 
-  <!-- Total Otters -->
+  <!--
+    Total Otters statistic card.
+    Showing key figures at a glance supports quick decision-making,
+    so users do not need to navigate elsewhere to see basic system information.
+  -->
   <section class="card stat-card" aria-labelledby="total-otters-heading">
     <h3 id="total-otters-heading" class="no-margin mb-6">Total Otters</h3>
-    <p class="dashboard-number" aria-label="Total otter count">{{ total_otter_count }}</p>
+
+    <!-- Dynamic value passed from the Django view -->
+    <p class="dashboard-number" aria-label="Total otter count">
+      {{ total_otter_count }}
+    </p>
+
     <p class="muted mb-8">
       Total otter records currently stored in the system.
     </p>
   </section>
 
-  <!-- Released Otters -->
+  <!--
+    Released Otters statistic card.
+    This highlights an important operational status without the user needing
+    to manually filter records, which makes the dashboard more efficient to use.
+  -->
   <section class="card stat-card" aria-labelledby="released-otters-heading">
     <h3 id="released-otters-heading" class="no-margin mb-6">Released Otters</h3>
-    <p class="dashboard-number" aria-label="Released otter count">{{ released_otter_count }}</p>
+
+    <!-- Dynamic value filtered in the backend (status = Released) -->
+    <p class="dashboard-number" aria-label="Released otter count">
+      {{ released_otter_count }}
+    </p>
+
     <p class="muted mb-8">
       Otters whose status is currently marked as Released.
     </p>
   </section>
 
-<!-- Quick actions -->
-<section class="card" aria-labelledby="quick-actions-heading">
-  <h3 id="quick-actions-heading" class="no-margin mb-10">Quick Actions</h3>
-  <p class="muted mb-16">
-    Jump straight to common otter management tasks.
-  </p>
+  <!--
+    Quick actions section.
+    This improves usability by reducing the number of clicks needed to reach
+    common tasks, helping users carry out CRUD actions more quickly.
+  -->
+  <section class="card" aria-labelledby="quick-actions-heading">
+    <h3 id="quick-actions-heading" class="no-margin mb-10">Quick Actions</h3>
 
-  <div class="quick-actions-grid">
+    <p class="muted mb-16">
+      Jump straight to common otter management tasks.
+    </p>
 
-    <a class="btn primary"
-       href="{% url 'otter_create' %}"
-       aria-label="Add a new otter record">
-      <i class="fa-solid fa-plus" aria-hidden="true"></i>
-      Add Otter
-    </a>
+    <!--
+      Grid layout for action buttons.
+      Grouping related actions together improves consistency and helps users
+      recognise the available options more easily.
+    -->
+    <div class="quick-actions-grid">
 
-    <a class="btn secondary"
-       href="{% url 'otter_list' %}"
-       aria-label="View the list of otters">
-      <i class="fa-solid fa-list" aria-hidden="true"></i>
-      View Otter List
-    </a>
+      <!--
+        Create a new otter record.
+        Placing this on the dashboard supports efficiency by giving direct access
+        to one of the most common admin tasks.
+      -->
+      <a
+        class="btn primary"
+        href="{% url 'otter_create' %}"
+        aria-label="Add a new otter record"
+      >
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+        Add Otter
+      </a>
 
-    <a class="btn primary"
-       href="{% url 'medical_record_create' %}"
-       aria-label="Add a new medical record">
-      <i class="fa-solid fa-plus" aria-hidden="true"></i>
-      Add Medical Record
-    </a>
+      <!--
+        View all otter records.
+        This provides a clear route to browse and manage existing records,
+        which improves navigation and reduces user confusion.
+      -->
+      <a
+        class="btn secondary"
+        href="{% url 'otter_list' %}"
+        aria-label="View the list of otters"
+      >
+        <i class="fa-solid fa-list" aria-hidden="true"></i>
+        View Otter List
+      </a>
 
-    <a class="btn secondary"
-       href="{% url 'medical_record_list' %}"
-       aria-label="View the list of medical records">
-      <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
-      View Medical Records
-    </a>
+      <!--
+        Create a new medical record.
+        Including this here improves workflow efficiency, especially for staff
+        who regularly need to add care-related information.
+      -->
+      <a
+        class="btn primary"
+        href="{% url 'medical_record_create' %}"
+        aria-label="Add a new medical record"
+      >
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+        Add Medical Record
+      </a>
 
-  </div>
-</section>
+      <!--
+        View all medical records.
+        This makes related information easier to reach from the same page,
+        which improves the overall flow of the interface.
+      -->
+      <a
+        class="btn secondary"
+        href="{% url 'medical_record_list' %}"
+        aria-label="View the list of medical records"
+      >
+        <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+        View Medical Records
+      </a>
 
-  <!-- Recently added -->
+    </div>
+  </section>
+
+  <!--
+    Recently added otters section.
+    Showing recent records gives users quick feedback about what has been added
+    to the system and helps them verify recent activity more easily.
+  -->
   <section class="card dashboard-recent" aria-labelledby="recent-otters-heading">
-    <h3 id="recent-otters-heading" class="no-margin mb-10">Recently Added Otters</h3>
+    <h3 id="recent-otters-heading" class="no-margin mb-10">
+      Recently Added Otters
+    </h3>
 
+    <!--
+      Check if there are recent otter records to show.
+      Displaying real data here improves visibility of system status,
+      which is an important usability principle.
+    -->
     {% if recent_otters %}
+
       <div class="table-wrap">
         <table aria-label="Recently added otter records">
           <thead>
@@ -89,7 +175,13 @@
               <th>Status</th>
             </tr>
           </thead>
+
           <tbody>
+            <!--
+              Loop through recent otters passed from the view.
+              A table format makes the data easier to compare quickly,
+              which supports readability and efficient scanning.
+            -->
             {% for otter in recent_otters %}
               <tr>
                 <td>{{ otter.otter_id }}</td>
@@ -101,10 +193,18 @@
           </tbody>
         </table>
       </div>
+
     {% else %}
+
+      <!--
+        Fallback message shown when there are no records yet.
+        This avoids leaving an empty space on the page, which helps prevent
+        confusion and gives clear feedback to the user.
+      -->
       <p class="muted no-margin">
         No otter records have been added yet.
       </p>
+
     {% endif %}
   </section>
 

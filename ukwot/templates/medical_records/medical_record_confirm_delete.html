@@ -1,31 +1,77 @@
 {% extends "dashboard/base.html" %}
+
+<!-- Page title shown in the browser tab -->
 {% block title %}Delete Medical Record{% endblock %}
-{% block meta_description %}Confirmation page for deleting a medical record in the UK Wild Otter Trust dashboard.{% endblock %}
+
+<!--
+  Meta description to clearly describe the purpose of this page.
+  Helps with accessibility and ensures the user understands the action context.
+-->
+{% block meta_description %}
+Confirmation page for deleting a medical record in the UK Wild Otter Trust dashboard.
+{% endblock %}
 
 {% block content %}
+
+<!--
+  Delete confirmation section.
+  This acts as a safeguard before performing a destructive action,
+  which improves usability by preventing accidental data loss.
+-->
 <section class="card" aria-labelledby="delete-medical-record-heading">
 
+  <!-- Clear heading to reinforce the action being taken -->
   <h2 id="delete-medical-record-heading">Delete Medical Record</h2>
 
+  <!--
+    Confirmation message including dynamic data.
+    Showing the record ID and otter name helps the user verify
+    they are deleting the correct record, reducing user error.
+  -->
   <p class="muted">
     Are you sure you want to delete medical record
     <strong>{{ object.assessment_id }}</strong>
     for <strong>{{ object.otter.name }}</strong>?
   </p>
 
+  <!--
+    Form submitted via POST to carry out the deletion.
+    POST is used instead of GET for security and to follow best practices
+    for destructive operations.
+  -->
   <form method="post">
     {% csrf_token %}
 
+    <!--
+      Action buttons container.
+      Grouping actions together improves clarity and makes the decision easier.
+    -->
     <div class="form-actions">
+
+      <!--
+        Confirm delete button.
+        Styled as a danger action to visually indicate risk,
+        helping users recognise this is irreversible.
+      -->
       <button type="submit" class="btn-danger-link">
         Confirm Delete
       </button>
 
-      <a class="btn secondary" href="{% url 'medical_record_list' %}">
+      <!--
+        Cancel button.
+        Provides a clear way to back out of the action,
+        improving user control and preventing accidental deletions.
+      -->
+      <a
+        class="btn secondary"
+        href="{% url 'medical_record_list' %}"
+      >
         Cancel
       </a>
+
     </div>
   </form>
 
 </section>
+
 {% endblock %}

@@ -1,154 +1,214 @@
 {% extends "dashboard/base.html" %}
+
+<!-- Page title shown in the browser tab -->
 {% block title %}Otters{% endblock %}
-{% block meta_description %}Otter records management page for searching, viewing, editing, and deleting otter records in the UK Wild Otter Trust administration dashboard.{% endblock %}
+
+<!--
+  Meta description explaining the purpose of the page.
+  This helps describe the page clearly and supports accessibility.
+-->
+{% block meta_description %}
+Otter records management page for searching, viewing, editing, and deleting otter records in the UK Wild Otter Trust administration dashboard.
+{% endblock %}
 
 {% block content %}
 
-  <section class="card" aria-labelledby="otter-list-heading">
-<!-- Page header -->
-<div class="mobile-stack mb-12">
-  <div>
-    <h2 id="otter-list-heading" class="no-margin">Otters</h2>
-    <div class="muted">
-      Search, create, edit, and delete otter records.
-      Otter records can only be deleted if otter status is <b>Released</b>.
+<section class="card" aria-labelledby="otter-list-heading">
+
+  <!--
+    Page header.
+    This gives users a clear overview of the page purpose and explains
+    an important business rule about when deletion is allowed.
+  -->
+  <div class="mobile-stack mb-12">
+    <div>
+      <h2 id="otter-list-heading" class="no-margin">Otters</h2>
+      <div class="muted">
+        Search, create, edit, and delete otter records.
+        Otter records can only be deleted if otter status is <b>Released</b>.
+      </div>
     </div>
-  </div>
 
-<a class="btn primary"
-   href="{% url 'otter_create' %}"
-   aria-label="Add a new otter record">
-  <i class="fa-solid fa-plus" aria-hidden="true"></i>
-  Add Otter
-</a>
-</div>
-
-<!-- Toolbar -->
-<form method="get" class="mobile-stack mb-16" aria-label="Otter search and filter form">
-  <input type="hidden" name="sort" value="{{ sort }}">
-
-  <input
-    type="text"
-    name="q"
-    value="{{ q }}"
-    placeholder="Search by name or species..."
-    class="list-search-input"
-    aria-label="Search otters by name or species"
-  />
-
-<button class="btn primary"
-        type="submit"
-        aria-label="Search otter records">
-  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-  Search
-</button>
-
-  <a class="btn secondary"
-   href="?sort={{ sort }}"
-   aria-label="Clear search filters">
-  Clear
-</a>
-
-  <label class="toggle">
-    <input
-      type="checkbox"
-      name="released"
-      value="1"
-      {% if released_only %}checked{% endif %}
-      onchange="this.form.submit()"
-    >
-    <span class="toggle-slider"></span>
-    Released only
-  </label>
-</form>
-
-<!-- Table -->
-<div class="table-wrap">
-  <table aria-label="Otter records">
-    <thead>
-      <tr>
-        <th><a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">ID</a></th>
-        <th><a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Name</a></th>
-        <th><a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Species</a></th>
-        <th><a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Status</a></th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {% for o in otters %}
-        <tr>
-          <td>{{ o.otter_id }}</td>
-          <td>{{ o.name }}</td>
-          <td>{{ o.species.common_name }}</td>
-          <td>{{ o.status }}</td>
-
- <td>
-  <div class="action-buttons">
-    <a href="{% url 'otter_edit' o.pk %}" class="btn edit">
-      <i class="fa-solid fa-pen"></i>
-      Edit
+    <!--
+      Primary action button.
+      Placing this at the top improves efficiency by making record creation
+      immediately accessible.
+    -->
+    <a class="btn primary" href="{% url 'otter_create' %}" aria-label="Add a new otter record">
+      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      Add Otter
     </a>
-
-    {% if o.status == "Released" %}
-      <form method="post"
-            action="{% url 'otter_delete' o.pk %}"
-            class="inline-form"
-            onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
-        {% csrf_token %}
-        <button type="submit" class="btn delete">
-          <i class="fa-solid fa-trash"></i>
-          Delete
-        </button>
-      </form>
-    {% endif %}
   </div>
-</td>
 
-        </tr>
-      {% empty %}
+  <!--
+    Search and filter toolbar.
+    This improves usability by helping users narrow down large sets of records
+    without needing to scroll through the full table.
+  -->
+  <form method="get" class="mobile-stack mb-16" aria-label="Otter search and filter form">
+    <input type="hidden" name="sort" value="{{ sort }}">
+
+    <!--
+      Search input.
+      Retaining the current value improves UX because the user can see
+      what they searched for without needing to retype it.
+    -->
+    <input
+      type="text"
+      name="q"
+      value="{{ q }}"
+      placeholder="Search by name or species..."
+      class="list-search-input"
+      aria-label="Search otters by name or species"
+    >
+
+    <!-- Search button -->
+    <button class="btn primary" type="submit" aria-label="Search otter records">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      Search
+    </button>
+
+    <!--
+      Clear button.
+      This resets the search while keeping the current sort setting,
+      giving users more control over filtering.
+    -->
+    <a class="btn secondary" href="?sort={{ sort }}" aria-label="Clear search filters">Clear</a>
+
+    <!--
+      Released-only filter.
+      A toggle makes the filter quick to use and easier to understand visually.
+      Automatically submitting the form reduces the number of steps required.
+    -->
+    <label class="toggle">
+      <input
+        type="checkbox"
+        name="released"
+        value="1"
+        {% if released_only %}checked{% endif %}
+        onchange="this.form.submit()"
+      >
+      <span class="toggle-slider"></span>
+      Released only
+    </label>
+  </form>
+
+  <!--
+    Records table.
+    Tables are suitable for structured record data because they make values
+    easier to compare across rows.
+  -->
+  <div class="table-wrap">
+    <table aria-label="Otter records">
+      <thead>
         <tr>
-          <td colspan="5" class="muted">No otters found.</td>
+          <!--
+            Sortable column headings.
+            Clicking a heading changes the sort order while preserving
+            the current search and filter settings.
+          -->
+          <th><a href="?sort=otter_id&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">ID</a></th>
+          <th><a href="?sort=name&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Name</a></th>
+          <th><a href="?sort=species&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Species</a></th>
+          <th><a href="?sort=status&q={{ q|urlencode }}&released={% if released_only %}1{% else %}0{% endif %}">Status</a></th>
+          <th>Actions</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+      </thead>
 
-<!-- Pagination -->
-{% if is_paginated %}
-  <nav class="mobile-stack pagination-row">
+      <tbody>
+        {% for o in otters %}
+          <tr>
+            <td>{{ o.otter_id }}</td>
+            <td>{{ o.name }}</td>
+            <td>{{ o.species.common_name }}</td>
+            <td>{{ o.status }}</td>
 
-    <div class="muted">
-      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-      ({{ page_obj.paginator.count }} total)
-    </div>
+            <!--
+              Action buttons for each record.
+              A flex-based button group keeps related actions aligned side by side,
+              which improves readability and makes the interface feel more consistent.
 
-    <div class="mobile-stack">
-      {% if page_obj.has_previous %}
-        <a class="btn secondary"
-           href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
-          Previous
-        </a>
-      {% else %}
-        <span class="muted">Previous</span>
-      {% endif %}
+              The delete button is only shown when the otter status is Released.
+              This supports error prevention by stopping users from attempting
+              invalid deletions that would break related records or business rules.
+            -->
+            <td>
+              <div class="action-buttons">
+                <a href="{% url 'otter_edit' o.pk %}" class="btn edit">
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                  Edit
+                </a>
 
-      <span class="muted">Page {{ page_obj.number }}</span>
+                {% if o.status == "Released" %}
+                  <form method="post"
+                        action="{% url 'otter_delete' o.pk %}"
+                        class="inline-form"
+                        onsubmit="return confirmDelete('Delete {{ o.name }} (ID {{ o.otter_id }})? This cannot be undone.');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn delete">
+                      <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                      Delete
+                    </button>
+                  </form>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+        {% empty %}
 
-      {% if page_obj.has_next %}
-        <a class="btn secondary"
-           href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
-          Next
-        </a>
-      {% else %}
-        <span class="muted">Next</span>
-      {% endif %}
-    </div>
+          <!--
+            Empty state message.
+            This gives clear feedback when no records match the current search
+            or when no data exists yet.
+          -->
+          <tr>
+            <td colspan="5" class="muted">No otters found.</td>
+          </tr>
 
-  </nav>
-{% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
+  <!--
+    Pagination controls.
+    Splitting records across pages improves performance and avoids overwhelming
+    the user with too much information at once.
+  -->
+  {% if is_paginated %}
+    <nav class="mobile-stack pagination-row" aria-label="Otter pagination">
 
-  </section>
+      <!-- Current page summary -->
+      <div class="muted">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        ({{ page_obj.paginator.count }} total)
+      </div>
+
+      <div class="mobile-stack">
+        {% if page_obj.has_previous %}
+          <a class="btn secondary"
+             href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+            Previous
+          </a>
+        {% else %}
+          <span class="muted">Previous</span>
+        {% endif %}
+
+        <span class="muted">Page {{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+          <a class="btn secondary"
+             href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}&sort={{ sort }}&released={% if released_only %}1{% else %}0{% endif %}">
+            Next
+          </a>
+        {% else %}
+          <span class="muted">Next</span>
+        {% endif %}
+      </div>
+
+    </nav>
+  {% endif %}
+
+</section>
+
 {% endblock %}
