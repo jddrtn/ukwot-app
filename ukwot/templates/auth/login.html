@@ -103,51 +103,6 @@
     </section>
   </main>
 
-  <script>
-    /*
-      Wait until the page has loaded before trying to access the form fields.
-      This avoids errors caused by JavaScript running before the elements exist.
-    */
-    document.addEventListener("DOMContentLoaded", function () {
-      const usernameInput = document.getElementById("id_username");
-      const passwordInput = document.getElementById("id_password");
-
-      // Add a helpful placeholder to the username field
-      if (usernameInput) {
-        usernameInput.placeholder = "Enter your username";
-      }
-
-      // Add a helpful placeholder to the password field
-      if (passwordInput) {
-        passwordInput.placeholder = "Enter your password";
-      }
-    });
-
-    /*
-      This function switches the password field between hidden and visible text.
-      It also updates the button label and accessibility state.
-    */
-    function togglePassword() {
-      const passwordInput = document.getElementById("id_password");
-      const toggleButton = document.querySelector(".toggle-password");
-
-      // Stop the function if either element cannot be found
-      if (!passwordInput || !toggleButton) {
-        return;
-      }
-
-      // Check whether the password is currently hidden
-      const isHidden = passwordInput.type === "password";
-
-      // Swap the input type to show or hide the password
-      passwordInput.type = isHidden ? "text" : "password";
-
-      // Update the button text to match the current state
-      toggleButton.textContent = isHidden ? "Hide" : "Show";
-
-      // Update the ARIA pressed state for accessibility tools
-      toggleButton.setAttribute("aria-pressed", isHidden ? "true" : "false");
-    }
-  </script>
+<script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>
