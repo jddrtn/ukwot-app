@@ -58,14 +58,16 @@ class OtterListView(LoginRequiredMixin, ListView):
                 models.Q(species__common_name__icontains=q)
             )
 
-        sort = self.request.GET.get("sort", "otter_id")
+        # Default to newest otters first so recently added records appear at the top
+        sort = self.request.GET.get("sort", "newest")
         allowed_sort_fields = {
+            "newest": "-otter_id",
             "otter_id": "otter_id",
             "name": "name",
             "species": "species__common_name",
             "status": "status",
         }
-        order_field = allowed_sort_fields.get(sort, "otter_id")
+        order_field = allowed_sort_fields.get(sort, "-otter_id")
 
         return queryset.order_by(order_field)
 
@@ -76,7 +78,7 @@ class OtterListView(LoginRequiredMixin, ListView):
         ctx = super().get_context_data(**kwargs)
         ctx["active_page"] = "otters"
         ctx["q"] = (self.request.GET.get("q") or "").strip()
-        ctx["sort"] = self.request.GET.get("sort", "otter_id")
+        ctx["sort"] = self.request.GET.get("sort", "newest")
         ctx["released_only"] = (self.request.GET.get("released") == "1")
         return ctx
 
