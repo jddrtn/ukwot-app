@@ -17,3 +17,7 @@ This project aims to achieve:
 This project has **no official affiliation with the UK Wild Otter Trust (UKWOT)** or any real-world organisation.  
 
 The organisation name and dataset are used purely for academic and demonstration purposes.
+
+## Login Credentials
+username: admin
+password: AdminPassword123!
